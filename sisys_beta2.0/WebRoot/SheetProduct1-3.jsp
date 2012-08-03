@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@page import="data.bean.DisqKind"%>
+<%@page import="com.sisys.bean.DisqKind"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 	Map resultMap = (Map)request.getAttribute("resultMap");

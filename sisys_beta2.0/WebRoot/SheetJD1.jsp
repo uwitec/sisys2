@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@page import="data.bean.ScheduleTab"%>
+<%@page import="com.sisys.bean.ScheduleTab"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
 <%
