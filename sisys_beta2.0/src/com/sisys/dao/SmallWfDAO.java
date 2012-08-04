@@ -86,7 +86,7 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 	public int update(SmallWf entity, Integer pk) {
 		// TODO Auto-generated method stub
 		sql = "update smallWf set wfId=?,proNo=?,procId=?,quaNum=?," +
-				"disDetail=?,staNo=?,bworkHours=?,salary=?,gWasteNum=?,lWasteNum=?,time=? where Id=?";
+				"disqDetail=?,staffNo=?,bworkHours=?,salary=?,gWasteNum=?,lWasteNum=?,time=? where Id=?";
 
 		value.add(entity.getWfId());
 		value.add(entity.getProNo());
