@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 	<package name="search" namespace="/" extends="struts-default">
+ 		<interceptors>
+			<interceptor name="checkLogin" class="data.interceptor.CheckLoginInterceptor"/>
+				<interceptor-stack name="teamwareStack">
+					 <interceptor-ref name="checkLogin"/>
+	                 <interceptor-ref name="defaultStack"/>
+	            </interceptor-stack>
+	    </interceptors>	
+		<default-interceptor-ref name="teamwareStack"/>
+		
+		
+		<!--定义全局Result-->  
+        <global-results>  
+            <result name="login">/login.jsp</result>  
+        </global-results>
+		
+		<action name="SearchJd" class="data.action.SearchAction" method="SearchJd">
+			<result name="success" type="redirectAction">
+				<param name="actionName">ShowJd</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="error">/SearchJD_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchIndexJd" class="data.action.SearchAction" method="SearchIndexJd">
+			<result name="success">/SheetJD1.jsp</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		
+		<action name="ShowJd" class="data.action.SearchAction" method="ShowJd">
+			<result name="success">/SheetJD1.jsp</result>
+			<result name="error">/SearchJD_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchWh" class="data.action.SearchAction" method="SearchWh">
+			<result name="success">/SheetHour1.jsp</result>
+			<result name="error">/SearchHour_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchPp" class="data.action.SearchAction" method="SearchPp">
+			<result name="success">/SheetPeople1.jsp</result>
+			<result name="error">/SearchPeople_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchPpByDisq" class="data.action.SearchAction" method="SearchPpByDisq">
+			<result name="success">/SheetPeople1.jsp</result>
+			<result name="error">/SearchPeople_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchPd" class="data.action.SearchAction" method="SearchPd">
+			<result name="success">/SheetProduct1-1.jsp</result>
+			<result name="error">/SearchProduct_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchPd2" class="data.action.SearchAction" method="SearchPd2">
+			<result name="success">/SheetProduct1-2.jsp</result>
+			<result name="error">/SearchProduct2_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchPd3" class="data.action.SearchAction" method="SearchPd3">
+			<result name="success">/SheetProduct1-3.jsp</result>
+			<result name="error">/SearchProduct3_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchPd4" class="data.action.SearchAction" method="SearchPd4">
+			<result name="success">/SheetProduct1-4.jsp</result>
+			<result name="error">/SearchProduct4_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+		
+		<action name="SearchPd5" class="data.action.SearchAction" method="SearchPd5">
+			<result name="success">/SheetProduct1-5.jsp</result>
+			<result name="error">/SearchProduct5_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
+	</package>
+</struts>
