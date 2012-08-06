@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="batch" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="checkLogin" class="data.interceptor.CheckLoginInterceptor"/>
+				<interceptor-stack name="teamwareStack">
+					 <interceptor-ref name="checkLogin"/>
+	                 <interceptor-ref name="defaultStack"/>
+	            </interceptor-stack>
+	    </interceptors>	
+		<default-interceptor-ref name="teamwareStack"/>
+		
+		
+		<!--定义全局Result-->  
+        <global-results>  
+            <result name="login">/login.jsp</result>  
+        </global-results>
+		
+		<action name="preAddBatch" class="data.action.ManageBatchAction" method="preAddBatch">			
+			
+		</action>
+		
+		<action name="addBatch" class="data.action.ManageBatchAction" method="addBatch">
+			<result name="repetition">/BatchAdd_${level}.jsp?result=repetition&amp;current=batchAdd</result>
+			<result name="false">/BatchAdd_${level}.jsp?result=false&amp;current=batchAdd</result>
+			<result name="pnone">/BatchAdd_${level}.jsp?result=pnone&amp;current=batchAdd</result>
+			<result name="isnull">/BatchAdd_${level}.jsp?result=isnull&amp;current=batchAdd</result>
+			<result name="success">/BatchAdd_${level}.jsp?result=success&amp;current=batchAdd</result>
+		</action>
+		
+		<action name="modifyOutDue" class="data.action.ManageBatchAction" method="modifyOutDue">
+			<result name="empty">/OutOfDue.jsp?result=empty&amp;current=outOfDue</result>
+			<result name="none">/OutOfDue.jsp?result=none&amp;current=outOfDue</result>
+			<result name="success">/OutOfDue.jsp?result=success&amp;current=outOfDue</result>
+			<result name="false">/OutOfDue.jsp?result=false&amp;current=outOfDue</result>
+		</action>
+		
+ 		<action name="outOfDueList" class="data.action.ManageBatchAction" method="outOfDueList">
+ 			<result name="admin">/OutOfDueList_admin.jsp?current=outOfDue</result>
+ 			<result name="operator">/OutOfDueList_operator.jsp?current=outOfDue</result>
+ 			<result name="viewer">/OutOfDueList_viewer.jsp?current=outOfDue</result>
+ 		</action>
+	</package>
+
+</struts> 

@@ -1,7 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@page import="data.bean.Department"%>
-<%@page import="data.bean.Product"%>
-<%@page import="data.bean.Batch"%>
 
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 	<package name="data" namespace="/" extends="struts-default">
+ 		
+		
+		
+		<!--定义全局Result-->  
+        <global-results>  
+            <result name="login">/login.jsp</result>  
+        </global-results>
+ 		<action name="tableExport" class="com.sisys.action.ManageDataAction" method="tableExport">
+ 			
+		</action>
+		
+		<action name="dbExport" class="com.sisys.action.ManageDataAction" method="dbExport">
+			<result name="error">/DataSave.jsp?current=database</result>
+		</action>
+		
+		<action name="dbImport" class="com.sisys.action.ManageDataAction" method="dbImport">
+			<result name="success">/DataLogin.jsp?result=success&amp;current=database</result>
+			<result name="error">/DataLogin.jsp?result=error&amp;current=database</result>
+		</action>
+		
+		<action name="staffImport" class="com.sisys.action.ManageDataAction" method="staffImport">
+			<result name="success">/StaffImport.jsp?result=success&amp;current=basedata</result>
+			<result name="error">/StaffImport.jsp?result=error&amp;current=basedata</result>
+			<result name="dataError">/StaffImport.jsp?result=dataError&amp;current=basedata</result>
+			<result name="dataSame">/StaffImport.jsp?result=dataSame&amp;current=basedata</result>
+		</action>
+		
+		<action name="proLineImport" class="com.sisys.action.ManageDataAction" method="proLineImport">
+			<result name="success">/ProLineImport.jsp?result=success&amp;current=basedata</result>
+			<result name="error">/ProLineImport.jsp?result=error&amp;current=basedata</result>
+			<result name="dataError">/ProLineImport.jsp?result=dataError&amp;current=basedata</result>
+			<result name="dataSame">/ProLineImport.jsp?result=dataSame&amp;current=basedata</result>
+		</action>
+		
+		<action name="proImport" class="com.sisys.action.ManageDataAction" method="proImport">
+			<result name="success">/ProImport.jsp?result=success&amp;current=basedata</result>
+			<result name="error">/ProImport.jsp?result=error&amp;current=basedata</result>
+			<result name="dataError">/ProImport.jsp?result=dataError&amp;current=basedata</result>
+			<result name="noproLine">/ProImport.jsp?result=noproLine&amp;current=basedata</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="GB2312" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="workForm" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="checkLogin" class="data.interceptor.CheckLoginInterceptor"/>
+				<interceptor-stack name="teamwareStack">
+					 <interceptor-ref name="checkLogin"/>
+	                 <interceptor-ref name="defaultStack"/>
+	            </interceptor-stack>
+	    </interceptors>	
+		<default-interceptor-ref name="teamwareStack"/>
+		
+		
+		<!--定义全局Result-->  
+        <global-results>  
+            <result name="login">/login.jsp</result>  
+        </global-results>
+		
+				
+		<action name="formAdd" class="data.action.WorkFormAction" method="formAdd">
+			<result name="success">/FormAdd.jsp?current=workForm</result>
+		</action>
+		
+		<action name="preAddWorkFormProNo" class="data.action.WorkFormAction" method="preAddProNo">			
+		</action>
+		
+		<action name="preAddWorkFormStaNo" class="data.action.WorkFormAction" method="preAddStaNo">   		
+		</action>
+		
+		<action name="preAddWorkFormProcNo" class="data.action.WorkFormAction" method="preAddProcNo">
+		</action>		
+		
+		<action name="addWorkForm" class="data.action.WorkFormEditAction" method="formadd">
+			<result name="success" type="redirectAction">
+				<param name="actionName">firstformSearch</param>
+				<param name="namespace">/</param>
+			</result>
+			
+			<result name="personlimit">/FormAdd.jsp?result=personlimit&amp;current=workForm</result>
+			<result name="batcherror">/FormAdd.jsp?result=batcherror&amp;current=workForm</result>
+			<result name="outofline">/FormAdd.jsp?result=outofline&amp;current=workForm</result>
+			<result name="error">/FormAdd.jsp?result=error&amp;current=workForm</result>
+		</action>
+		
+			 
+   		<action name="addDisqKind" class="data.action.WorkFormAction" method="addDisqKind">
+			<result name="success">DisqKindAdd.jsp?result=success</result>
+			<result name="error">DisqKindAdd.jsp?result=error</result>
+		</action>
+   		
+		
+		
+		<action name="formDetail" class="data.action.WorkFormAction" method="detail">
+			<result name="viewer">/FormDetail_viewer.jsp?current=workForm</result>
+			<result name="operator">/FormDetail_operator.jsp?current=workForm</result>
+			<result name="admin">/FormDetail_admin.jsp?current=workForm</result>
+		</action>
+		
+		<action name="preFormAlter" class="data.action.WorkFormAction" method="preAlter">
+			<result name="success">/FormAlter_admin.jsp?current=workForm</result>
+		</action>
+		<action name="formAlter" class="data.action.WorkFormEditAction" method="formalter">
+			<result name="success">/FormDetail_admin.jsp?result=successAlter&amp;current=workForm</result>
+			<result name="outofline">/FormDetail_admin.jsp?result=outoflineAlter&amp;current=workForm</result>
+			<result name="error">/FormDetail_admin.jsp?result=error&amp;current=workForm</result>
+			<result name="isdelete">/FormDetail_admin.jsp?result=isdelete&amp;current=workForm</result>
+		</action>
+		
+		<action name="formdelete" class="data.action.WorkFormEditAction" method="formdelete">
+			<result name="success">/FormDetail_admin.jsp?result=success&amp;current=workForm</result>
+			<result name="outofline">/FormDetail_admin.jsp?result=outofline&amp;current=workForm</result>
+			<result name="error">/FormDetail_admin.jsp?result=error&amp;current=workForm</result>
+			<result name="isdelete">/FormDetail_admin.jsp?result=isdelete&amp;current=workForm</result>
+		</action>
+		<!--<action name="formAlter" class="data.action.WorkFormEditAction" method="formalter">
+			<result name="success" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="outofline" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="error" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="isdelete" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+		
+		<action name="formdelete" class="data.action.WorkFormEditAction" method="formdelete">
+			<result name="success" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="outofline" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="error" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+			<result name="isdelete" type="redirectAction">
+				<param name="actionName">searchByBatch</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+		
+		
+		--><action name="searchform" class="data.action.WorkFormSearchAction" method="SearchForm">
+			<result name="viewer">/FormSearch_viewer.jsp?current=workForm</result>
+			<result name="operator">/FormSearch_operator.jsp?current=workForm</result>
+			<result name="admin">/FormSearch_admin.jsp?current=workForm</result>
+			<result name="error">/login.jsp</result>
+		</action>
+		
+		
+		<action name="firstformSearch" class="data.action.WorkFormSearchAction" method="Firstpage">
+			<result name="viewer">/FormSearch_viewer.jsp?current=workForm</result>
+			<result name="operator">/FormSearch_operator.jsp?current=workForm</result>
+			<result name="admin">/FormSearch_admin.jsp?current=workForm</result>
+		</action>
+		
+		
+		<action name="searchByBatch" class="data.action.WorkFormSearchAction" method="searchByBatch">
+			<result name="errorviewer">/searchByBatch_viewer.jsp?result=error&amp;current=workForm</result>
+			<result name="erroroperator">/searchByBatch_operator.jsp?result=error&amp;current=workForm</result>
+			<result name="erroradmin">/searchByBatch_admin.jsp?result=error&amp;current=workForm</result>
+			<result name="inputerrorviewer">/searchByBatch_viewer.jsp?result=inputerror&amp;current=workForm</result>
+			<result name="inputerroroperator">/searchByBatch_operator.jsp?result=inputerror&amp;current=workForm</result>
+			<result name="inputerroradmin">/searchByBatch_admin.jsp?result=inputerror&amp;current=workForm</result>
+			<result name="viewer">/FormSearch_viewer.jsp?current=workForm</result>
+			<result name="operator">/FormSearch_operator.jsp?current=workForm</result>
+			<result name="admin">/FormSearch_admin.jsp?current=workForm</result>
+		</action>
+	</package>
+
+</struts> 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="non-authority" namespace="/" extends="struts-default">
+		<action name="login" class="com.sisys.action.ManageUserAction" method="login">
+			<result name="empty">/login.jsp?result=empty</result>
+			<result name="false">/login.jsp?result=false</result>
+			<result name="viewer" type="redirectAction">
+				<param name="actionName">NewIndex</param>
+				<param name="namespace">/</param>
+			</result>
+			
+			<result name="operator" type="redirectAction">
+				<param name="actionName">NewIndex</param>
+				<param name="namespace">/</param>
+			</result>
+				
+			<result name="admin" type="redirectAction">
+				<param name="actionName">NewIndex</param>
+				<param name="namespace">/</param>
+			</result>
+		</action>
+	</package>
+	
+	
+	<package name="user" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="checkLogin" class="com.sisys.interceptor.CheckLoginInterceptor"/>
+				<interceptor-stack name="teamwareStack">
+					 <interceptor-ref name="checkLogin"/>
+	                 <interceptor-ref name="defaultStack"/>
+	            </interceptor-stack>
+	    </interceptors>	
+		<default-interceptor-ref name="teamwareStack"/>
+		
+		
+        <global-results>  
+            <result name="login">/login.jsp</result>  
+        </global-results>
+		
+		<action name="addUser" class="com.sisys.action.ManageUserAction" method="add">
+			<result name="empty">/UserAdd.jsp?result=empty&amp;current=userAdd</result>
+			<result name="nameError">/UserAdd.jsp?result=nameError&amp;current=userAdd</result>
+			<result name="success">/UserAdd.jsp?result=success&amp;current=userAdd</result>
+			<result name="false">/UserAdd.jsp?result=false&amp;current=userAdd</result>
+		</action>
+		
+		<action name="modifyViewer" class="com.sisys.action.ManageUserAction" method="modify">
+			<result name="empty">/AdminInfo_viewer.jsp?result=empty&amp;current=pim</result>
+			<result name="nameError">/AdminInfo_viewer.jsp?result=nameError&amp;current=pim</result>
+			<result name="success">/AdminInfo_viewer.jsp?result=success&amp;current=pim</result>
+			<result name="false">/AdminInfo_viewer?result=false&amp;current=pim</result>
+		</action>
+		
+		<action name="modifyOperator" class="com.sisys.action.ManageUserAction" method="modify">
+			<result name="empty">/AdminInfo_operator.jsp?result=empty&amp;current=pim</result>
+			<result name="nameError">/AdminInfo_operator.jsp?result=nameError&amp;current=pim</result>
+			<result name="success">/AdminInfo_operator.jsp?result=success&amp;current=pim</result>
+			<result name="false">/AdminInfo_operator.jsp?result=false&amp;current=pim</result>
+		</action>
+		
+		<action name="modifyAdmin" class="com.sisys.action.ManageUserAction" method="modify">
+			<result name="empty">/AdminInfo_admin.jsp?result=empty&amp;current=pim</result>
+			<result name="nameError">/AdminInfo_admin.jsp?result=nameError&amp;current=pim</result>
+			<result name="success">/AdminInfo_admin.jsp?result=success&amp;current=pim</result>
+			<result name="false">/AdminInfo_admin.jsp?result=false&amp;current=pim</result>
+		</action>
+		
+		<action name="NewIndex" class="com.sisys.action.NewIndexAction" method="NewIndex">
+			<result name="admin">/Index_admin.jsp?current=index</result>
+			<result name="operator">/Index_operator.jsp?current=index</result>
+			<result name="viewer">/Index_viewer.jsp?current=index</result> 
+			<result name="error">/Index_${level}.jsp?current=index</result>
+		</action>
+ 
+	</package>
+
+</struts> 
