@@ -7,18 +7,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%
-	List<DisqKind> dkList = (List)request.getAttribute("dkList");
-	System.out.println(dkList);
-	int height = (Integer)request.getAttribute("height");
-	String name = (String)request.getAttribute("name");
+	//String name = (String)request.getAttribute("name");
 %>
 
 <%	
 	String error = request.getParameter("result");
 	if(error == null) {
 		error = "";
-	}  else if(error.equals("batcherror")) {
-		error = "批次正处于错误状态，不可添加！";
 	} else if(error.equals("outofline")) {
 		error = "后工序产品数量大于前工序产品数量或产品已完成，添加失败！";
 	} else if(error.equals("error")) {
@@ -84,13 +79,13 @@ function check(){
 </script>
 
 
-<script type="text/javascript"
+<!--<script type="text/javascript"
 	src="resources/scripts/addWorkForm.js"></script>
 
 <script type="text/javascript"
 	src="resources/scripts/addDisqKind.js"></script>
 
-<!-- jQuery -->
+--><!-- jQuery -->
 <script type="text/javascript"
 	src="resources/scripts/jquery-1.3.2.min.js"></script>
 
@@ -197,97 +192,91 @@ function check(){
 									<th>试验检验件</th>
 									<th>其它</th>
 									
-									<th>后工序确认</th>
 								</tr>
 								
 								<tr class="formContent">
+									<td><input type="text" name="staNo1" ></td>
 									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="quaNum1" ></td>
+									<td><input type="text" name="disqNum1-1" ></td>
+									<td><input type="text" name="disqNum1-2" ></td>
+									<td><input type="text" name="disqNum1-3" ></td>
+									<td><input type="text" name="disqNum1-4" ></td>
+									<td><input type="text" name="disqNum1-5" ></td>
+									<td><input type="text" name="disqNum1-6" ></td>
+									<td><input type="text" name="disqNum1-7" ></td>
+									<td><input type="text" name="disqNum1-8" ></td>
+									<td><input type="text" name="disqNum1-9" ></td>
+									<td><input type="text" name="disqNum1-10" ></td>
+									<td><input type="text" name="disqNum1-11" ></td>
 								</tr>
 								<tr class="formContent">
+									<td><input type="text" name="staNo2" ></td>
 									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="quaNum2" ></td>
+									<td><input type="text" name="disqNum2-1" ></td>
+									<td><input type="text" name="disqNum2-2" ></td>
+									<td><input type="text" name="disqNum2-3" ></td>
+									<td><input type="text" name="disqNum2-4" ></td>
+									<td><input type="text" name="disqNum2-5" ></td>
+									<td><input type="text" name="disqNum2-6" ></td>
+									<td><input type="text" name="disqNum2-7" ></td>
+									<td><input type="text" name="disqNum2-8" ></td>
+									<td><input type="text" name="disqNum2-9" ></td>
+									<td><input type="text" name="disqNum2-10" ></td>
+									<td><input type="text" name="disqNum2-11" ></td>
 								</tr>
 								<tr class="formContent">
+									<td><input type="text" name="staNo3" ></td>
 									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="quaNum3" ></td>
+									<td><input type="text" name="disqNum3-1" ></td>
+									<td><input type="text" name="disqNum3-2" ></td>
+									<td><input type="text" name="disqNum3-3" ></td>
+									<td><input type="text" name="disqNum3-4" ></td>
+									<td><input type="text" name="disqNum3-5" ></td>
+									<td><input type="text" name="disqNum3-6" ></td>
+									<td><input type="text" name="disqNum3-7" ></td>
+									<td><input type="text" name="disqNum3-8" ></td>
+									<td><input type="text" name="disqNum3-9" ></td>
+									<td><input type="text" name="disqNum3-10" ></td>
+									<td><input type="text" name="disqNum3-11" ></td>
 								</tr>
 								<tr class="formContent">
+									<td><input type="text" name="staNo4" ></td>
 									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="quaNum4" ></td>
+									<td><input type="text" name="disqNum4-1" ></td>
+									<td><input type="text" name="disqNum4-2" ></td>
+									<td><input type="text" name="disqNum4-3" ></td>
+									<td><input type="text" name="disqNum4-4" ></td>
+									<td><input type="text" name="disqNum4-5" ></td>
+									<td><input type="text" name="disqNum4-6" ></td>
+									<td><input type="text" name="disqNum4-7" ></td>
+									<td><input type="text" name="disqNum4-8" ></td>
+									<td><input type="text" name="disqNum4-9" ></td>
+									<td><input type="text" name="disqNum4-10" ></td>
+									<td><input type="text" name="disqNum4-11" ></td>
 								</tr>
 								<tr class="formContent">
+									<td><input type="text" name="staNo5" ></td>
 									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="quaNum5" ></td>
+									<td><input type="text" name="disqNum5-1" ></td>
+									<td><input type="text" name="disqNum5-2" ></td>
+									<td><input type="text" name="disqNum5-3" ></td>
+									<td><input type="text" name="disqNum5-4" ></td>
+									<td><input type="text" name="disqNum5-5" ></td>
+									<td><input type="text" name="disqNum5-6" ></td>
+									<td><input type="text" name="disqNum5-7" ></td>
+									<td><input type="text" name="disqNum5-8" ></td>
+									<td><input type="text" name="disqNum5-9" ></td>
+									<td><input type="text" name="disqNum5-10" ></td>
+									<td><input type="text" name="disqNum5-11" ></td>
 								</tr>
 									
 								<tr>
-									<td class="but"><input class="button" type="button" onclick="check()" value="提交"/></td>
+									<td class="but"><input class="button" type="submit" onclick="check()" value="提交"/></td>
 									<td class="but"><input class="button" type="reset" value="重置"/></td>
 								</tr>
 							</table>
