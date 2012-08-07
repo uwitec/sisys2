@@ -19,7 +19,7 @@ public class WorkFormMapping extends BasicMapping<WorkForm> {
 			workForm.setBatchId(rs.getInt("batchId"));
 			workForm.setProcId(rs.getInt("procId"));
 			workForm.setQuaNum(rs.getInt("quaNum"));
-			workForm.setDisquaNum(rs.getInt("disquaNum"));
+			workForm.setDisquaNum(rs.getInt("disqNum"));
 			workForm.setName(rs.getString("name"));
 			
 			workForm.setTime(rs.getDate("time"));

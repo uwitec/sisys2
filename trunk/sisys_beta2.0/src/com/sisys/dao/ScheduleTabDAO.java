@@ -77,7 +77,7 @@ public class ScheduleTabDAO extends GenericQueryImpl<ScheduleTab, ScheduleTabMap
 
 	public int update(ScheduleTab entity, Integer pk) {
 		// TODO Auto-generated method stub
-		sql = "update scheduleTab set batchId=?,procId=?,time=?,colorNo=?,num=?,quaNum=?" +
+		sql = "update scheduleTab set batchId=?,procId=?,time=?,colorNo=?,num=?,quaNum=?," +
 				"disqNum=?,isEnd=? where Id=?";
 
 		value.add(entity.getBatchId());
