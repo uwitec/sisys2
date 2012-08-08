@@ -7,6 +7,7 @@ import com.sisys.bean.Batch;
 import com.sisys.bean.DisqKindDetail;
 import com.sisys.bean.Flowpath;
 import com.sisys.bean.Processes;
+import com.sisys.bean.Product;
 import com.sisys.bean.ScheduleTab;
 import com.sisys.bean.SmallWf;
 import com.sisys.bean.WorkForm;
@@ -14,6 +15,7 @@ import com.sisys.dao.BatchDAO;
 import com.sisys.dao.DisqKindDetailDAO;
 import com.sisys.dao.FlowpathDAO;
 import com.sisys.dao.ProcessesDAO;
+import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
 import com.sisys.dao.SmallWfDAO;
 import com.sisys.dao.WorkFormDAO;
@@ -48,8 +50,13 @@ public class WorkFormAddService {
 				+ Integer.parseInt(quaNum3) + Integer.parseInt(quaNum4)
 				+ Integer.parseInt(quaNum5);
 		disqNum = disqNum1 + disqNum2 + disqNum3 + disqNum4 + disqNum5;
+		// 搜索产品表，得到产品Id
+		sql = "select * from product where proNo='" + proNo + "'";
+		ProductDAO prod = new ProductDAO();
+		List<Product> prolist = prod.findEntityByList(sql);
 		// 搜索批次表，得到批次id、流程id
-		sql = "select * from batch where batchNo='" + batNo + "'";
+		sql = "select * from batch where batchNo='" + batNo + "' and proId="
+				+ prolist.get(0).getId();
 		BatchDAO batd = new BatchDAO();
 		List<Batch> batlist = batd.findEntityByList(sql);
 		if (batlist.size() == 0) {
@@ -75,19 +82,19 @@ public class WorkFormAddService {
 		List<ScheduleTab> schelist = std.findEntityByList(sql);
 		sche = schelist.get(Integer.parseInt(procNo) - 1);
 		System.out.println(sche.getQuaNum());
-		if(sche.getQuaNum() != 0){
+		if (sche.getQuaNum() != 0) {
 			return "error";
 		}
-		// 如果是第一道工序，则检查总量是否与目标数量一致
+		// 如果是第一道工序，则num为0
 		if ("1".equals(procNo)) {
-			if (quaNum + disqNum != bat.getTotalNum()) {
-				return "error";
-			}
-		} else {// 如果不是第一道工序，则检查总量是否与前工序合格品数量一致
-			if (quaNum + disqNum != schelist.get(Integer.parseInt(procNo) - 2)
-					.getQuaNum()) {
-				return "error";
-			}
+			sche.setNum(0);
+		} else {// 如果不是第一道工序，则num是上个工序的num与disqnum之和
+			sche.setNum(schelist.get(Integer.parseInt(procNo) - 2).getNum()
+					+ schelist.get(Integer.parseInt(procNo) - 2).getDisqNum());
+		}
+		// 判断是否逻辑的正确性
+		if (sche.getNum() + quaNum + disqNum != bat.getTotalNum()) {
+			return "outofline";
 		}
 		if (sche.getIsEnd() == 1) {
 			if (bat.getStatus() == 2) {
