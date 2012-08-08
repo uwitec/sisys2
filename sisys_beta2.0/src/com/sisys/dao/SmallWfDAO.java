@@ -64,11 +64,9 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 		return result;
 	}
 
-	/*public int delete(SmallWf entity) {
+	public int delete(SmallWf entity) {
 		// TODO Auto-generated method stub
-		sql = "update smallWf set isDelete=?,deleteTime=? where id=?";
-		value.add(1);
-		value.add(new Date());
+		sql = "delete from smallWf where id=?";
 		value.add(entity.getId());
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
@@ -81,7 +79,7 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 		}
 
 		return result;
-	}*/
+	}
 
 	public int update(SmallWf entity, Integer pk) {
 		// TODO Auto-generated method stub
