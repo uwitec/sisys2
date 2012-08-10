@@ -117,13 +117,13 @@
 				<div class="content-box-content">
 					
 					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
-						 <form id="myForm" action="searchByBatch.action" method="get">
+						 <form id="myForm" action="formSearch.action" method="get">
     	<label>
     		<%=error%>
     	</label>
     	
     	<table>
-    		<form action="searchByBatch.action" method="post">
+    		<form action="formSearch.action" method="post">
     		<tr>
     			<td align="center">按产品编号和批次号搜索</td>
     		</tr>

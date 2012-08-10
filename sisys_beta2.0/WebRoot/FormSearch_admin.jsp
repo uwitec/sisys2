@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-
-<%@ page import="com.sisys.bean.Page"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -30,7 +27,7 @@
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
-<title>Simpla Admin</title>
+<title>生产物流统计系统</title>
 		
 		<!--                       CSS                       -->
 	  
@@ -124,19 +121,12 @@
 					
 					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->						
 						
-						<label>
-							${error}
-							<%=error %>
-						</label>
-						
 						<table>
 							
 							<thead>
 								<tr>								   
 								  <tr>
 									<th width=2%>Id</th>
-									<th width=5%>姓名</th>
-									<th width=5%>工号</th>
 									<th width=5%>产品</th>
 									<th width=5%>批次</th>
 									<th width=5%>工序号</th>
@@ -161,10 +151,8 @@
 								<c:forEach items="${form }" var="entity">
 									<tr>
 										<td>${entity.wfId}</td>
-										<td>${entity.staName}</td>
-										<td>${entity.staNo}<br /></td>
-										<td>${entity.proNo}<br /></td>
-										<td>${entity.batchNo}</td>
+										<td>${entity.proName}<br /></td>
+										<td>${entity.batchNo}<br /></td>
 										<td>${entity.procNo}</td>
 										<td>${entity.procName}</td>
 										<td>${entity.quaNum}</td>

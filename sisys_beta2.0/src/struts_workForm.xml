@@ -36,14 +36,56 @@
 		</action>		
 		
 		<action name="addWorkForm" class="com.sisys.action.WorkFormAction" method="formadd">
-			<!--<result name="success" type="redirectAction">
-				<param name="actionName">firstformSearch</param>
+			<result name="success" type="redirectAction">
+				<param name="actionName">formAddResult</param>
 				<param name="namespace">/</param>
-			</result>-->
-			<result name="success">/FormAdd.jsp?result=success&amp;current=workForm</result>
+			</result>
+			<!--<result name="success">/FormAdd.jsp?result=success&amp;current=workForm</result>-->
 			<result name="isnull">/FormAdd.jsp?result=isnull&amp;current=workForm</result>
 			<result name="outofline">/FormAdd.jsp?result=outofline&amp;current=workForm</result>
 			<result name="error">/FormAdd.jsp?result=error&amp;current=workForm</result>
+		</action>		
+		
+		<action name="preFormAlter" class="com.sisys.action.WorkFormSearchAction" method="detail">
+			<result name="admin">/FormAlter_admin.jsp?current=workForm</result>
+		</action>		
+		
+		<action name="alterWorkForm" class="com.sisys.action.WorkFormAction" method="formalter">
+			<result name="success">/FormDetail_admin.jsp?result=asuccess&amp;current=workForm</result>
+			<result name="isdelete">/FormDetail_admin.jsp?result=aisdelete&amp;current=workForm</result>
+			<result name="isnull">/FormDetail_admin.jsp?result=isnull&amp;current=workForm</result>
+			<result name="outofline">/FormDetail_admin.jsp?result=aoutofline&amp;current=workForm</result>
+			<result name="error">/FormDetail_admin.jsp?result=error&amp;current=workForm</result>
+		</action>		
+		
+		<action name="deleteWorkForm" class="com.sisys.action.WorkFormAction" method="formalter">
+			<result name="success">/FormDetail_admin.jsp?result=dsuccess&amp;current=workForm</result>
+			<result name="isdelete">/FormDetail_admin.jsp?result=disdelete&amp;current=workForm</result>
+			<result name="outofline">/FormDetail_admin.jsp?result=doutofline&amp;current=workForm</result>
+		</action>
+		
+		<action name="formAddResult" class="com.sisys.action.WorkFormSearchAction" method="Firstpage">
+			<result name="admin">/FormSearch_admin.jsp?result=success&amp;current=workForm</result>
+			<result name="operator">/FormSearch_operator.jsp?result=success&amp;current=workForm</result>
+			<result name="viewer">/FormSearch_viewer.jsp?result=success&amp;current=workForm</result>
+		</action>
+		
+		<action name="formDetail" class="com.sisys.action.WorkFormSearchAction" method="detail">
+			<result name="admin">/FormDetail_admin.jsp?current=workForm</result>
+			<result name="operator">/FormDetail_operator.jsp?current=workForm</result>
+			<result name="viewer">/FormDetail_viewer.jsp?current=workForm</result>
+		</action>
+		
+		<action name="formSearch" class="com.sisys.action.WorkFormSearchAction" method="searchByBatch">
+			<result name="admin">/FormSearch_admin.jsp?result=success&amp;current=workForm</result>
+			<result name="operator">/FormSearch_operator.jsp?result=success&amp;current=workForm</result>
+			<result name="viewer">/FormSearch_viewer.jsp?result=success&amp;current=workForm</result>
+			<result name="erroradmin">/searchByBatch_admin.jsp?result=error&amp;current=workForm</result>
+			<result name="erroroperator">/searchByBatch_operator.jsp?result=error&amp;current=workForm</result>
+			<result name="errorviewer">/searchByBatch_viewer.jsp?result=error&amp;current=workForm</result>
+			<result name="inputerroradmin">/searchByBatch_admin.jsp?result=inputerror&amp;current=workForm</result>
+			<result name="inputerroroperator">/searchByBatch_operator.jsp?result=inputerror&amp;current=workForm</result>
+			<result name="inputerrorviewer">/searchByBatch_viewer.jsp?result=inputerror&amp;current=workForm</result>
 		</action>
 	</package>
 

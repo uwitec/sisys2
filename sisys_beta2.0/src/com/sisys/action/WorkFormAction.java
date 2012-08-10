@@ -3,6 +3,7 @@ package com.sisys.action;
 import com.sisys.service.WorkFormAddService;
 import com.sisys.service.WorkFormAlterService;
 import com.sisys.service.WorkFormDeleteService;
+import com.sisys.service.WorkFormSearchService;
 
 @SuppressWarnings("serial")
 public class WorkFormAction extends BaseAction {
@@ -128,7 +129,7 @@ public class WorkFormAction extends BaseAction {
 	
 	public String formalter(){
 		String state;
-		String wfid = request.getParameter("wfid");
+		String wfid = request.getParameter("wfId");
 		String proNo = request.getParameter("proNo");
 		String procNo = request.getParameter("procNo");
 		String batNo = request.getParameter("batNo");
@@ -235,6 +236,8 @@ public class WorkFormAction extends BaseAction {
 				disqNum1, staNo2, quaNum2, disqDetail2, disqNum2, staNo3,
 				quaNum3, disqDetail3, disqNum3, staNo4, quaNum4, disqDetail4,
 				disqNum4, staNo5, quaNum5, disqDetail5, disqNum5);
+		WorkFormSearchService wfss = new WorkFormSearchService();
+		wfss.detail();
 		return state;
 	}
 	

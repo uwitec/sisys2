@@ -2,32 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.sisys.bean.WFstandard"%>
-<%@ page import="com.sisys.bean.DisqKind"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%
-	
-	List<DisqKind> dkList = (List)request.getAttribute("dkList");
-	System.out.println(dkList);
-	String disqKind1 = (String)request.getAttribute("disqKind1");
-	Integer disqNum1 = (Integer)request.getAttribute("disqNum1");
-	String disqKind2 = (String)request.getAttribute("disqKind1");
-	Integer disqNum2 = (Integer)request.getAttribute("disqNum1");
-	String disqKind3 = (String)request.getAttribute("disqKind1");
-	Integer disqNum3 = (Integer)request.getAttribute("disqNum1");
-	String disqKind4 = (String)request.getAttribute("disqKind1");
-	Integer disqNum4 = (Integer)request.getAttribute("disqNum1");
-	String disqKind5 = (String)request.getAttribute("disqKind1");
-	Integer disqNum5 = (Integer)request.getAttribute("disqNum1");
-	String disqKind6 = (String)request.getAttribute("disqKind1");
-	Integer disqNum6 = (Integer)request.getAttribute("disqNum1");
-	String disqKind7 = (String)request.getAttribute("disqKind1");
-	Integer disqNum7 = (Integer)request.getAttribute("disqNum1");
-	String disqKind8 = (String)request.getAttribute("disqKind1");
-	Integer disqNum8 = (Integer)request.getAttribute("disqNum1");
 	
 	WFstandard wfsave = (WFstandard)request.getAttribute("wfsave");
 	
@@ -161,179 +141,128 @@
 							<%=error%>
 						<label>
 						
-						<form id="" method="post" action="formAlter.action">
-							<input type="hidden" value="${wfId}" name="wfId"/>
-							<table class="">
+						<form id="" method="post" action="alterWorkForm.action">
+						    <input type="hidden" name="wfId" value="${wfsave.wfId}" />
+							<div class="formHeader">
+								<span>产品编号</span><input type="text" name="proNo" value="${wfsave.proNo}">
+								<span>产品名称</span><input type="text" name="proName" value="${wfsave.proName}">
+								<span>工序编号</span><input type="text" name="procNo" value="${wfsave.procNo}">
+								<span>工序名称</span><input type="text" name="procName" value="${wfsave.procName}">
+								<span>批次编号</span><input type="text" name="batNo" value="${wfsave.batchNo}">
+							</div>
+							<table class="formAdd" id="table">
 								<tr>
-									<td><span>工号</span></td>
-									<td><input type="text" width="50px"  id="staNo" name="staNo" onblur="displayStaNo()" value="${wfsave.staNo}"/></td>
-									<td><span>姓名</span></td>
-									<td><input type="text" width="50px"  id="staName" name="staName" value="${wfsave.staName}"/></td>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th colspan=11 style="text-align:center">不合格品种类及数量</th>
 								</tr>
 								<tr>
-									<td><span>产品编号</span></td>
-									<td><input type="text" width="50px" id="proNo" name="proNo" onblur="displayProNo()" value="${wfsave.proNo}"/></td>
-									<td><span>产品名称</span></td>
-									<td><input type="text" width="50px" id="proName" name="proName" value="${wfsave.proName}"/></td>
-								</tr>
-								<tr>
-									<input type="hidden" name="procId" value="${procId}"/>
-									<td><span>工序编号</span></td>
-									<td><input type="text" width="50px" id="procNo" name="procNo" onblur="displayProcNo()" value="${wfsave.procNo}"/></td>
-									<td><span>工序名称</span></td>
-									<td><input type="text" width="50px" id="procName" name="procName" value="${wfsave.procName}"/></td>
-								</tr>
-								<tr>
-									<td><span>批次号</span></td>
-									<td><input type="text" width="50px" name="batchNo" value="${wfsave.batchNo}"/></td>
-								</tr>
-								<tr>
-									<input type="hidden" name="disqkinds" value="${disqkinds}"/>
-									<td><span>合格品数量</span></td>
-									<td><input type="text" width="50px" name="quaNum" value="${wfsave.quaNum}"/></td>
-								</tr>
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind1" class="" style="width: 155px">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind1)) {
-											System.out.println(true);
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {
-											
-											System.out.println(false);
-										%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind1}</option>
-										<%}
-										}%>
-										
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum1" value="<%=disqNum1%>"/></td>
-								</tr>
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind2" class="" style="width: 155px">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind2)) {
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind2}</option>
-										<%}
-										}%>
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum2"  value="${disqNum2}"/></td>
+									<th>员工工号</th>
+									<th>员工姓名</th>
+									<th>合格品数量</th>
+									
+									<th>调试不合格</th>
+									<th>气孔砂眼</th>
+									<th>裂纹</th>
+									<th>缺料起层</th>
+									<th>碰、划、拉伤</th>
+									<th>尺寸不合格</th>
+									<th>加工缺陷</th>
+									<th>物理性能不合格</th>
+									<th>化学成分不合格</th>
+									<th>试验检验件</th>
+									<th>其它</th>
+									
 								</tr>
 								
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind3" class="" style="width: 155px" value="${disqKind3}">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind3)) {
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind3}</option>
-										<%}
-										}%>
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum3"  value="${disqNum3}"/></td>
+								<tr class="formContent">
+									<td><input type="text" name="staNo1" value="${wfsave.staNo1}"></td>
+									<td><input type="text" name="" value="${wfsave.staName1}"></td>
+									<td><input type="text" name="quaNum1" value="${wfsave.quaNum1}"></td>
+									<td><input type="text" name="disqNum1-1" value="${wfsave.disqNum1[0]}"></td>
+									<td><input type="text" name="disqNum1-2" value="${wfsave.disqNum1[1]}"></td>
+									<td><input type="text" name="disqNum1-3" value="${wfsave.disqNum1[2]}"></td>
+									<td><input type="text" name="disqNum1-4" value="${wfsave.disqNum1[3]}"></td>
+									<td><input type="text" name="disqNum1-5" value="${wfsave.disqNum1[4]}"></td>
+									<td><input type="text" name="disqNum1-6" value="${wfsave.disqNum1[5]}"></td>
+									<td><input type="text" name="disqNum1-7" value="${wfsave.disqNum1[6]}"></td>
+									<td><input type="text" name="disqNum1-8" value="${wfsave.disqNum1[7]}"></td>
+									<td><input type="text" name="disqNum1-9" value="${wfsave.disqNum1[8]}"></td>
+									<td><input type="text" name="disqNum1-10" value="${wfsave.disqNum1[9]}"></td>
+									<td><input type="text" name="disqNum1-11" value="${wfsave.disqNum1[10]}"></td>
 								</tr>
-							
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind4" class="" style="width: 155px" value="${disqKind4}">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind4)) {
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind4}</option>
-										<%}
-										}%>
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum4"  value="${disqNum4}"/></td>
+								<tr class="formContent">
+									<td><input type="text" name="staNo2" value="${wfsave.staNo2}"></td>
+									<td><input type="text" name="" value="${wfsave.staName2}"></td>
+									<td><input type="text" name="quaNum2" value="${wfsave.quaNum2}"></td>
+									<td><input type="text" name="disqNum2-1" value="${wfsave.disqNum2[0]}"></td>
+									<td><input type="text" name="disqNum2-2" value="${wfsave.disqNum2[1]}"></td>
+									<td><input type="text" name="disqNum2-3" value="${wfsave.disqNum2[2]}"></td>
+									<td><input type="text" name="disqNum2-4" value="${wfsave.disqNum2[3]}"></td>
+									<td><input type="text" name="disqNum2-5" value="${wfsave.disqNum2[4]}"></td>
+									<td><input type="text" name="disqNum2-6" value="${wfsave.disqNum2[5]}"></td>
+									<td><input type="text" name="disqNum2-7" value="${wfsave.disqNum2[6]}"></td>
+									<td><input type="text" name="disqNum2-8" value="${wfsave.disqNum2[7]}"></td>
+									<td><input type="text" name="disqNum2-9" value="${wfsave.disqNum2[8]}"></td>
+									<td><input type="text" name="disqNum2-10" value="${wfsave.disqNum2[9]}"></td>
+									<td><input type="text" name="disqNum2-11" value="${wfsave.disqNum2[10]}"></td>
 								</tr>
-								
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind5" class="" style="width: 155px" value="${disqKind5}">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind5)) {
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind5}</option>
-										<%}
-										}%>
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum5"  value="${disqNum5}"/></td>
+								<tr class="formContent">
+									<td><input type="text" name="staNo3" value="${wfsave.staNo3}"></td>
+									<td><input type="text" name="" value="${wfsave.staName3}"></td>
+									<td><input type="text" name="quaNum3" value="${wfsave.quaNum3}"></td>
+									<td><input type="text" name="disqNum3-1" value="${wfsave.disqNum3[0]}"></td>
+									<td><input type="text" name="disqNum3-2" value="${wfsave.disqNum3[1]}"></td>
+									<td><input type="text" name="disqNum3-3" value="${wfsave.disqNum3[2]}"></td>
+									<td><input type="text" name="disqNum3-4" value="${wfsave.disqNum3[3]}"></td>
+									<td><input type="text" name="disqNum3-5" value="${wfsave.disqNum3[4]}"></td>
+									<td><input type="text" name="disqNum3-6" value="${wfsave.disqNum3[5]}"></td>
+									<td><input type="text" name="disqNum3-7" value="${wfsave.disqNum3[6]}"></td>
+									<td><input type="text" name="disqNum3-8" value="${wfsave.disqNum3[7]}"></td>
+									<td><input type="text" name="disqNum3-9" value="${wfsave.disqNum3[8]}"></td>
+									<td><input type="text" name="disqNum3-10" value="${wfsave.disqNum3[9]}"></td>
+									<td><input type="text" name="disqNum3-11" value="${wfsave.disqNum3[10]}"></td>
 								</tr>
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind6" class="" style="width: 155px" value="${disqKind6}">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind6)) {
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind6}</option>
-										<%}
-										}%>
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum6"  value="${disqNum6}"/></td>
+								<tr class="formContent">
+									<td><input type="text" name="staNo4" value="${wfsave.staNo4}"></td>
+									<td><input type="text" name="" value="${wfsave.staName4}"></td>
+									<td><input type="text" name="quaNum4" value="${wfsave.quaNum4}"></td>
+									<td><input type="text" name="disqNum4-1" value="${wfsave.disqNum4[0]}"></td>
+									<td><input type="text" name="disqNum4-2" value="${wfsave.disqNum4[1]}"></td>
+									<td><input type="text" name="disqNum4-3" value="${wfsave.disqNum4[2]}"></td>
+									<td><input type="text" name="disqNum4-4" value="${wfsave.disqNum4[3]}"></td>
+									<td><input type="text" name="disqNum4-5" value="${wfsave.disqNum4[4]}"></td>
+									<td><input type="text" name="disqNum4-6" value="${wfsave.disqNum4[5]}"></td>
+									<td><input type="text" name="disqNum4-7" value="${wfsave.disqNum4[6]}"></td>
+									<td><input type="text" name="disqNum4-8" value="${wfsave.disqNum4[7]}"></td>
+									<td><input type="text" name="disqNum4-9" value="${wfsave.disqNum4[8]}"></td>
+									<td><input type="text" name="disqNum4-10" value="${wfsave.disqNum4[9]}"></td>
+									<td><input type="text" name="disqNum4-11" value="${wfsave.disqNum4[10]}"></td>
 								</tr>
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind7" class="" style="width: 155px" value="${disqKind7}">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind7)) {
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind7}</option>
-										<%}
-										}%>
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum7"  value="${disqNum7}"/></td>
+								<tr class="formContent">
+									<td><input type="text" name="staNo5" value="${wfsave.staNo5}"></td>
+									<td><input type="text" name="" value="${wfsave.staName5}"></td>
+									<td><input type="text" name="quaNum5" value="${wfsave.quaNum5}"></td>
+									<td><input type="text" name="disqNum5-1" value="${wfsave.disqNum5[0]}"></td>
+									<td><input type="text" name="disqNum5-2" value="${wfsave.disqNum5[1]}"></td>
+									<td><input type="text" name="disqNum5-3" value="${wfsave.disqNum5[2]}"></td>
+									<td><input type="text" name="disqNum5-4" value="${wfsave.disqNum5[3]}"></td>
+									<td><input type="text" name="disqNum5-5" value="${wfsave.disqNum5[4]}"></td>
+									<td><input type="text" name="disqNum5-6" value="${wfsave.disqNum5[5]}"></td>
+									<td><input type="text" name="disqNum5-7" value="${wfsave.disqNum5[6]}"></td>
+									<td><input type="text" name="disqNum5-8" value="${wfsave.disqNum5[7]}"></td>
+									<td><input type="text" name="disqNum5-9" value="${wfsave.disqNum5[8]}"></td>
+									<td><input type="text" name="disqNum5-10" value="${wfsave.disqNum5[9]}"></td>
+									<td><input type="text" name="disqNum5-11" value="${wfsave.disqNum5[10]}"></td>
 								</tr>
+									
 								<tr>
-									<td><span>不合格品种类</span></td>
-									<td><select name="disqKind8" class="" style="width: 155px" value="${disqKind8}">
-										<%for(int i=0; i<dkList.size(); i++) {
-											if(!dkList.get(i).getDisDesc().equals(disqKind8)) {
-										%>
-											<option value="<%=dkList.get(i).getId()%>"><%=dkList.get(i).getDisDesc()%></option>
-										<%} else {%>
-											<option selected="selected" value="<%=dkList.get(i).getId()%>">${disqKind8}</option>
-										<%}
-										}%>
-											<option value="0" onclick="addDK()">添加种类</option>
-									</select></td>
-									<td><span>不合格品数量</span></td>
-									<td><input type="text" width="50px" name="disqNum8"  value="${disqNum8}"/></td>
-								</tr>								<tr>
-									<td><input class="button" type="submit" value="提交"/></td>
-									<td><input class="button" type="reset" value="重置"/></td>
+									<td class="but"><input class="button" type="submit" onclick="check()" value="提交"/></td>
+									<td class="but"><input class="button" type="reset" value="重置"/></td>
 								</tr>
 							</table>
-	
-								
+
 
 						</form>
 

@@ -173,7 +173,6 @@ function check(){
 									<th></th>
 									<th></th>
 									<th colspan=11 style="text-align:center">不合格品种类及数量</th>
-									<th></th>
 								</tr>
 								<tr>
 									<th>员工工号</th>
