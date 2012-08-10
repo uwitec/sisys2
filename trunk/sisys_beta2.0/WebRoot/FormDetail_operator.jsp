@@ -8,9 +8,6 @@
 <%
 	String name = (String)request.getAttribute("name");
 	WFstandard wfsave = (WFstandard)request.getAttribute("wfsave");
-	List<String> disqkind = (List)request.getAttribute("disqkind");
-	List<String> disqnum = (List)request.getAttribute("disqnum");
-	Map<String, String> disqmap = (Map)request.getAttribute("disqmap");
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -107,46 +104,117 @@
 					
 					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
 						
-						<table class = "">
-						<tr>
-									<td><span>工号</span></td>
-									<td>${wfsave.staNo}</td>
-				
-									<td><span>姓名</span></td>
-									<td>${wfsave.staName}</td>
-										
+						<table class="formAdd" id="table">
+								<tr>
+								
+									<th>产品编号</th><th>${wfsave.proNo}</th>
+									<th>产品名称</th><th colspan=3>${wfsave.proName}</th>
+									<th>工序编号</th><th>${wfsave.procNo}</th>
+									<th>工序名称</th><th colspan=3>${wfsave.procName}</th>
+									<th>批次编号</th><th>${wfsave.batchNo}</th>
+							
 								</tr>
 								<tr>
-									<td><span>产品编号</span></td>
-									<td>${wfsave.proNo}</td>
-								
-									<td><span>产品名称</span></td>
-									<td>${wfsave.proName}</td>
-									</tr>
-								<tr>
-									<td><span>工序编号</span></td>
-									<td>${wfsave.procNo}</td>
-								
-									<td><span>工序名称</span></td>
-									<td>${wfsave.procName}</td>									
-									</tr>
-								<tr>
-									<td><span>批次号</span></td>
-									<td>${wfsave.batchNo}</td>
+									<th rowspan=2>员工工号</th>
+									<th rowspan=2>员工姓名</th>
+									<th rowspan=2>合格品数量</th>
+									<th colspan=11 style="text-align:center">不合格品种类及数量</th>
 								</tr>
 								<tr>
+									<th>调试不合格</th>
+									<th>气孔砂眼</th>
+									<th>裂纹</th>
+									<th>缺料起层</th>
+									<th>碰、划、拉伤</th>
+									<th>尺寸不合格</th>
+									<th>加工缺陷</th>
+									<th>物理性能不合格</th>
+									<th>化学成分不合格</th>
+									<th>试验检验件</th>
+									<th>其它</th>
 									
-									<td><span>合格品数量</span></td>
-									<td>${wfsave.quaNum}</td>
 								</tr>
-								<c:forEach items="${disqmap }" var="map">
-								<tr>
-									<td><span>不合格品种类</span></td>
-									<td>${map.key}</td>
-									<td><span>不合格品数量</span></td>
-									<td>${map.value}</td>
+								
+								<tr class="formContent">
+									<td>${wfsave.staNo1}</td>
+									<td>${wfsave.staName1}</td>
+									<td>${wfsave.quaNum1}</td>
+									<td>${wfsave.disqNum1[0]}</td>
+									<td>${wfsave.disqNum1[1]}</td>
+									<td>${wfsave.disqNum1[2]}</td>
+									<td>${wfsave.disqNum1[3]}</td>
+									<td>${wfsave.disqNum1[4]}</td>
+									<td>${wfsave.disqNum1[5]}</td>
+									<td>${wfsave.disqNum1[6]}</td>
+									<td>${wfsave.disqNum1[7]}</td>
+									<td>${wfsave.disqNum1[8]}</td>
+									<td>${wfsave.disqNum1[9]}</td>
+									<td>${wfsave.disqNum1[10]}</td>
 								</tr>
-								</c:forEach>
+								<tr class="formContent">
+									<td>${wfsave.staNo2}</td>
+									<td>${wfsave.staName2}</td>
+									<td>${wfsave.quaNum2}</td>
+									<td>${wfsave.disqNum2[0]}</td>
+									<td>${wfsave.disqNum2[1]}</td>
+									<td>${wfsave.disqNum2[2]}</td>
+									<td>${wfsave.disqNum2[3]}</td>
+									<td>${wfsave.disqNum2[4]}</td>
+									<td>${wfsave.disqNum2[5]}</td>
+									<td>${wfsave.disqNum2[6]}</td>
+									<td>${wfsave.disqNum2[7]}</td>
+									<td>${wfsave.disqNum2[8]}</td>
+									<td>${wfsave.disqNum2[9]}</td>
+									<td>${wfsave.disqNum2[10]}</td>
+								</tr>
+								<tr class="formContent">
+									<td>${wfsave.staNo3}</td>
+									<td>${wfsave.staName3}</td>
+									<td>${wfsave.quaNum3}</td>
+									<td>${wfsave.disqNum3[0]}</td>
+									<td>${wfsave.disqNum3[1]}</td>
+									<td>${wfsave.disqNum3[2]}</td>
+									<td>${wfsave.disqNum3[3]}</td>
+									<td>${wfsave.disqNum3[4]}</td>
+									<td>${wfsave.disqNum3[5]}</td>
+									<td>${wfsave.disqNum3[6]}</td>
+									<td>${wfsave.disqNum3[7]}</td>
+									<td>${wfsave.disqNum3[8]}</td>
+									<td>${wfsave.disqNum3[9]}</td>
+									<td>${wfsave.disqNum3[10]}</td>
+								</tr>
+								<tr class="formContent">
+									<td>${wfsave.staNo4}</td>
+									<td>${wfsave.staName4}</td>
+									<td>${wfsave.quaNum4}</td>
+									<td>${wfsave.disqNum4[0]}</td>
+									<td>${wfsave.disqNum4[1]}</td>
+									<td>${wfsave.disqNum4[2]}</td>
+									<td>${wfsave.disqNum4[3]}</td>
+									<td>${wfsave.disqNum4[4]}</td>
+									<td>${wfsave.disqNum4[5]}</td>
+									<td>${wfsave.disqNum4[6]}</td>
+									<td>${wfsave.disqNum4[7]}</td>
+									<td>${wfsave.disqNum4[8]}</td>
+									<td>${wfsave.disqNum4[9]}</td>
+									<td>${wfsave.disqNum4[10]}</td>
+								</tr>
+								<tr class="formContent">
+									<td>${wfsave.staNo5}</td>
+									<td>${wfsave.staName5}</td>
+									<td>${wfsave.quaNum5}</td>
+									<td>${wfsave.disqNum5[0]}</td>
+									<td>${wfsave.disqNum5[1]}</td>
+									<td>${wfsave.disqNum5[2]}</td>
+									<td>${wfsave.disqNum5[3]}</td>
+									<td>${wfsave.disqNum5[4]}</td>
+									<td>${wfsave.disqNum5[5]}</td>
+									<td>${wfsave.disqNum5[6]}</td>
+									<td>${wfsave.disqNum5[7]}</td>
+									<td>${wfsave.disqNum5[8]}</td>
+									<td>${wfsave.disqNum5[9]}</td>
+									<td>${wfsave.disqNum5[10]}</td>
+								</tr>
 								<tr>
 									<td><span>是否删除</span></td>
 									<td>${wfsave.status}</td>

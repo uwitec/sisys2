@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="com.sisys.bean.Page"%>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -103,15 +101,14 @@
 				
 				<div class="content-box-content">
 					
-					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->						
+					<div class="tab-content default-tab" id="tab1">
+						<!-- This is the target div. id must match the href of this div's tab -->
 						<table>
 							
 							<thead>
 								<tr>								   
 								  <tr>
 									<th width=2%>Id</th>
-									<th width=5%>姓名</th>
-									<th width=5%>工号</th>
 									<th width=5%>产品</th>
 									<th width=5%>批次</th>
 									<th width=5%>工序号</th>
@@ -136,10 +133,8 @@
 								<c:forEach items="${form }" var="entity">
 									<tr>
 										<td>${entity.wfId}</td>
-										<td>${entity.staName}</td>
-										<td>${entity.staNo}<br /></td>
-										<td>${entity.proNo}<br /></td>
-										<td>${entity.batchNo}</td>
+										<td>${entity.proName}<br /></td>
+										<td>${entity.batchNo}<br /></td>
 										<td>${entity.procNo}</td>
 										<td>${entity.procName}</td>
 										<td>${entity.quaNum}</td>
@@ -148,9 +143,7 @@
 										<td>${entity.deletetime}</td>
 										<td>
 										<!-- Icons -->
-										
-										     <a href="formDetail.action?wfId=${entity.wfId}" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
-											
+										<a href="formDetail.action?wfId=${entity.wfId}" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
 										</td>
 									</tr>							
 								</c:forEach>
