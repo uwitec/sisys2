@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.sisys.bean.Batch;
+import com.sisys.bean.DisqKind;
 import com.sisys.bean.DisqKindDetail;
 import com.sisys.bean.Flowpath;
 import com.sisys.bean.Processes;
@@ -12,6 +13,7 @@ import com.sisys.bean.ScheduleTab;
 import com.sisys.bean.SmallWf;
 import com.sisys.bean.WorkForm;
 import com.sisys.dao.BatchDAO;
+import com.sisys.dao.DisqKindDAO;
 import com.sisys.dao.DisqKindDetailDAO;
 import com.sisys.dao.FlowpathDAO;
 import com.sisys.dao.ProcessesDAO;
@@ -162,8 +164,8 @@ public class WorkFormAddService {
 		String[] str;
 		small.setStaNo(staNo);
 		small.setDisqDetail(disqDetail);
-		// small.setgWasteNum(gWasteNum);
-		// small.setlWasteNum(lWasteNum);
+		small.setgWasteNum(0);
+		small.setlWasteNum(0);
 		small.setProcId(proc.getId());
 		small.setProNo(proNo);
 		small.setQuaNum(Integer.parseInt(quaNum));
@@ -175,6 +177,7 @@ public class WorkFormAddService {
 		str = disqDetail.split("-");
 		// 在不合格种类详情中搜索今日不合格详情，有则更新，没有则建立
 		DisqKindDetailDAO dkdd;
+		DisqKindDAO disqd;
 		for (int i = 1; i <= str.length; i++) {
 			sql = "select * from disqkinddetail where disqkid=" + i
 					+ " and time='" + time + "'";
@@ -193,6 +196,14 @@ public class WorkFormAddService {
 						+ Integer.parseInt(str[i - 1]));
 				dkdd = new DisqKindDetailDAO();
 				dkdd.update(dkd, 1);
+			}
+			sql = "select * from disqkind where Id=" + i;
+			disqd = new DisqKindDAO();
+			List<DisqKind> dlist = disqd.findEntityByList(sql);
+			if (dlist.get(0).getKind() == 0) {
+				small.setgWasteNum(Integer.parseInt(str[i - 1]) + small.getgWasteNum());
+			} else {
+				small.setlWasteNum(Integer.parseInt(str[i - 1]) + small.getlWasteNum());
 			}
 		}
 		switch (No) {
