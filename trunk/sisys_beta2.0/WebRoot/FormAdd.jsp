@@ -79,13 +79,9 @@ function check(){
 </script>
 
 
-<!--<script type="text/javascript"
-	src="resources/scripts/addWorkForm.js"></script>
-
 <script type="text/javascript"
-	src="resources/scripts/addDisqKind.js"></script>
-
---><!-- jQuery -->
+	src="resources/scripts/addWorkForm.js"></script>
+	<!-- jQuery -->
 <script type="text/javascript"
 	src="resources/scripts/jquery-1.3.2.min.js"></script>
 

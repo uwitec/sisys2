@@ -31,5 +31,10 @@ public class WorkFormSearchAction extends BaseAction {
 	public String preAlter() {
 		return wfsearch.detail();
 	}
+	
+	//条形码输入
+	public String codeSearch(){
+		return wfsearch.codeAnalysis();
+	}
 
 }

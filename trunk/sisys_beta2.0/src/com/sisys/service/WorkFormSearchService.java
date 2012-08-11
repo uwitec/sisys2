@@ -14,12 +14,12 @@ import com.sisys.dao.*;
 
 public class WorkFormSearchService {
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	
+
 	ActionContext context = ActionContext.getContext();
 	HttpServletRequest request = (HttpServletRequest) context
 			.get(StrutsStatics.HTTP_REQUEST);
 	Map session = context.getSession();
-	
+
 	public String FirstPage() {
 		String result = "";
 		User user = (User) session.get("user");
@@ -52,7 +52,8 @@ public class WorkFormSearchService {
 			sql = "select * from processes where Id=" + list.get(i).getProcId();
 			List<Processes> proclist = procd.findEntityByList(sql);
 			ProductDAO prod = new ProductDAO();
-			sql = "select * from product where proNo='" + swlist.get(0).getProNo() + "'";
+			sql = "select * from product where proNo='"
+					+ swlist.get(0).getProNo() + "'";
 			List<Product> prolist = prod.findEntityByList(sql);
 			BatchDAO batd = new BatchDAO();
 			sql = "select * from batch where Id=" + list.get(i).getBatchId();
@@ -129,9 +130,9 @@ public class WorkFormSearchService {
 				result = "erroradmin";
 				break;
 			}
-		} else { 
+		} else {
 			List<WFstandard> wfslist = new ArrayList<WFstandard>();
-			
+
 			wfslist = this.Conditionsearch(staffNo, proNo, batchNo);
 
 			User user = (User) session.get("user");
@@ -165,7 +166,7 @@ public class WorkFormSearchService {
 		}
 		return result;
 	}
-	
+
 	public List<WFstandard> Conditionsearch(String staNo, String proNo,
 			String batNo) {
 		int flag = 0;
@@ -237,7 +238,8 @@ public class WorkFormSearchService {
 			sql = "select * from processes where Id=" + list.get(i).getProcId();
 			List<Processes> proclist = procd.findEntityByList(sql);
 			ProductDAO prod = new ProductDAO();
-			sql = "select * from product where proNo='" + swlist.get(0).getProNo() + "'";
+			sql = "select * from product where proNo='"
+					+ swlist.get(0).getProNo() + "'";
 			List<Product> prolist = prod.findEntityByList(sql);
 			BatchDAO batd = new BatchDAO();
 			sql = "select * from batch where Id=" + list.get(i).getBatchId();
@@ -266,10 +268,10 @@ public class WorkFormSearchService {
 		return wfs;
 	}
 
-	//查看工单详情
+	// 查看工单详情
 	public String detail() {
 		String result = "";
-		
+
 		WorkFormDAO wfd = new WorkFormDAO();
 		int Id = Integer.parseInt(request.getParameter("wfId"));
 		String sql = "select * from workform where Id=" + Id;
@@ -279,20 +281,21 @@ public class WorkFormSearchService {
 		}
 		WorkForm wf = wflist.get(0);
 		WFstandard wfsave = new WFstandard();
-		
+
 		wfsave.setWfId(Id);
 		String name = wf.getName();
-		
-		//查询对应小工单
+
+		// 查询对应小工单
 		SmallWfDAO swd = new SmallWfDAO();
 		sql = "select * from smallwf where wfid=" + wf.getId();
 		List<SmallWf> swlist = swd.findEntityByList(sql);
-		//查询并存储大工单信息
+		// 查询并存储大工单信息
 		ProcessesDAO procd = new ProcessesDAO();
 		sql = "select * from processes where Id=" + wf.getProcId();
 		List<Processes> proclist = procd.findEntityByList(sql);
 		ProductDAO prod = new ProductDAO();
-		sql = "select * from product where proNo='" + swlist.get(0).getProNo() + "'";
+		sql = "select * from product where proNo='" + swlist.get(0).getProNo()
+				+ "'";
 		List<Product> prolist = prod.findEntityByList(sql);
 		BatchDAO batd = new BatchDAO();
 		sql = "select * from batch where Id=" + wf.getBatchId();
@@ -310,14 +313,19 @@ public class WorkFormSearchService {
 			wfsave.setStatus("是");
 			wfsave.setDeletetime(df.format(wf.getDeleteTime()));
 		}
-		
-		//根据小工单信息得到对应的原始工单数据
-		String[] disq1 = new String[]{"","","","","","","","","","",""};
-		String[] disq2 = new String[]{"","","","","","","","","","",""};
-		String[] disq3 = new String[]{"","","","","","","","","","",""};
-		String[] disq4 = new String[]{"","","","","","","","","","",""};
-		String[] disq5 = new String[]{"","","","","","","","","","",""};
-		int num = 0;//填入工单员工数量
+
+		// 根据小工单信息得到对应的原始工单数据
+		String[] disq1 = new String[] { "", "", "", "", "", "", "", "", "", "",
+				"" };
+		String[] disq2 = new String[] { "", "", "", "", "", "", "", "", "", "",
+				"" };
+		String[] disq3 = new String[] { "", "", "", "", "", "", "", "", "", "",
+				"" };
+		String[] disq4 = new String[] { "", "", "", "", "", "", "", "", "", "",
+				"" };
+		String[] disq5 = new String[] { "", "", "", "", "", "", "", "", "", "",
+				"" };
+		int num = 0;// 填入工单员工数量
 		wfsave.setStaNo1(swlist.get(0).getStaNo());
 		sql = "select * from staff where staNo='" + wfsave.getStaNo1() + "'";
 		StaffDAO std = new StaffDAO();
@@ -328,9 +336,10 @@ public class WorkFormSearchService {
 		wfsave.setDisqNum1(disq1);
 		num++;
 		if (num < swlist.size()) {
-			//如果已存小工单数量小于原工单员工数量，则继续添加
+			// 如果已存小工单数量小于原工单员工数量，则继续添加
 			wfsave.setStaNo2(swlist.get(1).getStaNo());
-			sql = "select * from staff where staNo='" + wfsave.getStaNo2() + "'";
+			sql = "select * from staff where staNo='" + wfsave.getStaNo2()
+					+ "'";
 			std = new StaffDAO();
 			List<Staff> stalist2 = std.findEntityByList(sql);
 			wfsave.setStaName2(stalist2.get(0).getStaName());
@@ -345,9 +354,10 @@ public class WorkFormSearchService {
 		}
 		num++;
 		if (num < swlist.size()) {
-			//如果已存小工单数量小于原工单员工数量，则继续添加
+			// 如果已存小工单数量小于原工单员工数量，则继续添加
 			wfsave.setStaNo3(swlist.get(2).getStaNo());
-			sql = "select * from staff where staNo='" + wfsave.getStaNo3() + "'";
+			sql = "select * from staff where staNo='" + wfsave.getStaNo3()
+					+ "'";
 			std = new StaffDAO();
 			List<Staff> stalist3 = std.findEntityByList(sql);
 			wfsave.setStaName3(stalist3.get(0).getStaName());
@@ -362,9 +372,10 @@ public class WorkFormSearchService {
 		}
 		num++;
 		if (num < swlist.size()) {
-			//如果已存小工单数量小于原工单员工数量，则继续添加
+			// 如果已存小工单数量小于原工单员工数量，则继续添加
 			wfsave.setStaNo4(swlist.get(3).getStaNo());
-			sql = "select * from staff where staNo='" + wfsave.getStaNo4() + "'";
+			sql = "select * from staff where staNo='" + wfsave.getStaNo4()
+					+ "'";
 			std = new StaffDAO();
 			List<Staff> stalist4 = std.findEntityByList(sql);
 			wfsave.setStaName4(stalist4.get(0).getStaName());
@@ -379,9 +390,10 @@ public class WorkFormSearchService {
 		}
 		num++;
 		if (num < swlist.size()) {
-			//如果已存小工单数量小于原工单员工数量，则继续添加
+			// 如果已存小工单数量小于原工单员工数量，则继续添加
 			wfsave.setStaNo5(swlist.get(4).getStaNo());
-			sql = "select * from staff where staNo='" + wfsave.getStaNo5() + "'";
+			sql = "select * from staff where staNo='" + wfsave.getStaNo5()
+					+ "'";
 			std = new StaffDAO();
 			List<Staff> stalist5 = std.findEntityByList(sql);
 			wfsave.setStaName5(stalist5.get(0).getStaName());
@@ -394,10 +406,10 @@ public class WorkFormSearchService {
 			wfsave.setQuaNum5("");
 			wfsave.setDisqNum5(disq5);
 		}
-		
-		request.setAttribute("wfsave",wfsave);
+
+		request.setAttribute("wfsave", wfsave);
 		request.setAttribute("name", name);
-		
+
 		User user = (User) session.get("user");
 		switch (user.getLevel()) {
 		case 1:
@@ -411,5 +423,39 @@ public class WorkFormSearchService {
 			break;
 		}
 		return result;
+	}
+
+	// 条形码判真伪，解析条码
+	public String codeAnalysis() {
+		String code = request.getParameter("barCode");
+		String batNo = code.substring(0, 10);
+		String proNo = code.substring(10, 16);
+		char[] str = code.toCharArray();
+		int oddNum = 0;
+		int evenNum = 0;
+		int num;
+		for (int i = 0; i < str.length - 1; i += 2) {
+			oddNum += Integer.parseInt(str[i] + "");
+		}
+		for (int i = 1; i < str.length - 1; i += 2) {
+			evenNum += Integer.parseInt(str[i] + "");
+		}
+		num = oddNum * 3 + evenNum;
+		if (Integer.parseInt(str[21] + "") != 10 - num % 10) {
+			return "error";
+		}
+		String sql;
+		sql = "select * from product where proNo='" + proNo + "'";
+		ProductDAO prod = new ProductDAO();
+		List<Product> prolist = prod.findEntityByList(sql);
+		if (prolist.size() == 0) {
+			return "error";
+		}
+
+		request.setAttribute("proNo", proNo);
+		request.setAttribute("batNo", batNo);
+		request.setAttribute("proName", prolist.get(0).getProName());
+		
+		return "success";
 	}
 }

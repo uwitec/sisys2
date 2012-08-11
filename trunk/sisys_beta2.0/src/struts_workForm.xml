@@ -87,6 +87,11 @@
 			<result name="inputerroroperator">/searchByBatch_operator.jsp?result=inputerror&amp;current=workForm</result>
 			<result name="inputerrorviewer">/searchByBatch_viewer.jsp?result=inputerror&amp;current=workForm</result>
 		</action>
+		
+		<action name="codeSearch" class="com.sisys.action.WorkFormSearchAction" method="codeSearch">
+			<result name="success">/FormDetail_admin.jsp?current=workForm</result>
+			<result name="error">/FormDetail_operator.jsp?current=workForm</result>
+		</action>
 	</package>
 
 </struts> 
