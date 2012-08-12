@@ -1,13 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.sisys.bean.DisqKind"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%
-	//String name = (String)request.getAttribute("name");
+	String name = (String)request.getAttribute("name");
 %>
 
 <%	
@@ -81,7 +80,8 @@ function check(){
 
 <script type="text/javascript"
 	src="resources/scripts/addWorkForm.js"></script>
-	<!-- jQuery -->
+
+<!-- jQuery -->
 <script type="text/javascript"
 	src="resources/scripts/jquery-1.3.2.min.js"></script>
 
@@ -156,12 +156,13 @@ function check(){
 						</label>
 						
 						<form id="myForm" action="addWorkForm.action" method="post">
+						    <input type="hidden" name="name" value="${name}" />
 							<div class="formHeader">
-								<span>产品编号</span><input type="text" name="proNo">
-								<span>产品名称</span><input type="text" name="proName" readOnly="true">
-								<span>工序编号</span><input type="text" name="procNo">
-								<span>工序名称</span><input type="text" name="procName" readOnly="true">
-								<span>批次编号</span><input type="text" name="batNo">
+								<span>产品编号</span><input type="text" name="proNo" value="${proNo}">
+								<span>产品名称</span><input type="text" name="proName" readOnly="true" value="${proName}">
+								<span>工序编号</span><input type="text" name="procNo" id="procNo" onblur='displayProcNo()'>
+								<span>工序名称</span><input type="text" name="procName" id="procName" readOnly="true">
+								<span>批次编号</span><input type="text" name="batNo" value="${batNo}">
 							</div>
 							<table class="formAdd" id="table">
 								<tr>
@@ -190,8 +191,8 @@ function check(){
 								</tr>
 								
 								<tr class="formContent">
-									<td><input type="text" name="staNo1" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="staNo1" id="staNo1" onblur='displayStaNo1()'></td>
+									<td><input type="text" name="staName1" id="staName1"></td>
 									<td><input type="text" name="quaNum1" ></td>
 									<td><input type="text" name="disqNum1-1" ></td>
 									<td><input type="text" name="disqNum1-2" ></td>
@@ -206,8 +207,8 @@ function check(){
 									<td><input type="text" name="disqNum1-11" ></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo2" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="staNo2" id="staNo2" onblur='displayStaNo2()'></td>
+									<td><input type="text" name="staName2" id="staName2"></td>
 									<td><input type="text" name="quaNum2" ></td>
 									<td><input type="text" name="disqNum2-1" ></td>
 									<td><input type="text" name="disqNum2-2" ></td>
@@ -222,8 +223,8 @@ function check(){
 									<td><input type="text" name="disqNum2-11" ></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo3" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="staNo3" id="staNo3" onblur='displayStaNo3()'></td>
+									<td><input type="text" name="staName3" id="staName3"></td>
 									<td><input type="text" name="quaNum3" ></td>
 									<td><input type="text" name="disqNum3-1" ></td>
 									<td><input type="text" name="disqNum3-2" ></td>
@@ -238,8 +239,8 @@ function check(){
 									<td><input type="text" name="disqNum3-11" ></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo4" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="staNo4" id="staNo4" onblur='displayStaNo4()'></td>
+									<td><input type="text" name="staName4" id="staName4"></td>
 									<td><input type="text" name="quaNum4" ></td>
 									<td><input type="text" name="disqNum4-1" ></td>
 									<td><input type="text" name="disqNum4-2" ></td>
@@ -254,8 +255,8 @@ function check(){
 									<td><input type="text" name="disqNum4-11" ></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo5" ></td>
-									<td><input type="text" name="" ></td>
+									<td><input type="text" name="staNo5" id="staNo5" onblur='displayStaNo5()'></td>
+									<td><input type="text" name="staName5" id="staName5"></td>
 									<td><input type="text" name="quaNum5" ></td>
 									<td><input type="text" name="disqNum5-1" ></td>
 									<td><input type="text" name="disqNum5-2" ></td>

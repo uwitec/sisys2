@@ -7,15 +7,18 @@ import com.sisys.bean.Batch;
 import com.sisys.bean.DisqKind;
 import com.sisys.bean.DisqKindDetail;
 import com.sisys.bean.Flowpath;
+import com.sisys.bean.ProHash;
 import com.sisys.bean.Processes;
 import com.sisys.bean.Product;
 import com.sisys.bean.ScheduleTab;
 import com.sisys.bean.SmallWf;
 import com.sisys.bean.WorkForm;
+import com.sisys.bean.mapping.ProHashMapping;
 import com.sisys.dao.BatchDAO;
 import com.sisys.dao.DisqKindDAO;
 import com.sisys.dao.DisqKindDetailDAO;
 import com.sisys.dao.FlowpathDAO;
+import com.sisys.dao.ProHashDAO;
 import com.sisys.dao.ProcessesDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
@@ -122,6 +125,17 @@ public class WorkFormAddService {
 		std.update(sche, 1);
 		WorkFormDAO wfd = new WorkFormDAO();
 		wfd.create(work);
+		// 如果所输入工单是最后一个，重置proHash表中的own属性
+		if (Integer.parseInt(procNo) == str.length) {
+			sql = "select * from proHash where proNo='" + proNo + "' and hash="
+					+ Integer.parseInt(batNo.substring(8, 10));
+			ProHashMapping phMapping = new ProHashMapping();
+			ProHashDAO phDao = new ProHashDAO(ProHash.class, phMapping);
+			List<ProHash> phlist = phDao.findEntityByList(sql);
+			phlist.get(0).setOwn(0);
+			phDao = new ProHashDAO(ProHash.class, phMapping);
+			phDao.update(phlist.get(0), 1);
+		}
 		// 搜索工单，找到刚刚存储的工单id
 		sql = "select * from workform where batchId=" + bat.getId()
 				+ " and procId=" + proc.getId();
@@ -201,9 +215,11 @@ public class WorkFormAddService {
 			disqd = new DisqKindDAO();
 			List<DisqKind> dlist = disqd.findEntityByList(sql);
 			if (dlist.get(0).getKind() == 0) {
-				small.setgWasteNum(Integer.parseInt(str[i - 1]) + small.getgWasteNum());
+				small.setgWasteNum(Integer.parseInt(str[i - 1])
+						+ small.getgWasteNum());
 			} else {
-				small.setlWasteNum(Integer.parseInt(str[i - 1]) + small.getlWasteNum());
+				small.setlWasteNum(Integer.parseInt(str[i - 1])
+						+ small.getlWasteNum());
 			}
 		}
 		switch (No) {

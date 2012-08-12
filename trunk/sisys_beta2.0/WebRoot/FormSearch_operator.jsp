@@ -91,7 +91,7 @@
 
 			<ul class="shortcut-buttons-set">
 
-				<li><a class="shortcut-button" href="formAdd.action"><span>
+				<li><a class="shortcut-button" href="BeforeAdd.jsp?current=workForm"><span>
 							<img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
 							继续添加工单
 					</span></a></li>
@@ -137,8 +137,6 @@
 									<th width=5%>工序</th>
 									<th width=5%>合格品</th>
 									<th width=5%>不合格</th>
-									<th width=10%>是否删除</th>
-									<th width=10%>删除时间</th>
 									<th width=10%>操作</th>
 								</tr>
 								</tr>
@@ -161,8 +159,6 @@
 										<td>${entity.procName}</td>
 										<td>${entity.quaNum}</td>
 										<td>${entity.disqNum}</td>
-										<td>${entity.status}</td>
-										<td>${entity.deletetime}</td>
 										<td>
 										<!-- Icons -->
 										<a href="formDetail.action?wfId=${entity.wfId}" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>

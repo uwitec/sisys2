@@ -133,8 +133,6 @@
 									<th width=5%>工序</th>
 									<th width=5%>合格品</th>
 									<th width=5%>不合格</th>
-									<th width=10%>是否删除</th>
-									<th width=10%>删除时间</th>
 									<th width=10%>操作</th>
 								</tr>
 								</tr>
@@ -157,8 +155,6 @@
 										<td>${entity.procName}</td>
 										<td>${entity.quaNum}</td>
 										<td>${entity.disqNum}</td>
-										<td>${entity.status}</td>
-										<td>${entity.deletetime}</td>
 										<td>
 										<!-- Icons -->
 										

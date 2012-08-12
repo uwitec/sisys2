@@ -7,7 +7,7 @@
 
 	<package name="batch" namespace="/" extends="struts-default">
 		<interceptors>
-			<interceptor name="checkLogin" class="data.interceptor.CheckLoginInterceptor"/>
+			<interceptor name="checkLogin" class="com.sisys.interceptor.CheckLoginInterceptor"/>
 				<interceptor-stack name="teamwareStack">
 					 <interceptor-ref name="checkLogin"/>
 	                 <interceptor-ref name="defaultStack"/>
@@ -21,11 +21,11 @@
             <result name="login">/login.jsp</result>  
         </global-results>
 		
-		<action name="preAddBatch" class="data.action.ManageBatchAction" method="preAddBatch">			
+		<action name="preAddBatch" class="com.sisys.action.ManageBatchAction" method="preAddBatch">			
 			
 		</action>
 		
-		<action name="addBatch" class="data.action.ManageBatchAction" method="addBatch">
+		<action name="addBatch" class="com.sisys.action.ManageBatchAction" method="addBatch">
 			<result name="repetition">/BatchAdd_${level}.jsp?result=repetition&amp;current=batchAdd</result>
 			<result name="false">/BatchAdd_${level}.jsp?result=false&amp;current=batchAdd</result>
 			<result name="pnone">/BatchAdd_${level}.jsp?result=pnone&amp;current=batchAdd</result>
@@ -33,14 +33,14 @@
 			<result name="success">/BatchAdd_${level}.jsp?result=success&amp;current=batchAdd</result>
 		</action>
 		
-		<action name="modifyOutDue" class="data.action.ManageBatchAction" method="modifyOutDue">
+		<action name="modifyOutDue" class="com.sisys.action.ManageBatchAction" method="modifyOutDue">
 			<result name="empty">/OutOfDue.jsp?result=empty&amp;current=outOfDue</result>
 			<result name="none">/OutOfDue.jsp?result=none&amp;current=outOfDue</result>
 			<result name="success">/OutOfDue.jsp?result=success&amp;current=outOfDue</result>
 			<result name="false">/OutOfDue.jsp?result=false&amp;current=outOfDue</result>
 		</action>
 		
- 		<action name="outOfDueList" class="data.action.ManageBatchAction" method="outOfDueList">
+ 		<action name="outOfDueList" class="com.sisys.action.ManageBatchAction" method="outOfDueList">
  			<result name="admin">/OutOfDueList_admin.jsp?current=outOfDue</result>
  			<result name="operator">/OutOfDueList_operator.jsp?current=outOfDue</result>
  			<result name="viewer">/OutOfDueList_viewer.jsp?current=outOfDue</result>

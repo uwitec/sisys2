@@ -42,34 +42,6 @@
     	  }
        }
        
-       //根据工号得到员工姓名
-        function displayStaNo(){
-          var staNo =document.getElementById("staNo").value.trim(); 
-          if(staNo == ""){
-        	  return;
-          }
-          creatXmlHttp();
-          xmlHttp.open("GET", "preAddWorkFormStaNo.action?staNo="+staNo , true);
-          xmlHttp.onreadystatechange = doworkStaNo;
-          xmlHttp.send(null);
-        }
-    
-       function doworkStaNo(){
-          if (xmlHttp.readyState == 4) { // 测试状态是否请求完成
-      		if (xmlHttp.status == 200) { // 如果服务端回应OK
-       			var text = xmlHttp.responseText;
-       			if(text == "error"){
-       				document.getElementById("staName").value = "";
-       				alert("该工号不存在！请重新输入！");
-       			}else{
-       				document.getElementById("staName").value = text;//将内容放入
-       			}       				
-      		}else { //页面不正常  
-                window.alert("您所请求的页面有异常。");  
-            }  
-    	  }
-       }
-       
        //根据工序号得到工序名称
         function displayProcNo(){
           var procNo =document.getElementById("procNo").value.trim(); 
@@ -91,6 +63,149 @@
        				alert("该工序号不存在！请重新输入！");
        			}else{
        				document.getElementById("procName").value = text;//将内容放入
+       			}       				
+      		}else { //页面不正常  
+                window.alert("您所请求的页面有异常。");  
+            }  
+    	  }
+       }
+       
+       //根据工号得到员工姓名
+        function displayStaNo1(){
+          var staNo =document.getElementById("staNo1").value.trim(); 
+          if(staNo == ""){
+        	  return;
+          }
+          creatXmlHttp();
+          xmlHttp.open("GET", "preAddWorkFormStaNo.action?staNo="+staNo , true);
+          xmlHttp.onreadystatechange = doworkStaNo1;
+          xmlHttp.send(null);
+        }
+    
+       function doworkStaNo1(){
+          if (xmlHttp.readyState == 4) { // 测试状态是否请求完成
+      		if (xmlHttp.status == 200) { // 如果服务端回应OK
+       			var text = xmlHttp.responseText;
+       			if(text == "error"){
+       				document.getElementById("staName1").value = "";
+       				alert("该工号不存在！请重新输入！");
+       			}else{
+       				document.getElementById("staName1").value = text;//将内容放入
+       			}       				
+      		}else { //页面不正常  
+                window.alert("您所请求的页面有异常。");  
+            }  
+    	  }
+       }
+       
+              
+       //根据工号得到员工姓名
+        function displayStaNo2(){
+          var staNo =document.getElementById("staNo2").value.trim(); 
+          if(staNo == ""){
+        	  return;
+          }
+          creatXmlHttp();
+          xmlHttp.open("GET", "preAddWorkFormStaNo.action?staNo="+staNo , true);
+          xmlHttp.onreadystatechange = doworkStaNo2;
+          xmlHttp.send(null);
+        }
+    
+       function doworkStaNo2(){
+          if (xmlHttp.readyState == 4) { // 测试状态是否请求完成
+      		if (xmlHttp.status == 200) { // 如果服务端回应OK
+       			var text = xmlHttp.responseText;
+       			if(text == "error"){
+       				document.getElementById("staName2").value = "";
+       				alert("该工号不存在！请重新输入！");
+       			}else{
+       				document.getElementById("staName2").value = text;//将内容放入
+       			}       				
+      		}else { //页面不正常  
+                window.alert("您所请求的页面有异常。");  
+            }  
+    	  }
+       }
+              
+       //根据工号得到员工姓名
+        function displayStaNo3(){
+          var staNo =document.getElementById("staNo3").value.trim(); 
+          if(staNo == ""){
+        	  return;
+          }
+          creatXmlHttp();
+          xmlHttp.open("GET", "preAddWorkFormStaNo.action?staNo="+staNo , true);
+          xmlHttp.onreadystatechange = doworkStaNo3;
+          xmlHttp.send(null);
+        }
+    
+       function doworkStaNo3(){
+          if (xmlHttp.readyState == 4) { // 测试状态是否请求完成
+      		if (xmlHttp.status == 200) { // 如果服务端回应OK
+       			var text = xmlHttp.responseText;
+       			if(text == "error"){
+       				document.getElementById("staName3").value = "";
+       				alert("该工号不存在！请重新输入！");
+       			}else{
+       				document.getElementById("staName3").value = text;//将内容放入
+       			}       				
+      		}else { //页面不正常  
+                window.alert("您所请求的页面有异常。");  
+            }  
+    	  }
+       }
+       
+              
+       //根据工号得到员工姓名
+        function displayStaNo4(){
+          var staNo =document.getElementById("staNo4").value.trim(); 
+          if(staNo == ""){
+        	  return;
+          }
+          creatXmlHttp();
+          xmlHttp.open("GET", "preAddWorkFormStaNo.action?staNo="+staNo , true);
+          xmlHttp.onreadystatechange = doworkStaNo4;
+          xmlHttp.send(null);
+        }
+    
+       function doworkStaNo4(){
+          if (xmlHttp.readyState == 4) { // 测试状态是否请求完成
+      		if (xmlHttp.status == 200) { // 如果服务端回应OK
+       			var text = xmlHttp.responseText;
+       			if(text == "error"){
+       				document.getElementById("staName4").value = "";
+       				alert("该工号不存在！请重新输入！");
+       			}else{
+       				document.getElementById("staName4").value = text;//将内容放入
+       			}       				
+      		}else { //页面不正常  
+                window.alert("您所请求的页面有异常。");  
+            }  
+    	  }
+       }
+       
+              
+       //根据工号得到员工姓名
+        function displayStaNo5(){
+          var staNo =document.getElementById("staNo5").value.trim(); 
+          if(staNo == ""){
+        	  return;
+          }
+          creatXmlHttp();
+          xmlHttp.open("GET", "preAddWorkFormStaNo.action?staNo="+staNo , true);
+          xmlHttp.onreadystatechange = doworkStaNo5;
+          xmlHttp.send(null);
+        }
+    
+       function doworkStaNo5(){
+          if (xmlHttp.readyState == 4) { // 测试状态是否请求完成
+      		if (xmlHttp.status == 200) { // 如果服务端回应OK
+       			var text = xmlHttp.responseText;
+       			if(text == "error"){
+       				document.getElementById("staName5").value = "";
+       				alert("该工号不存在！请重新输入！");
+       			}else{
+       				document.getElementById("staName5").value = text;//将内容放入
        			}       				
       		}else { //页面不正常  
                 window.alert("您所请求的页面有异常。");  

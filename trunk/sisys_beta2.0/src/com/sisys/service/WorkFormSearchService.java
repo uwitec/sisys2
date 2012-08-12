@@ -23,7 +23,7 @@ public class WorkFormSearchService {
 	public String FirstPage() {
 		String result = "";
 		User user = (User) session.get("user");
-		String sql = "select * from workform order by id desc limit 6";
+		String sql = "select * from workform where isdelete=0 order by id desc limit 6";
 		WorkFormDAO wfd = new WorkFormDAO();
 		List<WFstandard> wfs = new ArrayList<WFstandard>();
 		List<WorkForm> list = wfd.findEntityByList(sql);
@@ -212,16 +212,16 @@ public class WorkFormSearchService {
 			break;
 		case 1:
 			sql = "select * from workForm where staId=" + slist.get(0).getId()
-					+ " order by procId";
+					+ " and isdelete=0 order by procId";
 			break;
 		case 2:
 			sql = "select * from workForm where batchId="
-					+ stlist.get(0).getId() + " order by procId";
+					+ stlist.get(0).getId() + " and isdelete=0 order by procId";
 			break;
 		case 3:
 			sql = "select * from workForm where batchId="
 					+ stlist.get(0).getId() + " and staId="
-					+ slist.get(0).getId() + " order by procId";
+					+ slist.get(0).getId() + " and isdelete=0 order by procId";
 			break;
 		}
 		WorkFormDAO wfd = new WorkFormDAO();
@@ -428,6 +428,11 @@ public class WorkFormSearchService {
 	// 条形码判真伪，解析条码
 	public String codeAnalysis() {
 		String code = request.getParameter("barCode");
+		System.out.println(code);
+		System.out.println(code.length());
+		if (code.length() != 22) {
+			return "error";
+		}
 		String batNo = code.substring(0, 10);
 		String proNo = code.substring(10, 16);
 		char[] str = code.toCharArray();
@@ -441,7 +446,7 @@ public class WorkFormSearchService {
 			evenNum += Integer.parseInt(str[i] + "");
 		}
 		num = oddNum * 3 + evenNum;
-		if (Integer.parseInt(str[21] + "") != 10 - num % 10) {
+		if (Integer.parseInt(str[21] + "") != (10 - num % 10) % 10) {
 			return "error";
 		}
 		String sql;
@@ -452,6 +457,10 @@ public class WorkFormSearchService {
 			return "error";
 		}
 
+		User user = (User) session.get("user");
+		String name = user.getUsername();
+
+		request.setAttribute("name", name);
 		request.setAttribute("proNo", proNo);
 		request.setAttribute("batNo", batNo);
 		request.setAttribute("proName", prolist.get(0).getProName());

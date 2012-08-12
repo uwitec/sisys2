@@ -108,7 +108,7 @@
 				
 				
 				<!--<li><a class="shortcut-button" href="formAdd.action"><span>
-				--><li><a class="shortcut-button" href="FormAdd.jsp?current=workForm"><span>
+				--><li><a class="shortcut-button" href="BeforeAdd.jsp?current=workForm"><span>
 					<img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
 					添加工单
 				</span></a></li>
