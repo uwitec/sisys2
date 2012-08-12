@@ -11,13 +11,16 @@
 	<constant name="struts.configuration.files" value="mysql.ini" />
     
 	<include file="struts_manageUser.xml"></include>
-	
+	<include file="struts_manageSearch.xml"></include>
 	<!--<include file="struts_manageBatch.xml"></include>
-	
-	--><include file="struts_workForm.xml"></include>
+	-->
+	<include file="struts_workForm.xml"></include>
+
 
 	<include file="struts_manageData.xml"></include>
 	
-	<!--<include file="struts_manageSearch.xml"></include>
+
 	
---></struts>
+
+</struts>
+
