@@ -66,6 +66,7 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 
 	public int delete(SmallWf entity) {
 		// TODO Auto-generated method stub
+
 		sql = "delete from smallWf where id=?";
 		value.add(entity.getId());
 		genericTemplate.setSqlValue(sql);
