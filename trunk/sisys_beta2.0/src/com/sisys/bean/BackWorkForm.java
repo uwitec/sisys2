@@ -4,19 +4,41 @@ import java.util.Date;
 
 public class BackWorkForm {
 	private int id;
+	private String proNo;
+	private String batchNo;
+	private String procNo;
 	private String staNo;
 	private String kind;
 	private double workHours;
 	private String name;
 	private String checkNo;
 	private String respNo;
+	private Date time;
 	private int isDelete;
-	private Date deleteDate;
+	private Date deleteTime;
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getProNo() {
+		return proNo;
+	}
+	public void setProNo(String proNo) {
+		this.proNo = proNo;
+	}
+	public String getBatchNo() {
+		return batchNo;
+	}
+	public void setBatchNo(String batchNo) {
+		this.batchNo = batchNo;
+	}
+	public String getProcNo() {
+		return procNo;
+	}
+	public void setProcNo(String procNo) {
+		this.procNo = procNo;
 	}
 	public String getStaNo() {
 		return staNo;
@@ -54,31 +76,41 @@ public class BackWorkForm {
 	public void setRespNo(String respNo) {
 		this.respNo = respNo;
 	}
+	public Date getTime() {
+		return time;
+	}
+	public void setTime(Date time) {
+		this.time = time;
+	}
 	public int getIsDelete() {
 		return isDelete;
 	}
 	public void setIsDelete(int isDelete) {
 		this.isDelete = isDelete;
 	}
-	public Date getDeleteDate() {
-		return deleteDate;
+	public Date getDeleteTime() {
+		return deleteTime;
 	}
-	public void setDeleteDate(Date deleteDate) {
-		this.deleteDate = deleteDate;
+	public void setDeleteTime(Date deleteTime) {
+		this.deleteTime = deleteTime;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((batchNo == null) ? 0 : batchNo.hashCode());
 		result = prime * result + ((checkNo == null) ? 0 : checkNo.hashCode());
 		result = prime * result
-				+ ((deleteDate == null) ? 0 : deleteDate.hashCode());
+				+ ((deleteTime == null) ? 0 : deleteTime.hashCode());
 		result = prime * result + id;
 		result = prime * result + isDelete;
 		result = prime * result + ((kind == null) ? 0 : kind.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((proNo == null) ? 0 : proNo.hashCode());
+		result = prime * result + ((procNo == null) ? 0 : procNo.hashCode());
 		result = prime * result + ((respNo == null) ? 0 : respNo.hashCode());
 		result = prime * result + ((staNo == null) ? 0 : staNo.hashCode());
+		result = prime * result + ((time == null) ? 0 : time.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(workHours);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -93,15 +125,20 @@ public class BackWorkForm {
 		if (getClass() != obj.getClass())
 			return false;
 		BackWorkForm other = (BackWorkForm) obj;
+		if (batchNo == null) {
+			if (other.batchNo != null)
+				return false;
+		} else if (!batchNo.equals(other.batchNo))
+			return false;
 		if (checkNo == null) {
 			if (other.checkNo != null)
 				return false;
 		} else if (!checkNo.equals(other.checkNo))
 			return false;
-		if (deleteDate == null) {
-			if (other.deleteDate != null)
+		if (deleteTime == null) {
+			if (other.deleteTime != null)
 				return false;
-		} else if (!deleteDate.equals(other.deleteDate))
+		} else if (!deleteTime.equals(other.deleteTime))
 			return false;
 		if (id != other.id)
 			return false;
@@ -117,6 +154,16 @@ public class BackWorkForm {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (proNo == null) {
+			if (other.proNo != null)
+				return false;
+		} else if (!proNo.equals(other.proNo))
+			return false;
+		if (procNo == null) {
+			if (other.procNo != null)
+				return false;
+		} else if (!procNo.equals(other.procNo))
+			return false;
 		if (respNo == null) {
 			if (other.respNo != null)
 				return false;
@@ -127,6 +174,11 @@ public class BackWorkForm {
 				return false;
 		} else if (!staNo.equals(other.staNo))
 			return false;
+		if (time == null) {
+			if (other.time != null)
+				return false;
+		} else if (!time.equals(other.time))
+			return false;
 		if (Double.doubleToLongBits(workHours) != Double
 				.doubleToLongBits(other.workHours))
 			return false;
@@ -134,24 +186,31 @@ public class BackWorkForm {
 	}
 	@Override
 	public String toString() {
-		return "backWorkForm [id=" + id + ", staNo=" + staNo + ", kind=" + kind
-				+ ", workHours=" + workHours + ", name=" + name + ", checkNo="
-				+ checkNo + ", respNo=" + respNo + ", isDelete=" + isDelete
-				+ ", deleteDate=" + deleteDate + "]";
+		return "BackWorkForm [batchNo=" + batchNo + ", checkNo=" + checkNo
+				+ ", deleteTime=" + deleteTime + ", id=" + id + ", isDelete="
+				+ isDelete + ", kind=" + kind + ", name=" + name + ", proNo="
+				+ proNo + ", procNo=" + procNo + ", respNo=" + respNo
+				+ ", staNo=" + staNo + ", time=" + time + ", workHours="
+				+ workHours + "]";
 	}
-	public BackWorkForm(int id, String staNo, String kind, double workHours,
-			String name, String checkNo, String respNo, int isDelete,
-			Date deleteDate) {
+	public BackWorkForm(int id, String proNo, String batchNo, String procNo,
+			String staNo, String kind, double workHours, String name,
+			String checkNo, String respNo, Date time, int isDelete,
+			Date deleteTime) {
 		super();
 		this.id = id;
+		this.proNo = proNo;
+		this.batchNo = batchNo;
+		this.procNo = procNo;
 		this.staNo = staNo;
 		this.kind = kind;
 		this.workHours = workHours;
 		this.name = name;
 		this.checkNo = checkNo;
 		this.respNo = respNo;
+		this.time = time;
 		this.isDelete = isDelete;
-		this.deleteDate = deleteDate;
+		this.deleteTime = deleteTime;
 	}
 	public BackWorkForm() {
 		super();
