@@ -92,7 +92,7 @@ public class SearchPd3Service {
 		}
 		
 		
-		
+		map.put("disqkind", "disqkind");
 		map.put("result", "success");
 		map.put("disqStaff", disqStaff);
 		map.put("total", total);

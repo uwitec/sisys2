@@ -140,6 +140,7 @@ public class SearchWhService {
 		List<String> dateNo = new ArrayList<String>();
 		
 		Double workHours = 0.0;
+		Double bworkHours = 0.0;
 		Double salary = 0.0;
 		
 		Calendar startTime = Calendar.getInstance();
@@ -156,18 +157,22 @@ public class SearchWhService {
 		
 		Calendar curTime = Calendar.getInstance();
 		for(int i = 0;i < listMap.size();i++){
-			List<SmallWf> list = (List<SmallWf>)listMap.get(i).get("list");
+			List<SmallWf> list = (List<SmallWf>)listMap.get(i).get("smallWf");
+			List<BackWorkForm> list1 = (List<BackWorkForm>)listMap.get(i).get("backWorkForm");
 			Map<String,SmallWf> map = new HashMap<String,SmallWf>();
 			Map<String,Double> totalMap = new HashMap<String,Double>();
 			workHours = 0.00;
+			bworkHours = 0.00;
 			salary = 0.00;
 			for(int j = 0;j < list.size();j++){
-				WorkHoursTab wh = list.get(j);
+				SmallWf wh = list.get(j);
+				BackWorkForm bwf = list1.get(j);
 				curTime.setTime(wh.getTime());
 				String day = curTime.getTime().getMonth()+1 + "-" + curTime.getTime().getDate();
 				//根据当前对应时间段编号存储wh信息
 				map.put(day, wh);
-				workHours += wh.getWorkHours();
+				bworkHours +=bwf.getWorkHours();
+				workHours += wh.getBworkHours();
 				salary += wh.getSalary();
 			}
 			list.clear();
@@ -187,7 +192,7 @@ public class SearchWhService {
 	@SuppressWarnings("unchecked")
 	public static void main(String args[]) throws Exception{
 		SearchWhService s=new SearchWhService();
-		List<WorkHoursTab> list=new ArrayList<WorkHoursTab>();
+		List<SmallWf> list=new ArrayList<SmallWf>();
 		String staName =new String();
 		Map<String,Object> map = new HashMap<String, Object>();
 		map=s.Search("5","2012-07-01","2012-07-19");

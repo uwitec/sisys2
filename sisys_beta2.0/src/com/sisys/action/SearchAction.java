@@ -284,11 +284,18 @@ public class SearchAction extends BaseAction {
 
 		mapPd3 = searchPd3Service.SearchPd3(startTime, endTime);
 
-		request.setAttribute("resultMap", mapPd3);
 		if (mapPd3.get("result").equals("success")) {
+
+			ActionContext.getContext().put("Pd3sheet", mapPd3.get("disqStaff"));
+			ActionContext.getContext().put("total", mapPd3.get("total"));
+			ActionContext.getContext().put("disqkind", mapPd3.get("disqkind"));
+			ActionContext.getContext().put("sTime", startTime);
+			ActionContext.getContext().put("eTime", endTime);
 			return SUCCESS;
-		} else
+		} else{
+			ActionContext.getContext().put("message", mapPd3.get("message"));
 			return ERROR;
+		}
 	}
 
 	// 不合格产品部门统计
