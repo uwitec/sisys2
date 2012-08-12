@@ -33,17 +33,21 @@ public class BackWorkFormDAO  extends GenericQueryImpl<BackWorkForm, BackWorkFor
 	
 	public int create(BackWorkForm entity) {
 		// TODO Auto-generated method stub
-		sql = "insert into backWorkForm values (?,?,?,?,?,?,?,?,?)";
+		sql = "insert into backWorkForm values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		value.add(entity.getId());
+		value.add(entity.getProNo());
+		value.add(entity.getBatchNo());
+		value.add(entity.getProcNo());
 		value.add(entity.getStaNo());
 		value.add(entity.getKind());
 		value.add(entity.getWorkHours());
 		value.add(entity.getName());
 		value.add(entity.getCheckNo());
 		value.add(entity.getRespNo());
+		value.add(entity.getTime());
 		value.add(entity.getIsDelete());
-		value.add(entity.getDeleteDate());
+		value.add(entity.getDeleteTime());
 		
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
@@ -79,18 +83,21 @@ public class BackWorkFormDAO  extends GenericQueryImpl<BackWorkForm, BackWorkFor
 
 	public int update(BackWorkForm entity, Integer pk) {
 		// TODO Auto-generated method stub
-		sql = "update backWorkForm set staNo=?,kind=?,workHours=?,name=?,checkNo=?," +
-				"respNo=?,isDelete=?,deleteDate=? where Id=?";
+		sql = "update backWorkForm set proNo=?,batchNo=?,procNo=?,staNo=?,kind=?,workHours=?,name=?,checkNo=?," +
+				"respNo=?,time=?,isDelete=?,deleteTime=? where Id=?";
 
-
+		value.add(entity.getProNo());
+		value.add(entity.getBatchNo());
+		value.add(entity.getProcNo());
 		value.add(entity.getStaNo());
 		value.add(entity.getKind());
 		value.add(entity.getWorkHours());
 		value.add(entity.getName());
 		value.add(entity.getCheckNo());
 		value.add(entity.getRespNo());
+		value.add(entity.getTime());
 		value.add(entity.getIsDelete());
-		value.add(entity.getDeleteDate());
+		value.add(entity.getDeleteTime());
 		value.add(entity.getId());
 	
 		
@@ -169,6 +176,13 @@ public class BackWorkFormDAO  extends GenericQueryImpl<BackWorkForm, BackWorkFor
 	
 	public void queryWorkForm(String sql) {
 		this.findEntityByList(sql);
+	}
+	
+	public static void main(String[] args) {
+		BackWorkFormDAO bwf = new BackWorkFormDAO();
+		BackWorkForm backWf = new BackWorkForm(0,"760402","2012","1","51016","test",2.34,"admin","51021","51024",new Date(),0,new Date());
+		System.out.println(bwf.create(backWf));
+		System.out.println(new BackWorkFormDAO().count());
 	}
 }
 
