@@ -39,40 +39,22 @@
 	<div align="center">
 		<table cellspacing="0" summary="The technical specifications of the Apple PowerMac G5 series" id="MainTable">
 				<tr align="center">
-					<th rowspan=2 width=20%>姓名</th>
-					<th rowspan=2 width=20%>工号</th>
-					<th rowspan=2 width=20%>总量</th>
-					<th colspan=<%=gType.size()%>  width=20%>工废</th>
-					<th colspan=<%=lType.size()%> width=20%>料废</th>
+					<th>姓名</th>
+					<th>工号</th>
+					<th>总量</th>
+					<s:iterator value="disqkind" id="dk">
+					<th><s:property value="disDesc"/></th></s:iterator>				
 				</tr>
-				<tr>
-					<%for(DisqKind g:gType){%>
-						<th><%=g.getDisDesc() %></th>
-					<%} for(DisqKind l:lType){%>
-						<th><%=l.getDisDesc() %></th>
-					<%} %>
-				</tr>
-				<%for(int i=0;i<pd3List.size();i++){
-					Map<Integer,Object> dMap = (Map<Integer,Object>)pd3List.get(i).get("dMap");
-				%>
-				<tr align="center">
-					<td><%=pd3List.get(i).get("staName") %></td>
-					<td><a target="_blank" href=SearchPpByDisq?staNo=<%=pd3List.get(i).get("staNo")%>><%=pd3List.get(i).get("staNo")%></a></td>
-					<td><%=pd3List.get(i).get("disqNum") %></td>
-					<%for(DisqKind g:gType){ %>
-						<%if(dMap.get(g.getId()) == null){ %>
-							<td>&nbsp;</td>
-						<%}else{ %>
-							<td><%=dMap.get(g.getId()) %></td>
-					<%}} %>
-					<%for(DisqKind l:lType){ %>
-						<%if(dMap.get(l.getId()) == null){ %>
-							<td>&nbsp;</td>
-						<%}else{ %>
-							<td><%=dMap.get(l.getId()) %></td>
-					<%}} %>
-				</tr>
-				<%} %>
+				<s:iterator value="Pd3sheet" id="pd3">
+				<tr align="center">				
+					<td><s:property value="staName"/></td>
+					<td><s:property value="staNo"/></td>	
+					<td><s:property value="disqNum"/></td>	
+					<s:set name="list1" value="%{pd3.disqTypeNum}"></s:set>
+					<s:iterator value="%{list1}" id="type">
+					</s:iterator>
+				</tr>	
+				</s:iterator>
 				
 				
 

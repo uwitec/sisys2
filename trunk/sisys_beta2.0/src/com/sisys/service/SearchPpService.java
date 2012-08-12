@@ -67,7 +67,7 @@ public class SearchPpService {
 		sql="select * from smallWf where staffNo='"+staNo+"' and time between '"+starttime+"' and '"+endtime+"'";
 		//workFormDAO.queryWorkForm(sql);
 		list=smallWfDAO.findEntityByList(sql);
-		System.out.println(list.get(0));
+		//System.out.println(list.get(0));
 		if(list.size() == 0){
 			map.put("result", "error");
 			map.put("message", "工单不存在！请重新输入！");
