@@ -6,7 +6,7 @@
 <struts>
  	<package name="search" namespace="/" extends="struts-default">
  		<interceptors>
-			<interceptor name="checkLogin" class="data.interceptor.CheckLoginInterceptor"/>
+			<interceptor name="checkLogin" class="com.sisys.interceptor.CheckLoginInterceptor"/>
 				<interceptor-stack name="teamwareStack">
 					 <interceptor-ref name="checkLogin"/>
 	                 <interceptor-ref name="defaultStack"/>
@@ -20,7 +20,7 @@
             <result name="login">/login.jsp</result>  
         </global-results>
 		
-		<action name="SearchJd" class="data.action.SearchAction" method="SearchJd">
+		<action name="SearchJd" class="com.sisys.action.SearchAction" method="SearchJd">
 			<result name="success" type="redirectAction">
 				<param name="actionName">ShowJd</param>
 				<param name="namespace">/</param>
@@ -28,52 +28,52 @@
 			<result name="error">/SearchJD_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchIndexJd" class="data.action.SearchAction" method="SearchIndexJd">
+		<action name="SearchIndexJd" class="com.sisys.action.SearchAction" method="SearchIndexJd">
 			<result name="success">/SheetJD1.jsp</result>
 			<result name="error">/login.jsp</result>
 		</action>
 		
-		<action name="ShowJd" class="data.action.SearchAction" method="ShowJd">
+		<action name="ShowJd" class="com.sisys.action.SearchAction" method="ShowJd">
 			<result name="success">/SheetJD1.jsp</result>
 			<result name="error">/SearchJD_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchWh" class="data.action.SearchAction" method="SearchWh">
+		<action name="SearchWh" class="com.sisys.action.SearchAction" method="SearchWh">
 			<result name="success">/SheetHour1.jsp</result>
 			<result name="error">/SearchHour_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchPp" class="data.action.SearchAction" method="SearchPp">
+		<action name="SearchPp" class="com.sisys.action.SearchAction" method="SearchPp">
 			<result name="success">/SheetPeople1.jsp</result>
 			<result name="error">/SearchPeople_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchPpByDisq" class="data.action.SearchAction" method="SearchPpByDisq">
+		<action name="SearchPpByDisq" class="com.sisys.action.SearchAction" method="SearchPpByDisq">
 			<result name="success">/SheetPeople1.jsp</result>
 			<result name="error">/SearchPeople_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchPd" class="data.action.SearchAction" method="SearchPd">
+		<action name="SearchPd" class="com.sisys.action.SearchAction" method="SearchPd">
 			<result name="success">/SheetProduct1-1.jsp</result>
 			<result name="error">/SearchProduct_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchPd2" class="data.action.SearchAction" method="SearchPd2">
+		<action name="SearchPd2" class="com.sisys.action.SearchAction" method="SearchPd2">
 			<result name="success">/SheetProduct1-2.jsp</result>
 			<result name="error">/SearchProduct2_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchPd3" class="data.action.SearchAction" method="SearchPd3">
+		<action name="SearchPd3" class="com.sisys.action.SearchAction" method="SearchPd3">
 			<result name="success">/SheetProduct1-3.jsp</result>
 			<result name="error">/SearchProduct3_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchPd4" class="data.action.SearchAction" method="SearchPd4">
+		<action name="SearchPd4" class="com.sisys.action.SearchAction" method="SearchPd4">
 			<result name="success">/SheetProduct1-4.jsp</result>
 			<result name="error">/SearchProduct4_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
 		
-		<action name="SearchPd5" class="data.action.SearchAction" method="SearchPd5">
+		<action name="SearchPd5" class="com.sisys.action.SearchAction" method="SearchPd5">
 			<result name="success">/SheetProduct1-5.jsp</result>
 			<result name="error">/SearchProduct5_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>

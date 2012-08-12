@@ -16,10 +16,11 @@
 <%
 	
 	String error = request.getParameter("result");
+	String code = (String) request.getAttribute("code");
 	if(error == null) {
 		error = "";
 	} else if(error.equals("success")) {
-		error = "添加成功！";
+		error = "添加成功！条码为：" + code;
 	}  else if(error.equals("false")) {
 		error = "添加失败！";
 	}  else if(error.equals("repetition")) {
@@ -153,7 +154,7 @@
 									<td><span>产品编号</span></td>
 									<td><input type="text" width="50px"  id="proNo" name="product.proNo"  onblur='display()'></td>
 									<td><span>批次号</span></td>
-									<td><input type="text" width="50px"  name="batch.batchNo"></td>
+									<td><input type="text" width="50px"  id="batchNo" name="batch.batchNo"></td>
 									
 								</tr>
 								<tr>

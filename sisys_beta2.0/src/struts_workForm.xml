@@ -89,8 +89,8 @@
 		</action>
 		
 		<action name="codeSearch" class="com.sisys.action.WorkFormSearchAction" method="codeSearch">
-			<result name="success">/FormDetail_admin.jsp?current=workForm</result>
-			<result name="error">/FormDetail_operator.jsp?current=workForm</result>
+			<result name="success">/FormAdd.jsp?current=workForm</result>
+			<result name="error">/BeforeAdd.jsp?current=workForm</result>
 		</action>
 	</package>
 

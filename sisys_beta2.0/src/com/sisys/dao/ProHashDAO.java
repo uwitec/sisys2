@@ -2,56 +2,42 @@ package com.sisys.dao;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
-import com.sisys.bean.SmallWf;
-import com.sisys.bean.mapping.SmallWfMapping;
+import com.sisys.bean.Batch;
+import com.sisys.bean.ProHash;
+import com.sisys.bean.mapping.BatchMapping;
+import com.sisys.bean.mapping.ProHashMapping;
 import com.sisys.util.GenericQueryImpl;
 
-
-public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
+public class ProHashDAO  extends GenericQueryImpl<ProHash, ProHashMapping>{
 
 	//GenericTemplate genericTemplate;
 	List<Object> value;
 	String sql;
 	int result;
 	boolean flag;
-	List<SmallWf> list;
-	static SmallWfMapping SmallWfMapping = new SmallWfMapping();
+	List<ProHash> list;
+	static ProHashMapping proHashMapping = new ProHashMapping();
 	
-	/**
-	 * 构造函数
-	 */
-	public SmallWfDAO() {
-		super(SmallWf.class, SmallWfMapping);
-		//genericTemplate = new GenericTemplate();
+	public ProHashDAO(Class<? extends ProHash> entityClass,
+			ProHashMapping entity) {
+		super(entityClass, entity);
+		// TODO Auto-generated constructor stub
 		value = new ArrayList<Object>();
 		result = 0;
 		flag = false;
-		list = new ArrayList<SmallWf>();
+		list = new ArrayList<ProHash>();
 	}
-	
-	public int create(SmallWf entity) {
+	public int create(ProHash entity) {
 		// TODO Auto-generated method stub
-		sql = "insert into smallwf values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		sql = "insert into proHash values (?,?,?,?)";
 		
 		value.add(entity.getId());
-		value.add(entity.getWfId());
 		value.add(entity.getProNo());
-		value.add(entity.getProcId());
-		value.add(entity.getQuaNum());
-		value.add(entity.getDisqDetail());
-		value.add(entity.getStaNo());
-		value.add(entity.getBworkHours());
-		value.add(entity.getSalary());
-		
-		
-		value.add(entity.getgWasteNum());
-		value.add(entity.getlWasteNum());
-		value.add(entity.getTime());
-		value.add(0);
-		value.add(null);
+		value.add(entity.getHash());
+		value.add(entity.getOwn());		
 		
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
@@ -66,10 +52,9 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 		return result;
 	}
 
-	public int delete(SmallWf entity) {
+	public int delete(ProHash entity) {
 		// TODO Auto-generated method stub
-
-		sql = "delete from smallWf where id=?";
+		sql = "delete from proHash where id=?";
 		value.add(entity.getId());
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
@@ -84,26 +69,14 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 		return result;
 	}
 
-	public int update(SmallWf entity, Integer pk) {
+	public int update(ProHash entity, Integer pk) {
 		// TODO Auto-generated method stub
-		sql = "update smallWf set wfId=?,proNo=?,procId=?,quaNum=?," +
-				"disqDetail=?,staffNo=?,bworkHours=?,salary=?,gWasteNum=?,lWasteNum=?,time=? where Id=?";
+		sql = "update proHash set proNo=?,hash=?,own=? where id=?";
 
-		value.add(entity.getWfId());
 		value.add(entity.getProNo());
-		value.add(entity.getProcId());
-		value.add(entity.getQuaNum());
-		value.add(entity.getDisqDetail());
-		value.add(entity.getStaNo());
-		value.add(entity.getBworkHours());
-		value.add(entity.getSalary());
-		value.add(entity.getgWasteNum());
-		value.add(entity.getlWasteNum());
-		value.add(entity.getTime());
-		
-		
+		value.add(entity.getHash());
+		value.add(entity.getOwn());
 		value.add(entity.getId());
-	
 		
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
@@ -117,20 +90,20 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 		return result;
 	}
 
-	public List<SmallWf> read(SmallWf entity) {
+	public List<ProHash> read(ProHash entity) {
 		// TODO Auto-generated method stub
-		SmallWfMapping smallWfMapping = new SmallWfMapping();
-		SmallWf smallWf = null;
+		ProHashMapping proHashMapping = new ProHashMapping();
+		ProHash proHash = null;
 		ResultSet resultSet;
-		sql = "select * from smallWf where Id=?";
+		sql = "select * from proHash where id=?";
 		value.add(entity.getId());
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
 		try {
 			resultSet = genericTemplate.executeQuery();
 			//System.out.print(genericTemplate.executeQuery());
-			smallWf = smallWfMapping.mapping(resultSet);
-			list.add(smallWf);
+			proHash = proHashMapping.mapping(resultSet);
+			list.add(proHash);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		} finally {
@@ -139,19 +112,19 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 		return list;
 	}
 
-	public List<SmallWf> readByPk(Integer pk) {
+	public List<ProHash> readByPk(Integer pk) {
 		// TODO Auto-generated method stub
-		SmallWfMapping smallWfMapping = new SmallWfMapping();
-		SmallWf smallWf = null;
+		ProHashMapping proHashMapping = new ProHashMapping();
+		ProHash proHash = null;
 		ResultSet resultSet;
-		sql = "select * from smallWf where Id=?";
+		sql = "select * from proHash where id=?";
 		value.add(pk);
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
 		try {
 			resultSet = genericTemplate.executeQuery();
-			smallWf = smallWfMapping.mapping(resultSet);
-			list.add(smallWf);
+			proHash = proHashMapping.mapping(resultSet);
+			list.add(proHash);
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -163,13 +136,14 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 	public int count() {
 		// TODO Auto-generated method stub
 		ResultSet resultSet;
-		sql = "select count(*) from smallWf";
+		sql = "select count(*) from proHash";
 		genericTemplate.setSqlValue(sql);
 		try {
 			resultSet = genericTemplate.executeQuery();
 			if(resultSet.next()) {
 				result = resultSet.getInt("count(*)");
 			}
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -177,8 +151,34 @@ public class SmallWfDAO extends GenericQueryImpl<SmallWf, SmallWfMapping> {
 		}
 		return result;
 	}
-	
-	public void queryWorkForm(String sql) {
-		this.findEntityByList(sql);
+	/**
+	 * 查询未使用的hash码
+	 * @param proNo
+	 * @return
+	 */
+	public List<ProHash> readByProNo(String proNo) {
+		List<ProHash> pList = new ArrayList<ProHash>();
+		ProHashMapping proHashMapping = new ProHashMapping();
+		ProHash proHash = null;
+		ResultSet resultSet;
+		sql = "select * from proHash where proNo=? and own=?";
+		value.add(proNo);
+		value.add(0);
+		genericTemplate.setSqlValue(sql);
+		genericTemplate.setValues(value);
+		try {
+			resultSet = genericTemplate.executeQuery();
+			if(resultSet.next()) {
+				proHash = proHashMapping.mapping(resultSet);
+			}
+			pList.add(proHash);
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			genericTemplate.close();
+		}
+		return pList;
 	}
+
+
 }

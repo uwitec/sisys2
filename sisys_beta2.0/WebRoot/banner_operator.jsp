@@ -35,7 +35,7 @@
 
 			<li><a href="#" class="nav-top-item <%if(cur.equals("workForm")) out.println("current"); %>"> 工单管理 </a>
 				<ul>
-					<li><a href="formAdd.action">添加工单</a></li>
+					<li><a href="BeforeAdd.jsp?current=workForm">添加工单</a></li>
 					<li><a href="reformAdd.jsp?current=workForm">添加返工工单</a></li>
 					<li><a href="searchByBatch_operator.jsp?current=workForm">工单列表</a></li>
 					<li><a href="searchReForm_operator.jsp?current=workForm">返工工单列表</a></li>
