@@ -85,7 +85,7 @@
 												sc =(ScheduleTab)((Map)jdMap.get(j)).get(t);%>
 												<%if(sc != null){ %>
 												<td style="background-color:<%=sc.getColorNo() %>">
-												<%=sc.getNum() %>
+												<%=sc.getQuaNum() %>
 												</td>
 												<%}else{%>
 												<td>&nbsp</td>

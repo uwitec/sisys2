@@ -61,7 +61,7 @@ public class SearchPd3Service {
 			StaffDAO staffDAO = new StaffDAO();
 			List<Staff> staff = new ArrayList<Staff>();
 			Map<String, Object> equalsmap5 = new HashMap<String, Object>();
-			equalsmap5.put("staffNo", smallWf.get(i).getStaNo());
+			equalsmap5.put("staNo", smallWf.get(i).getStaNo());
 			equalsmap5.put("isDelete", 0);
 			staff = staffDAO.findEntity(equalsmap5);
 			
@@ -76,13 +76,12 @@ public class SearchPd3Service {
 					for(int k = 0; k <disqStaff.get(i).disqTypeNum.size(); k++) {
 						disqStaff.get(i).disqTypeNum.set(k, disqStaff.get(i).disqTypeNum.get(k)+disqStaff.get(j).disqTypeNum.get(k));									
 					}
-				}
-				disqStaff.remove(j);
-				j--;					
+					disqStaff.remove(j);
+					j--;
+				}								
 			}
 		}
 		//计算合计
-		
 		for(int k=0;k<disqStaff.get(0).disqTypeNum.size();k++){
 			int tmp_total=0;
 			for (int i = 0; i <disqStaff.size(); i++) {
@@ -92,7 +91,7 @@ public class SearchPd3Service {
 		}
 		
 		
-		map.put("disqkind", "disqkind");
+		map.put("disqkind", disqKind);
 		map.put("result", "success");
 		map.put("disqStaff", disqStaff);
 		map.put("total", total);
@@ -103,13 +102,12 @@ public class SearchPd3Service {
 	public static void main(String args[]) throws SQLException, ParseException{
 		SearchPd3Service s=new SearchPd3Service();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map=s.SearchPd3("2012-07-08","2012-08-08");	
+		map=s.SearchPd3("2012-08-01","2012-08-31");	
 		System.out.println(map);
 	}
 	class DisqStaff {
-		String staName;
-		String staNo;
-		int disqNum;
-		List<Integer> disqTypeNum = new ArrayList<Integer>();
+		public String staName;
+		public String staNo;
+		public List<Integer> disqTypeNum = new ArrayList<Integer>();
 	}
 }

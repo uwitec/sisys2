@@ -14,7 +14,7 @@ import com.sisys.bean.Batch;
 import com.sisys.bean.User;
 import com.sisys.bean.ScheduleTab;
 
-/*import com.sisys.service.SearchJdService;*/
+
 import com.sisys.service.SearchJdService;
 import com.sisys.service.SearchPd2Service;
 import com.sisys.service.SearchPd3Service;
@@ -24,7 +24,7 @@ import com.sisys.service.SearchPdService;
 import com.sisys.service.SearchPpService;
 import com.sisys.service.SearchWhService;
 
-//import com.sisys.service.SearchWhService;
+
 
 public class SearchAction extends BaseAction {
 	/**
@@ -286,9 +286,10 @@ public class SearchAction extends BaseAction {
 
 		if (mapPd3.get("result").equals("success")) {
 
-			ActionContext.getContext().put("Pd3sheet", mapPd3.get("disqStaff"));
+			ActionContext.getContext().put("disqStaff", mapPd3.get("disqStaff"));
 			ActionContext.getContext().put("total", mapPd3.get("total"));
 			ActionContext.getContext().put("disqkind", mapPd3.get("disqkind"));
+			System.out.println(mapPd3.get("disqStaff"));
 			ActionContext.getContext().put("sTime", startTime);
 			ActionContext.getContext().put("eTime", endTime);
 			return SUCCESS;

@@ -143,11 +143,11 @@ public class SearchPpService {
 		List<PeopleComp> list=new ArrayList<PeopleComp>();
 		String staName =new String();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map=s.SearchPp("10002","2012-07-10","2012-07-16");
+		map=s.SearchPp("51022","2012-08-01","2012-08-30");
 		
 		list=(List<PeopleComp>) map.get("list");
 		staName=(String) map.get("staName");
-		System.out.println(staName);
+		System.out.println(map);
 		Iterator<PeopleComp> it =list.iterator();
 		//list.iterator();
 		while(it.hasNext())

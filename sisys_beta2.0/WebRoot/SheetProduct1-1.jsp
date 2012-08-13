@@ -34,7 +34,7 @@
 		<table cellspacing="0" summary="The technical specifications of the Apple PowerMac G5 series" id="MainTable">
 				<tr align="center">
 					<th width=25%>批次号</th>
-					<th width=25%>已完成总数量</th>
+					<th width=25%>总数量</th>
 					<th width=25%>不合格品数量</th>
 					<th width=25%>不合格品率</th>
 				</tr>
@@ -42,7 +42,7 @@
 				<s:iterator value="Pdsheet">
 				<tr align="center">				
 					<td><s:property value="batchNo"/></td>	
-					<td><s:property value="completeNum" /></td>	
+					<td><s:property value="totalNum" /></td>	
 					<td><s:property value="disqNum"/></td>	
 					<td><s:property value="disqPercent"/></td>
 				</tr>	

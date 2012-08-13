@@ -1,13 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@page import="com.sisys.bean.DisqKind"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%
-	Map resultMap = (Map)request.getAttribute("resultMap");
-	List<DisqKind> gType = (List<DisqKind>)resultMap.get("gWasteType");
-	List<DisqKind> lType = (List<DisqKind>)resultMap.get("lWasteType");
-	List<Map<String,Object>> pd3List = (List<Map<String,Object>>)resultMap.get("pd3List");
-	
- %>
+
 <html>
   <head>
     <title>生产物流统计系统</title>
@@ -30,7 +24,7 @@
   </head>
   
   <body>
-    <h2 align="center" id="tableTitle">员工废品统计表(时间:2012/06/02-2012/07/02)</h2>
+    <h2 align="center" id="tableTitle">员工废品统计表(时间:<s:property value="sTime"/>-<s:property value="eTime"/>)</h2>
 	<form name="tableExport" method="POST" action="tableExport.action">
 		<input type="hidden" name="title">
 		<input type="hidden" name="content">
@@ -40,23 +34,28 @@
 		<table cellspacing="0" summary="The technical specifications of the Apple PowerMac G5 series" id="MainTable">
 				<tr align="center">
 					<th>姓名</th>
-					<th>工号</th>
-					<th>总量</th>
-					<s:iterator value="disqkind" id="dk">
-					<th><s:property value="disDesc"/></th></s:iterator>				
+					<th>工号</th>					
+					<s:iterator value="disqkind">
+					<th><s:property value="disDesc"/></th>
+					</s:iterator>	
+					<th>总量</th>			
 				</tr>
-				<s:iterator value="Pd3sheet" id="pd3">
+				<s:iterator value="disqStaff" id="pd3">
 				<tr align="center">				
-					<td><s:property value="staName"/></td>
-					<td><s:property value="staNo"/></td>	
-					<td><s:property value="disqNum"/></td>	
-					<s:set name="list1" value="%{pd3.disqTypeNum}"></s:set>
-					<s:iterator value="%{list1}" id="type">
+					<td><s:property value="#pd3.staName"/></td>
+					<td><s:property value="staNo"/></td>		
+					<s:set name="list1" value="#pd3.disqTypeNum"></s:set>
+					<s:iterator value="#list1" id="type">
+					<td><s:property/></td>
 					</s:iterator>
 				</tr>	
 				</s:iterator>
-				
-				
+				<tr align="center">
+				<td colspan=2>合计</td>
+				<s:iterator value="total">			
+				<td><s:property/></td>	
+				</s:iterator>
+				</tr>
 
 			</table>
 	</div>
