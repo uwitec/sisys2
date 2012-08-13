@@ -1,36 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="com.sisys.bean.WFstandard"%>
 <%@ page import="java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%	
-	String error = request.getParameter("result");
-	if(error == null) {
-		error = "";
-	}  else if(error.equals("isdelete")) {
-		error = "该工单已删除，不能进行以上操作！";
-	} else if(error.equals("error")) {
-		error = "操作失败，请检查后重试！";
-	} else if(error.equals("outofline")) {
-		error = "删除工单后，则后工序产品数大于前工序产品数，请检查后重试！";
-	} else if(error.equals("outoflineAlter")) {
-		error = "修改工单后，则后工序产品数大于前工序产品数，请检查后重试！";
-	} else if(error.equals("successAlter")) {
-		error = "修改成功！";
-	} else if(error.equals("success")) {
-		error = "删除成功！";
+	String result = request.getParameter("result");
+	String error = "";
+	if(result.equals("error")){
+		error = "逻辑错误！";
 	}
 	
-%>
-
-<%
-	String name = (String)request.getAttribute("name");
-	WFstandard wfsave = (WFstandard)request.getAttribute("wfsave");
-	List<String> disqkind = (List)request.getAttribute("disqkind");
-	List<String> disqnum = (List)request.getAttribute("disqnum");
-	Map<String, String> disqmap = (Map)request.getAttribute("disqmap");
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
@@ -124,56 +104,71 @@
 					
 						<label>
 							<%=error%>
-							${error}
 						</label>
 						
 					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
-						
+						<%if(error.equals("")){ %>
 						<table class = "">
-						<tr>
-									<td><span>完成员工工号</span></td>
-									<td>1</td>
+								<tr>
+									<td><span>产品编号</span></td>
+									<td>${bwf.proNo }</td>
 				
-									<td><span>完成员工姓名</span></td>
-									<td>aa</td>
+									<td><span>产品名称</span></td>
+									<td>${bwf.proName }</td>
 										
 								</tr>
 								<tr>
-									<td><span>审批人工号</span></td>
-									<td>2</td>
-								
-									<td><span>审批人姓名</span></td>
-									<td>bb</td>
+									<td><span>批次号</span></td>
+									<td>${bwf.batchNo }</td>
+										
+								</tr>
+								<tr>
+									<td><span>工序号</span></td>
+									<td>${bwf.procNo }</td>
+				
+									<td><span>工序名称</span></td>
+									<td>${bwf.procName }</td>
+										
+								</tr>
+								<tr>
+									<td><span>员工工号</span></td>
+									<td>${bwf.staNo }</td>
+				
+									<td><span>员工姓名</span></td>
+									<td>${bwf.staName }</td>
+										
 								</tr>
 								<tr>
 									<td><span>返工类别</span></td>
-									<td>waste</td>
+									<td>${bwf.kind }</td>
 								</tr>
 								<tr>
 									
 									<td><span>返工工时</span></td>
-									<td>1</td>
+									<td>${bwf.workHours }</td>
 								</tr>
 								<tr>
 									<td><span>责任人工号</span></td>
-									<td>3</td>
+									<td>${bwf.respNo }</td>
 								
 									<td><span>责任人姓名</span></td>
-									<td>cc</td>
+									<td>${bwf.respName }</td>
 								</tr>
 								<tr>
-									<td><span>是否删除</span></td>
-									<td>no</td>
-									<td><span>删除时间</span></td>
-									<td></td>
+									<td><span>审批人工号</span></td>
+									<td>${bwf.checkNo }</td>
+								
+									<td><span>审批人用户名</span></td>
+									<td>${bwf.checkName }</td>
 								</tr>
+								
 								<tr>
 									<td><span>统计员姓名</span></td>
-									<td>abc</td>
+									<td>${bwf.name }</td>
 								</tr>
 						</table>
 						
-						
+						<%} %>
 					</div> <!-- End #tab1 -->
 					
   

@@ -64,6 +64,54 @@
 			<result name="outofline">/FormDetail_admin.jsp?result=doutofline&amp;current=workForm</result>
 		</action>
 		
+		<action name="addBackFormIndex" class="com.sisys.action.BackWorkFormAction" method="backFormAddIndex">
+			<result name="success">reformAdd.jsp?current=workForm</result>
+			<result name="error">reformAdd.jsp?indexResult=kindError&amp;current=workForm</result>
+		</action>
+		
+		<action name="addBackForm" class="com.sisys.action.BackWorkFormAction" method="backFormAdd">
+			<result name="success" type="redirectAction">
+				<param name="actionName">addBackFormIndex</param>
+				<param name="namespace">/</param>
+				<param name="result">success</param>
+			</result>
+			<result name="batchError" type="redirectAction">
+				<param name="actionName">addBackFormIndex</param>
+				<param name="namespace">/</param>
+				<param name="result">batchError</param>
+			</result>
+			<result name="error" type="redirectAction">
+				<param name="actionName">addBackFormIndex</param>
+				<param name="namespace">/</param>
+				<param name="result">error</param>
+			</result>
+		</action>
+		
+		<action name="searchBackForm" class="com.sisys.action.BackWorkFormAction" method="backFormSearch">
+			<result name="success">ReFormSearch_${level}.jsp?current=workForm</result>
+			<result name="error">searchReForm_${level}.jsp?current=workForm</result>
+		</action>
+		
+		<action name="showBackForm" class="com.sisys.action.BackWorkFormAction" method="backFormShow">
+			<result name="success">ReFormDetail_${level}.jsp?result=success&amp;current=workForm</result>
+			<result name="error">ReFormDetail_${level}.jsp?result=error&amp;current=workForm</result>
+		</action>
+		
+		<action name="deleteBackForm" class="com.sisys.action.BackWorkFormAction" method="backFormDelete">
+			<result name="success">searchReForm_admin.jsp?result=success&amp;current=workForm</result>
+			<result name="error">searchReForm_admin.jsp?result=deleteError&amp;current=workForm</result>
+		</action>
+		
+		<action name="editBackForm" class="com.sisys.action.BackWorkFormAction" method="backFormShow">
+			<result name="success">ReFormAlter_admin.jsp?current=workForm</result>
+			<result name="error">searchReForm_admin.jsp?result=editError&amp;current=workForm</result>
+		</action>
+		
+		<action name="updateBackForm" class="com.sisys.action.BackWorkFormAction" method="backFormUpdate">
+			<result name="success">ReFormDetail_admin.jsp?result=success&amp;current=workForm</result>
+			<result name="error">ReFormDetail_admin.jsp?result=updateError&amp;current=workForm</result>
+		</action>
+		
 		<action name="formAddResult" class="com.sisys.action.WorkFormSearchAction" method="Firstpage">
 			<result name="admin">/FormSearch_admin.jsp?result=success&amp;current=workForm</result>
 			<result name="operator">/FormSearch_operator.jsp?result=success&amp;current=workForm</result>
