@@ -58,7 +58,7 @@
 			<result name="error">/FormDetail_admin.jsp?result=error&amp;current=workForm</result>
 		</action>		
 		
-		<action name="deleteWorkForm" class="com.sisys.action.WorkFormAction" method="formalter">
+		<action name="deleteWorkForm" class="com.sisys.action.WorkFormAction" method="formdelete">
 			<result name="success">/FormDetail_admin.jsp?result=dsuccess&amp;current=workForm</result>
 			<result name="isdelete">/FormDetail_admin.jsp?result=disdelete&amp;current=workForm</result>
 			<result name="outofline">/FormDetail_admin.jsp?result=doutofline&amp;current=workForm</result>

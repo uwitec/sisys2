@@ -80,7 +80,7 @@ public class WorkFormDAO extends GenericQueryImpl<WorkForm, WorkFormMapping> {
 
 	public int update(WorkForm entity, Integer pk) {
 		// TODO Auto-generated method stub
-		sql = "update workForm set batchId=?,procId=?,quaNum=?,disquaNum=?,time=?," +
+		sql = "update workForm set batchId=?,procId=?,quaNum=?,disqNum=?,time=?," +
 				"isDelete=?,deleteTime=?,name=? where Id=?";
 
 		value.add(entity.getBatchId());

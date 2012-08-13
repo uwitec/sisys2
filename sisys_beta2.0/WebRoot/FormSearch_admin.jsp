@@ -160,7 +160,7 @@
 										
 										
 											<a href="preFormAlter.action?wfId=${entity.wfId}" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
-										    <a href="formdelete.action?wfId=${entity.wfId}" title="Delete" onclick="return confirm('确实要删除吗？');"><img src="resources/images/icons/cross.png" alt="Delete" /></a>
+										    <a href="deleteWorkForm.action?wfId=${entity.wfId}" title="Delete" onclick="return confirm('确实要删除吗？');"><img src="resources/images/icons/cross.png" alt="Delete" /></a>
 										     <a href="formDetail.action?wfId=${entity.wfId}" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
 											
 										</td>

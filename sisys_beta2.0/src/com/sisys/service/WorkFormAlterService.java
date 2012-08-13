@@ -141,6 +141,14 @@ public class WorkFormAlterService {
 		if (sche.getNum() + quaNum + disqNum != bat.getTotalNum()) {
 			return "outofline";
 		}
+		// 如果不是第一道工序，判断前工序是否存在
+		if (!"1".equals(procNo)) {
+			if (schelist.get(Integer.parseInt(procNo) - 2).getNum()
+					+ schelist.get(Integer.parseInt(procNo) - 2).getDisqNum()
+					+ schelist.get(Integer.parseInt(procNo) - 2).getQuaNum() == 0) {
+				return "outofline";
+			}
+		}
 		/*
 		 * 判断原工单是否是最后一道工序，若是 判断后工序是否已完成，若后工序已完成;
 		 * 1.若修改后的工单所对应的批次及工序与原工单都相同，判断整体逻辑 ; 
