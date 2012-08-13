@@ -66,9 +66,6 @@
 <script type="text/javascript"
 	src="resources/scripts/addWorkForm.js"></script>
 
-<script type="text/javascript"
-	src="resources/scripts/addDisqKind.js"></script>
-
 <!-- jQuery -->
 <script type="text/javascript"
 	src="resources/scripts/jquery-1.3.2.min.js"></script>
@@ -144,11 +141,11 @@
 						<form id="" method="post" action="alterWorkForm.action">
 						    <input type="hidden" name="wfId" value="${wfsave.wfId}" />
 							<div class="formHeader">
-								<span>产品编号</span><input type="text" name="proNo" value="${wfsave.proNo}">
-								<span>产品名称</span><input type="text" name="proName" value="${wfsave.proName}">
-								<span>工序编号</span><input type="text" name="procNo" value="${wfsave.procNo}">
-								<span>工序名称</span><input type="text" name="procName" value="${wfsave.procName}">
-								<span>批次编号</span><input type="text" name="batNo" value="${wfsave.batchNo}">
+								<span>产品编号</span><input type="text" name="proNo" value="${wfsave.proNo}" id="proNo" onblur='displayProNo()'>
+								<span>产品名称</span><input type="text" name="proName" value="${wfsave.proName}" id="proName">
+								<span>工序编号</span><input type="text" name="procNo" value="${wfsave.procNo}" id="procNo" onblur='displayProcNo()'>
+								<span>工序名称</span><input type="text" name="procName" value="${wfsave.procName}" id="procName">
+								<span>批次编号</span><input type="text" name="batNo" value="${wfsave.batchNo}" id="batNo">
 							</div>
 							<table class="formAdd" id="table">
 								<tr>
@@ -177,8 +174,8 @@
 								</tr>
 								
 								<tr class="formContent">
-									<td><input type="text" name="staNo1" value="${wfsave.staNo1}"></td>
-									<td><input type="text" name="" value="${wfsave.staName1}"></td>
+									<td><input type="text" name="staNo1" value="${wfsave.staNo1}" id="staNo1" onblur='displayStaNo1()'></td>
+									<td><input type="text" name="staName1" value="${wfsave.staName1}" id="staName1"></td>
 									<td><input type="text" name="quaNum1" value="${wfsave.quaNum1}"></td>
 									<td><input type="text" name="disqNum1-1" value="${wfsave.disqNum1[0]}"></td>
 									<td><input type="text" name="disqNum1-2" value="${wfsave.disqNum1[1]}"></td>
@@ -193,8 +190,8 @@
 									<td><input type="text" name="disqNum1-11" value="${wfsave.disqNum1[10]}"></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo2" value="${wfsave.staNo2}"></td>
-									<td><input type="text" name="" value="${wfsave.staName2}"></td>
+									<td><input type="text" name="staNo2" value="${wfsave.staNo2}" id="staNo2" onblur='displayStaNo2()'></td>
+									<td><input type="text" name="staName2" value="${wfsave.staName2}" id="staName2"></td>
 									<td><input type="text" name="quaNum2" value="${wfsave.quaNum2}"></td>
 									<td><input type="text" name="disqNum2-1" value="${wfsave.disqNum2[0]}"></td>
 									<td><input type="text" name="disqNum2-2" value="${wfsave.disqNum2[1]}"></td>
@@ -209,8 +206,8 @@
 									<td><input type="text" name="disqNum2-11" value="${wfsave.disqNum2[10]}"></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo3" value="${wfsave.staNo3}"></td>
-									<td><input type="text" name="" value="${wfsave.staName3}"></td>
+									<td><input type="text" name="staNo3" value="${wfsave.staNo3}" id="staNo3" onblur='displayStaNo3()'></td>
+									<td><input type="text" name="staName3" value="${wfsave.staName3}" id="staName3"></td>
 									<td><input type="text" name="quaNum3" value="${wfsave.quaNum3}"></td>
 									<td><input type="text" name="disqNum3-1" value="${wfsave.disqNum3[0]}"></td>
 									<td><input type="text" name="disqNum3-2" value="${wfsave.disqNum3[1]}"></td>
@@ -225,8 +222,8 @@
 									<td><input type="text" name="disqNum3-11" value="${wfsave.disqNum3[10]}"></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo4" value="${wfsave.staNo4}"></td>
-									<td><input type="text" name="" value="${wfsave.staName4}"></td>
+									<td><input type="text" name="staNo4" value="${wfsave.staNo4}" id="staNo4" onblur='displayStaNo4()'></td>
+									<td><input type="text" name="staName4" value="${wfsave.staName4}" id="staName4"></td>
 									<td><input type="text" name="quaNum4" value="${wfsave.quaNum4}"></td>
 									<td><input type="text" name="disqNum4-1" value="${wfsave.disqNum4[0]}"></td>
 									<td><input type="text" name="disqNum4-2" value="${wfsave.disqNum4[1]}"></td>
@@ -241,8 +238,8 @@
 									<td><input type="text" name="disqNum4-11" value="${wfsave.disqNum4[10]}"></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo5" value="${wfsave.staNo5}"></td>
-									<td><input type="text" name="" value="${wfsave.staName5}"></td>
+									<td><input type="text" name="staNo5" value="${wfsave.staNo5}" id="staNo5" onblur='displayStaNo5()'></td>
+									<td><input type="text" name="staName5" value="${wfsave.staName5}" id="staName5"></td>
 									<td><input type="text" name="quaNum5" value="${wfsave.quaNum5}"></td>
 									<td><input type="text" name="disqNum5-1" value="${wfsave.disqNum5[0]}"></td>
 									<td><input type="text" name="disqNum5-2" value="${wfsave.disqNum5[1]}"></td>
