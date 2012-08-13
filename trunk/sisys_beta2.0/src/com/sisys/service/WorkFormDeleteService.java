@@ -88,6 +88,8 @@ public class WorkFormDeleteService {
 		work.setDeleteTime(date);
 		std = new ScheduleTabDAO();
 		std.update(sche, 1);
+		wfd = new WorkFormDAO();
+		wfd.update(work, 1);
 		//搜索小工单，找到与该大工单对应的若干小工单
 		sql = "select * from smallwf where wfid=" + work.getId();
 		SmallWfDAO swd = new SmallWfDAO();

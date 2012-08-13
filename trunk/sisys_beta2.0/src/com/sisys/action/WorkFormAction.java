@@ -362,7 +362,7 @@ public class WorkFormAction extends BaseAction {
 	//删除工单
 	public String formdelete(){
 		String state;
-		String wfid = request.getParameter("wfid");
+		String wfid = request.getParameter("wfId");
 		WorkFormDeleteService wfds = new WorkFormDeleteService();
 		state = wfds.wfdelete(wfid);
 		return state;

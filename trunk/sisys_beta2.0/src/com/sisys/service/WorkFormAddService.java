@@ -101,6 +101,14 @@ public class WorkFormAddService {
 		if (sche.getNum() + quaNum + disqNum != bat.getTotalNum()) {
 			return "outofline";
 		}
+		// 如果不是第一道工序，判断前工序是否存在
+		if (!"1".equals(procNo)) {
+			if (schelist.get(Integer.parseInt(procNo) - 2).getNum()
+					+ schelist.get(Integer.parseInt(procNo) - 2).getDisqNum()
+					+ schelist.get(Integer.parseInt(procNo) - 2).getQuaNum() == 0) {
+				return "outofline";
+			}
+		}
 		if (sche.getIsEnd() == 1) {
 			if (bat.getStatus() == 2) {
 				bat.setStatus(4);
