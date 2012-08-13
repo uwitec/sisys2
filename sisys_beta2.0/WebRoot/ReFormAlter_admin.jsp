@@ -1,48 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.sisys.bean.WFstandard"%>
 <%@ page import="com.sisys.bean.DisqKind"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<%
-	
-	List<DisqKind> dkList = (List)request.getAttribute("dkList");
-	System.out.println(dkList);
-	String disqKind1 = (String)request.getAttribute("disqKind1");
-	Integer disqNum1 = (Integer)request.getAttribute("disqNum1");
-	String disqKind2 = (String)request.getAttribute("disqKind1");
-	Integer disqNum2 = (Integer)request.getAttribute("disqNum1");
-	String disqKind3 = (String)request.getAttribute("disqKind1");
-	Integer disqNum3 = (Integer)request.getAttribute("disqNum1");
-	String disqKind4 = (String)request.getAttribute("disqKind1");
-	Integer disqNum4 = (Integer)request.getAttribute("disqNum1");
-	String disqKind5 = (String)request.getAttribute("disqKind1");
-	Integer disqNum5 = (Integer)request.getAttribute("disqNum1");
-	String disqKind6 = (String)request.getAttribute("disqKind1");
-	Integer disqNum6 = (Integer)request.getAttribute("disqNum1");
-	String disqKind7 = (String)request.getAttribute("disqKind1");
-	Integer disqNum7 = (Integer)request.getAttribute("disqNum1");
-	String disqKind8 = (String)request.getAttribute("disqKind1");
-	Integer disqNum8 = (Integer)request.getAttribute("disqNum1");
-	
-	WFstandard wfsave = (WFstandard)request.getAttribute("wfsave");
-	
-%>
-
-<%	
-	String error = request.getParameter("result");
-	if(error == null) {
-		error = "";
-	}  else if(error.equals("false")) {
-		error = "修改失败！";
-	} else if(error.equals("success")) {
-		error = "修改成功！";
-	}
-%>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -82,6 +46,24 @@
 		<![endif]-->
 
 <!--                       Javascripts                       -->
+<script type="text/javascript">
+function check(){
+	var batNo = document.getElementById("batchNo").value;
+	var staName = document.getElementById("staName").value;
+ 	var proName = document.getElementById("proName").value;
+ 	var respName = document.getElementById("respName").value;
+ 	var checkName = document.getElementById("checkName").value;
+ 	var procName = document.getElementById("procName").value;
+ 	if(staName=="该员工不存在" || proName=="该产品不存在" || procName=="该工序不存在" || respName=="该员工不存在" || checkName=="该员工不存在") {
+ 		alert("输入信息有误，请重新输入！");
+ 	} else if(batNo == "" || staName == "" || proName == "" || procName == "" || respName=="" || checkName=="") {
+ 		alert("输入信息不能为空！");
+ 	}
+ 	 else {
+ 		document.getElementById("myForm").submit();
+ 	}
+}
+</script>
 
 <script type="text/javascript"
 	src="resources/scripts/addWorkForm.js"></script>
@@ -158,41 +140,62 @@
 
 
 						<label>
-							<%=error%>
 						<label>
 						
-						<form id="" method="post" action="formAlter.action">
-							<input type="hidden" value="${wfId}" name="wfId"/>
-							<table class="">
+						<form id="myForm" action="updateBackForm.action" method="post">
+							<input type=hidden name="id" value="${bwf.id }"/>
+							<input type=hidden name="name" value="${bwf.name }"/>
+							<table class="" id="table">
 								<tr>
-									<td><span>完成员工工号</span></td>
-									<td><input type="text" width="50px"  id="staNo" name="staNo" onblur="displayStaNo()" value="${wfsave.staNo}"/></td>
-									<td><span>完成员工姓名</span></td>
-									<td><input type="text" width="50px"  id="staName" name="staName" value="${wfsave.staName}"/></td>
+									<td><span>产品编号</span></td>
+									<td><input type="text" width="50px" id="proNo" name="proNo" value="${bwf.proNo }" onblur="displayProNo()"/></td>
+				
+									<td><span>产品名称</span></td>
+									<td><input readOnly="true" type="text" width="50px"  id="proName" name="proName" value="${bwf.proName }"/></td>
 								</tr>
 								<tr>
-									<td><span>审批人工号</span></td>
-									<td><input type="text" width="50px" id="procNo" name="procNo" onblur="displayProcNo()" value="${wfsave.procNo}"/></td>
-									<td><span>审批人姓名</span></td>
-									<td><input type="text" width="50px" id="procName" name="procName" value="${wfsave.procName}"/></td>
+									<td><span>批次号</span></td>
+									<td><input type="text" width="50px" id="batchNo" name="batchNo" value="${bwf.batchNo }"/></td>
+								</tr>
+								<tr>
+									<td><span>工序号</span></td>
+									<td><input type="text" width="50px" id="procNo" name="procNo" value="${bwf.procNo }" onblur="displayProcNo()"/></td>
+				
+									<td><span>工序名称</span></td>
+									<td><input readOnly="true" type="text" width="50px"  id="procName" name="procName" value="${bwf.procName }"/></td>
+								</tr>
+								<tr>
+									<td><span>员工工号</span></td>
+									<td><input type="text" width="50px" id="staNo" name="staNo" value="${bwf.staNo }" onblur="displayStaNo()"/></td>
+				
+									<td><span>员工姓名</span></td>
+									<td><input readOnly="true" type="text" width="50px"  id="staName" name="staName" value="${bwf.staName}"/></td>
 								</tr>
 								<tr>
 									<td><span>返工类别</span></td>
-									<td><input type="text" width="50px" name="batchNo" value="${wfsave.batchNo}"/></td>
-								</tr>
-								<tr>
-									<input type="hidden" name="disqkinds" value="${disqkinds}"/>
+									<td><input type="text" width="50px" id="kind" name="kind" value="${bwf.kind }"/></td>
+									
 									<td><span>返工工时</span></td>
-									<td><input type="text" width="50px" name="quaNum" value="${wfsave.quaNum}"/></td>
+									<td><input type="text" width="50px" id="workHours" name="workHours" value="${bwf.workHours }"/></td>
 								</tr>
 								<tr>
 									<td><span>责任人工号</span></td>
-									<td><input type="text" width="50px" id="procNo" name="procNo" onblur="displayProcNo()" value="${wfsave.procNo}"/></td>
+									<td><input type="text" width="50px" id="respNo" name="respNo" value="${bwf.respNo }" onblur="displayRespNo()"/></td>
+								
 									<td><span>责任人姓名</span></td>
-									<td><input type="text" width="50px" id="procName" name="procName" value="${wfsave.procName}"/></td>
+									<td><input readOnly="true" type="text" width="50px" id="respName" name="respName" value="${bwf.respName }"/></td>
 								</tr>
 								<tr>
-									<td><input class="button" type="submit" value="提交"/></td>
+									<td><span>审批人工号</span></td>
+									<td><input type="text" width="50px" id="checkNo" name="checkNo" value="${bwf.checkNo }" onblur="displayCheckNo()"/></td>
+								
+									<td><span>审批人姓名</span></td>
+									<td><input readOnly="true" type="text" width="50px" id="checkName" name="checkName" value="${bwf.checkName }"/></td>
+								</tr>
+								
+								
+								<tr>
+									<td><input class="button" type="button" onclick="check()" value="提交"/></td>
 									<td><input class="button" type="reset" value="重置"/></td>
 								</tr>
 							</table>

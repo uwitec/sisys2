@@ -1,29 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.sisys.bean.User"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 
-<% String error = request.getParameter("result");
-	if(error == null) {
-		error = "";
-	} else if(error.equals("success")) {
-		error = "修改成功！";
-	} else if(error.equals("nameError")){
-		error = "用户名重复，请重新输入！";
-	} else if(error.equals("false")){
-		error = "修改失败！";
-	} else if(error.equals("empty")) {
-		error = "输入不能为空！";
-	} else if(error.equals("inputerror")) {
-		error = "输入错误，请检查后重新输入！";
-	} else if(error.equals("error")) {
-		error = "输入不能为空！";
+<% Map resultMap = (Map)request.getAttribute("resultMap");
+	String error = "";
+	if(resultMap != null){
+		if(resultMap.get("result").equals("error")){
+			error = resultMap.get("message").toString();
+		}
 	}
-	
-	User user = (User)session.getAttribute("user"); 
-	String username = user.getUsername();
-	String password = user.getPassword();
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -117,42 +105,28 @@
 				<div class="content-box-content">
 					
 					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->
-						 <form id="myForm" action="searchByBatch.action" method="get">
     	<label>
     		<%=error%>
     	</label>
     	
+    	<form id="MyForm" action="searchBackForm.action" method="post">
     	<table>
-    		<form action="ReFormSearch_viewer.jsp?current=workForm" method="post">
-    		<tr>
-    		<td align="center">按审批人搜索</td>
-    		</tr>
-    		<tr>
-    			<td>工号</td>
-    			<td><input type="text" name="staffNo"></td>
-    		</tr>
-    		<tr>
-    		<td align="center">按责任人搜索</td>
-    		</tr>
-    		<tr>
-    			<td>工号</td>
-    			<td><input type="text" name="staffNo"></td>
-    		</tr>
-    		<tr>
-    		<td align="center">按完成员工搜索</td>
-    		</tr>
-    		<tr>
-    			<td>工号</td>
-    			<td><input type="text" name="staffNo"></td>
-    		</tr>
-    		<tr>
-    			<td><a class="button" type="button" href="ReFormSearch_viewer.jsp?current=workForm" >提交</a></td>
-    			<!--<td><input class="button" type="submit" value="提交"></td>
-				--><td><input class="button" type="reset" value="重置"></td>
-			</tr>
-			</form>
+	    		<p>
+	    			<span> 请选择：</span>
+						<input type="radio" name="key" checked="checked" value="check"/>按审批人搜索
+						<input type="radio" name="key" value="resp"/>按责任人搜索
+						<input type="radio" name="key" value="sta"/>按完成员工搜索
+	    		</p>
+	    		<tr>
+	    			<td>工号</td>
+	    			<td><input type="text" id="staNo" name="staNo"/></td>
+	    		</tr>
+	    		<tr>
+	    			<td><input class="button" type="submit" value="提交"/></td>
+					<td><input class="button" type="reset" value="重置"/></td>
+				</tr>
     	</table>
-    </form>
+		</form>
 						
 					</div> <!-- End #tab1 -->
 					

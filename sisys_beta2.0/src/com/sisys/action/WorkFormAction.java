@@ -10,13 +10,12 @@ import com.sisys.service.WorkFormSearchService;
 
 @SuppressWarnings("serial")
 public class WorkFormAction extends BaseAction {
-
 	private ManageWorkFormService mwfs;
 
 	public String execute() throws Exception {
 		return null;
 	}
-
+	
 	//添加工单
 	public String formadd() {
 

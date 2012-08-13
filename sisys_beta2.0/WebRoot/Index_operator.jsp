@@ -113,7 +113,7 @@
 					添加工单
 				</span></a></li>
 				
-				<li><a class="shortcut-button" href="reformAdd.jsp?current=workForm"><span>
+				<li><a class="shortcut-button" href="addBackFormIndex.action"><span>
 					<img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
 					添加返工工单
 				</span></a></li>

@@ -1,23 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.sisys.bean.DisqKind"%>
+<%@ page import="com.sisys.bean.BackKind"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 
 <%	
-	String error = request.getParameter("result");
+	String error = request.getAttribute("result")==null?null:request.getAttribute("result").toString();
+	String indexResult = request.getParameter("indexResult");
+	int flag = 0;
 	if(error == null) {
 		error = "";
-	}  else if(error.equals("batcherror")) {
-		error = "批次正处于错误状态，不可添加！";
-	} else if(error.equals("outofline")) {
-		error = "后工序产品数量大于前工序产品数量或产品已完成，添加失败！";
-	} else if(error.equals("error")) {
+	}else if(error.equals("error")) {
 		error = "添加失败！";
+	}else if(error.equals("batchError")) {
+		error = "添加失败！批次号不存在！";
+	}else if(error.equals("success")){
+		error = "添加成功！";
 	}
+	if(indexResult != null && indexResult.equals("kindError")){
+		error = "请先在数据库中添加返工类别！";
+		flag = 1;
+	}
+	
+	List<BackKind> kindList = (List<BackKind>)request.getAttribute("kindList");
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -62,13 +70,15 @@
 <script type="text/javascript">
 function check(){
 	var batNo = document.getElementById("batNo").value;
-	var quaNum = document.getElementById("quaNum").value;
 	var staName = document.getElementById("staName").value;
  	var proName = document.getElementById("proName").value;
+ 	var respName = document.getElementById("respName").value;
+ 	var checkName = document.getElementById("checkName").value;
  	var procName = document.getElementById("procName").value;
- 	if(staName=="该员工不存在" || proName=="该产品不存在" || procName=="该工序不存在") {
+ 	var kind = document.getElementById("kind").value;
+ 	if(staName=="该员工不存在" || proName=="该产品不存在" || procName=="该工序不存在" || respName=="该员工不存在" || checkName=="该员工不存在") {
  		alert("输入信息有误，请重新输入！");
- 	} else if(batNo == "" || quaNum == "" || staName == "" || proName == "" || procName == "") {
+ 	} else if(batNo == "" || staName == "" || proName == "" || procName == "" || respName=="" || checkName=="" || kind == "") {
  		alert("输入信息不能为空！");
  	}
  	 else {
@@ -158,8 +168,26 @@ function check(){
 							<%=error%>
 						</label>
 						
-						<form id="myForm" action="addWorkForm.action" method="post">
+						<form id="myForm" action="addBackForm.action" method="post">
 							<table class="" id="table">
+								<tr>
+									<td><span>产品编号</span></td>
+									<td><input type="text" width="50px" id="proNo" name="proNo" onblur="displayProNo()"/></td>
+				
+									<td><span>产品名称</span></td>
+									<td><input readOnly="true" type="text" width="50px"  id="proName" name="proName"/></td>
+								</tr>
+								<tr>
+									<td><span>批次号</span></td>
+									<td><input type="text" width="50px" id="batNo" name="batchNo" /></td>
+								</tr>
+								<tr>
+									<td><span>工序号</span></td>
+									<td><input type="text" width="50px" id="procNo" name="procNo" onblur="displayProcNo()"/></td>
+				
+									<td><span>工序名称</span></td>
+									<td><input readOnly="true" type="text" width="50px"  id="procName" name="procName"/></td>
+								</tr>
 								<tr>
 									<td><span>员工工号</span></td>
 									<td><input type="text" width="50px" id="staNo" name="staNo" onblur="displayStaNo()"/></td>
@@ -168,42 +196,37 @@ function check(){
 									<td><input readOnly="true" type="text" width="50px"  id="staName" name="staName"/></td>
 								</tr>
 								<tr>
-									<td><span>审批人工号</span></td>
-									<td><input type="text" width="50px" id="proNo" name="proNo" onblur="displayProNo()"/></td>
-								
-									<td><span>审批人姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px" id="proName" name="proName"/></td>
-								</tr>
-								<tr>
 									<td><span>返工类别</span></td>
-									<td><input type="text" width="50px" id="batNo" name="batchNo"/></td>
-								</tr>
-								<tr>
+									<td>
+										<select name="kind" id="kind">
+									<option value="">----请选择--</option>
+									<%for(int i = 0;i < kindList.size();i++){%>
+									<option value="<%=kindList.get(i).getName() %>"><%=kindList.get(i).getName() %></option>
+									<%} %>
+								</select>
+									</td>
 									
 									<td><span>返工工时</span></td>
-									<td><input type="text" width="50px" id="quaNum" name="quaNum"/></td>
+									<td><input type="text" width="50px" id="workHours" name="workHours"/></td>
 								</tr>
 								<tr>
 									<td><span>责任人工号</span></td>
-									<td><input type="text" width="50px" id="proNo" name="proNo" onblur="displayProNo()"/></td>
+									<td><input type="text" width="50px" id="respNo" name="respNo" onblur="displayRespNo()"/></td>
 								
 									<td><span>责任人姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px" id="proName" name="proName"/></td>
+									<td><input readOnly="true" type="text" width="50px" id="respName" name="respName"/></td>
+								</tr>
+								<tr>
+									<td><span>审批人工号</span></td>
+									<td><input type="text" width="50px" id="checkNo" name="checkNo" onblur="displayCheckNo()"/></td>
+								
+									<td><span>审批人姓名</span></td>
+									<td><input readOnly="true" type="text" width="50px" id="checkName" name="checkName"/></td>
 								</tr>
 								
+								
 								<tr>
-									<td><span>统计员姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px" name="name" value="${name}"/></td>
-								</tr>
-									
-								<!--
-								<tr>
-									<td><input class="button" type="button" onclick="check()" value="提交"/></td>
-									<td><input class="button" type="reset" value="重置"/></td>
-								</tr>
-								-->
-								<tr>
-									<td><input class="button" type="button" value="提交"/></td>
+									<td><input class="button" type="button" <%if(flag==0){ %>onclick="check()"<%}else{ %> onclick="<%=error %>" <%} %> value="提交"/></td>
 									<td><input class="button" type="reset" value="重置"/></td>
 								</tr>
 							</table>

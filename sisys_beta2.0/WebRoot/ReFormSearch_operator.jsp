@@ -1,28 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-
-<%@ page import="com.sisys.bean.Page"%>
-
+<%@ page import="java.util.*"%>
+<%@ page import="com.sisys.bean.BWFstandard"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%	
-	String error = (String)request.getAttribute("result");
-	if(error == null) {
-		error = "";
-	}  else if(error.equals("outoflineAlter")) {
-		error = "修改后后工序产品数大于前工序产品数，请检查后重试！";
-	} else if(error.equals("isdeleteAlter")) {
-		error = "记录已删除，不能修改！";
-	}  else if(error.equals("errorAlter")) {
-		error = "修改失败！";
-	} else if(error.equals("successAlter")){
-		error = "修改成功！";
-	} else if(error.equals("error")){
-		error = "逻辑错误！";
+	Map resultMap = (Map)request.getAttribute("resultMap");
+	String error = "";
+	List<BWFstandard> list = null;
+	if(resultMap.get("result").equals("error")){
+		error = resultMap.get("message").toString();
+	}else{		
+		list = (List<BWFstandard>)resultMap.get("list");
 	}
-	
 %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -125,22 +117,23 @@
 					<div class="tab-content default-tab" id="tab1"> <!-- This is the target div. id must match the href of this div's tab -->						
 						
 						<label>
-							${error}
 							<%=error %>
 						</label>
 						
 						<table>
 							
-							<thead>
-								<tr>								   
+							<thead>							   
 								  <tr>
 									<th width=2%>Id</th>
+									<th width=5%>产品</th>
+									<th width=5%>批次</th>
+									<th width=5%>工序号</th>
+									<th width=5%>工序</th>
 									<th width=5%>员工姓名</th>
-									<th width=5%>审批人姓名</th>
-									<th width=5%>责任人姓名</th>
 									<th width=5%>工时</th>
+									<th width=5%>责任人姓名</th>
+									<th width=5%>审批人姓名</th>
 									<th width=5%>操作</th>
-								</tr>
 								</tr>
 								
 							</thead>
@@ -152,19 +145,27 @@
 							</tfoot>
 						 
 							<tbody>
+								<%for(int i = 0;i < list.size();i++){
+									BWFstandard bwf = list.get(i);	
+								 %>
 									<tr>
-										<td>1</td>
-										<td>aa</td>
-										<td>bb</td>
-										<td>cc</td>
-										<td>1</td>
+										<td><%=bwf.getId() %></td>
+										<td><%=bwf.getProName() %></td>										
+										<td><%=bwf.getBatchNo() %></td>										
+										<td><%=bwf.getProcNo() %></td>										
+										<td><%=bwf.getProcName() %></td>
+										<td><%=bwf.getStaName() %></td>
+										<td><%=bwf.getWorkHours() %></td>
+										<td><%=bwf.getRespName() %></td>
+										<td><%=bwf.getCheckName() %></td>
 										<td>
 										<!-- Icons -->
 										
-										     <a href="ReFormDetail_operator.jsp?current=workForm" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="Edit Meta" /></a>
+										     <a href="showBackForm.action?id=<%=bwf.getId() %>" title="Edit Meta"><img src="resources/images/icons/hammer_screwdriver.png" alt="查看详情" /></a>
 											
 										</td>
-									</tr>	
+									</tr>
+								<%} %>	
 							</tbody>
 							
 						</table>
