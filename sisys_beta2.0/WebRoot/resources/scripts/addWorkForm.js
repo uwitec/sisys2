@@ -45,11 +45,13 @@
        //根据工序号得到工序名称
         function displayProcNo(){
           var procNo =document.getElementById("procNo").value.trim(); 
+          var batNo =document.getElementById("batNo").value.trim(); 
+          var proNo =document.getElementById("proNo").value.trim(); 
           if(procNo == ""){
         	  return;
           }
           creatXmlHttp();
-          xmlHttp.open("GET", "preAddWorkFormProcNo.action?procNo="+procNo , true);
+          xmlHttp.open("POST", "preAddWorkFormProcNo.action?procNo="+procNo+"&batNo="+batNo+"&proNo="+proNo , true);
           xmlHttp.onreadystatechange = doworkProcNo;
           xmlHttp.send(null);
         }

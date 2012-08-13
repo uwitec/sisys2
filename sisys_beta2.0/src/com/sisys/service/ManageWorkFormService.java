@@ -5,9 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sisys.bean.Batch;
+import com.sisys.bean.Flowpath;
 import com.sisys.bean.Processes;
 import com.sisys.bean.Product;
 import com.sisys.bean.Staff;
+import com.sisys.dao.BatchDAO;
+import com.sisys.dao.FlowpathDAO;
 import com.sisys.dao.ProcessesDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.StaffDAO;
@@ -29,18 +33,29 @@ public class ManageWorkFormService {
 		return sb.toString();
 	}
 	
-	public String preAddProcNo(String procNo) {
-		StringBuffer sb = new StringBuffer("");
-		ProcessesDAO pdao = new ProcessesDAO();
-		Map<String, Object> equalsMap = new HashMap<String, Object>();
-		equalsMap.put("procNo", procNo);
-		List<Processes> pList = pdao.findEntity(equalsMap);
-		if(pList.size() != 0) {
-			sb.append(pList.get(0).getProcName());
-		} else {
-			sb.append("error");
+	public String preAddProcNo(String procNo, String proNo, String batNo) {
+		String sql;
+		sql = "select * from product where proNo='" + proNo + "'";
+		ProductDAO prod = new ProductDAO();
+		List<Product> prolist = prod.findEntityByList(sql);
+		sql = "select * from batch where batchNo='" + batNo + "' and proId=" + prolist.get(0).getId();
+		BatchDAO batd = new BatchDAO();
+		List<Batch> batlist = batd.findEntityByList(sql);
+		sql = "select * from flowpath where Id=" + batlist.get(0).getFlowId();
+		FlowpathDAO fpd = new FlowpathDAO();
+		List<Flowpath> fplist = fpd.findEntityByList(sql);
+		String[] seq;
+		seq = fplist.get(0).getSequence().split("-");
+		if (Integer.parseInt(procNo) > seq.length) {
+			return "error";
 		}
-		return sb.toString();
+		sql = "select * from processes where Id=" + seq[Integer.parseInt(procNo) - 1];
+		ProcessesDAO pd = new ProcessesDAO();
+		List<Processes> plist = pd.findEntityByList(sql);
+		if (plist.size() == 0) {
+			return "error";
+		}
+		return plist.get(0).getProcName();
 	}
 	
 	public String preAddStaNo(String staNo) {

@@ -158,11 +158,11 @@ function check(){
 						<form id="myForm" action="addWorkForm.action" method="post">
 						    <input type="hidden" name="name" value="${name}" />
 							<div class="formHeader">
-								<span>产品编号</span><input type="text" name="proNo" value="${proNo}">
+								<span>产品编号</span><input type="text" name="proNo" id="proNo" value="${proNo}">
 								<span>产品名称</span><input type="text" name="proName" readOnly="true" value="${proName}">
 								<span>工序编号</span><input type="text" name="procNo" id="procNo" onblur='displayProcNo()'>
 								<span>工序名称</span><input type="text" name="procName" id="procName" readOnly="true">
-								<span>批次编号</span><input type="text" name="batNo" value="${batNo}">
+								<span>批次编号</span><input type="text" name="batNo" id="batNo" value="${batNo}">
 							</div>
 							<table class="formAdd" id="table">
 								<tr>

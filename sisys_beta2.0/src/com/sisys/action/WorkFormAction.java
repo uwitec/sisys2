@@ -400,7 +400,9 @@ public class WorkFormAction extends BaseAction {
 	public String preAddProcNo() {
 		mwfs = new ManageWorkFormService();
 		String procNo = request.getParameter("procNo");
-		String result = mwfs.preAddProcNo(procNo);
+		String proNo = request.getParameter("proNo");
+		String batNo = request.getParameter("batNo");
+		String result = mwfs.preAddProcNo(procNo, proNo, batNo);
 		response.setCharacterEncoding("UTF-8");
 		try {
 			response.getWriter().write(result);
