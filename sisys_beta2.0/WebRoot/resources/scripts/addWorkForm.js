@@ -62,7 +62,7 @@
        			var text = xmlHttp.responseText;
        			if(text == "error"){
        				document.getElementById("procName").value = "";
-       				alert("该工序号不存在！请重新输入！");
+       				alert("该批次或工序不存在！请重新输入！");
        			}else{
        				document.getElementById("procName").value = text;//将内容放入
        			}       				

@@ -41,6 +41,9 @@ public class ManageWorkFormService {
 		sql = "select * from batch where batchNo='" + batNo + "' and proId=" + prolist.get(0).getId();
 		BatchDAO batd = new BatchDAO();
 		List<Batch> batlist = batd.findEntityByList(sql);
+		if (batlist.size() == 0) {
+			return "error";
+		}
 		sql = "select * from flowpath where Id=" + batlist.get(0).getFlowId();
 		FlowpathDAO fpd = new FlowpathDAO();
 		List<Flowpath> fplist = fpd.findEntityByList(sql);
