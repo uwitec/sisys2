@@ -456,7 +456,13 @@ public class WorkFormSearchService {
 		if (prolist.size() == 0) {
 			return "error";
 		}
-
+		sql = "select * from batch where batchNo='" + batNo + "' and proId=" + prolist.get(0).getId();
+		BatchDAO batd = new BatchDAO();
+		List<Batch> batlist = batd.findEntityByList(sql);
+		if (batlist.size() == 0){
+			return "error";
+		}
+		
 		User user = (User) session.get("user");
 		String name = user.getUsername();
 

@@ -99,6 +99,7 @@ public class WorkFormAddService {
 		}
 		// 判断是否逻辑的正确性
 		if (sche.getNum() + quaNum + disqNum != bat.getTotalNum()) {
+			System.out.println("我的错1");
 			return "outofline";
 		}
 		// 如果不是第一道工序，判断前工序是否存在
@@ -106,6 +107,7 @@ public class WorkFormAddService {
 			if (schelist.get(Integer.parseInt(procNo) - 2).getNum()
 					+ schelist.get(Integer.parseInt(procNo) - 2).getDisqNum()
 					+ schelist.get(Integer.parseInt(procNo) - 2).getQuaNum() == 0) {
+				System.out.println("我的错");
 				return "outofline";
 			}
 		}

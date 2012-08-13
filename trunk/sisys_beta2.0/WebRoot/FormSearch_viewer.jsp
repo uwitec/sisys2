@@ -109,9 +109,9 @@
 								<tr>								   
 								  <tr>
 									<th width=2%>Id</th>
-									<th width=5%>产品</th>
-									<th width=5%>批次</th>
-									<th width=5%>工序号</th>
+									<th width=10%>产品</th>
+									<th width=3%>批次</th>
+									<th width=3%>工序号</th>
 									<th width=5%>工序</th>
 									<th width=5%>合格品</th>
 									<th width=5%>不合格</th>
