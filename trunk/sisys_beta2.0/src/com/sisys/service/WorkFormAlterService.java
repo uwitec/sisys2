@@ -1,5 +1,6 @@
 package com.sisys.service;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,8 @@ public class WorkFormAlterService {
 	private Batch batsave = new Batch();
 	private Flowpath flowsave = new Flowpath();
 	private ScheduleTab schesave = new ScheduleTab();
+
+	DecimalFormat doublef = new DecimalFormat("0.00");
 
 	Date date = new Date();
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -151,8 +154,7 @@ public class WorkFormAlterService {
 		}
 		/*
 		 * 判断原工单是否是最后一道工序，若是 判断后工序是否已完成，若后工序已完成;
-		 * 1.若修改后的工单所对应的批次及工序与原工单都相同，判断整体逻辑 ; 
-		 * 2.若修改后的工单所对应的批次及工序和原工单不同，直接返回错误。
+		 * 1.若修改后的工单所对应的批次及工序与原工单都相同，判断整体逻辑 ; 2.若修改后的工单所对应的批次及工序和原工单不同，直接返回错误。
 		 */
 		if (i != str1.length - 1) {
 			if (schel.get(i + 1).getQuaNum() != 0) {
@@ -278,9 +280,10 @@ public class WorkFormAlterService {
 		small.setProcId(proc.getId());
 		small.setProNo(proNo);
 		small.setQuaNum(Integer.parseInt(quaNum));
-		small.setBworkHours((double) small.getQuaNum() * 8.0
-				/ proc.getUnitOutput());
-		small.setSalary(small.getBworkHours() * proc.getUnitCost());
+		small.setBworkHours(Double.parseDouble(doublef.format((double) small
+				.getQuaNum() * 8.0 / proc.getUnitOutput())));
+		small.setSalary(Double.parseDouble(doublef.format(small.getBworkHours()
+				* proc.getUnitCost())));
 		small.setTime(worksave.getTime());
 		small.setWfId(work.getId());
 		str = disqDetail.split("-");
@@ -310,9 +313,11 @@ public class WorkFormAlterService {
 			disqd = new DisqKindDAO();
 			List<DisqKind> dlist = disqd.findEntityByList(sql);
 			if (dlist.get(0).getKind() == 0) {
-				small.setgWasteNum(Integer.parseInt(str[i - 1]) + small.getgWasteNum());
+				small.setgWasteNum(Integer.parseInt(str[i - 1])
+						+ small.getgWasteNum());
 			} else {
-				small.setlWasteNum(Integer.parseInt(str[i - 1]) + small.getlWasteNum());
+				small.setlWasteNum(Integer.parseInt(str[i - 1])
+						+ small.getlWasteNum());
 			}
 		}
 		switch (No) {

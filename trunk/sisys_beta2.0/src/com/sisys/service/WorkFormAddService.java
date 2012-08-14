@@ -1,5 +1,6 @@
 package com.sisys.service;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -36,6 +37,8 @@ public class WorkFormAddService {
 	private Flowpath flow = new Flowpath();
 	private Processes proc = new Processes();
 	private ScheduleTab sche = new ScheduleTab();
+
+	DecimalFormat doublef = new DecimalFormat("0.00");
 
 	Date date = new Date();
 	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -193,9 +196,10 @@ public class WorkFormAddService {
 		small.setProcId(proc.getId());
 		small.setProNo(proNo);
 		small.setQuaNum(Integer.parseInt(quaNum));
-		small.setBworkHours((double) small.getQuaNum() * 8.0
-				/ proc.getUnitOutput());
-		small.setSalary(small.getBworkHours() * proc.getUnitCost());
+		small.setBworkHours(Double.parseDouble(doublef.format((double) small
+				.getQuaNum() * 8.0 / proc.getUnitOutput())));
+		small.setSalary(Double.parseDouble(doublef.format(small.getBworkHours()
+				* proc.getUnitCost())));
 		small.setTime(date);
 		small.setWfId(work.getId());
 		str = disqDetail.split("-");
