@@ -2,7 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="com.sisys.bean.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+<%
+	String error = request.getParameter("result");
+	if ("error".equals(error)) {
+		error = "添加失败，请重新扫描！";
+	} else {
+		error = "";
+	}
+%>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
@@ -43,7 +50,25 @@
 
 		<!--                       Javascripts                       -->
 
-		<!-- jQuery -->
+
+		<script language="JavaScript"> 
+		function presubmit(){
+		var code = document.getElementById("barCode").value.trim();
+		document.getElementById("barCode").focus();
+		if (code.length == 22) {
+			document.getElementById("myForm1").submit();
+		}
+		setTimeout('presubmit()',4000);
+		}
+</script>
+<!--<script language="JavaScript"> 
+		function myrefresh() 
+		{ 
+			window.location.reload(); 
+		} 
+		setTimeout('myrefresh()',4000);
+</script>
+		--><!-- jQuery -->
 		<script type="text/javascript"
 			src="resources/scripts/jquery-1.3.2.min.js">
 </script>
@@ -82,7 +107,7 @@
 
 	</head>
 
-	<body>
+	<body onload='presubmit()'>
 		<div id="body-wrapper">
 			<!-- Wrapper for the radial gradient background -->
 
@@ -121,27 +146,26 @@
 
 						<div class="tab-content default-tab" id="tab1">
 							<!-- This is the target div. id must match the href of this div's tab -->
-							<form name="myForm" action="codeSearch.action" method="post">
+							<form name="myForm1" id="myForm1" action="codeSearch.action" method="post">
 								<label>
-									
+									<%=error %>
 								</label>
 
 								<table>
 									<tr>
 										<td>
-											请扫描或手动输入条形码
+											请扫描条形码
 										</td>
 									</tr>
 									<tr>
 										<td>
-											<input type="text" name="barCode">
+											<input type="text" style="width: 300px" name="barCode" id="barCode">
 										</td>
 									</tr>
 									<tr>
 										<td>
 											<input class="button" type="submit" value="提交">
-										</td>
-										<td>
+											<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 											<input class="button" type="reset" value="重置">
 										</td>
 									</tr>
@@ -168,9 +192,6 @@
 
 		</div>
 	</body>
-<script>
-myForm.barCode.focus();
-</script>
 
 
 	<!-- Download From www.exet.tk-->
