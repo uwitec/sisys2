@@ -33,13 +33,13 @@ public class WorkFormSearchService {
 			switch (user.getLevel()) {
 			case 1:
 				result = "viewererror";
-				break;
+				return result;
 			case 2:
 				result = "operatorerror";
-				break;
+				return result;
 			case 3:
 				result = "adminerror";
-				break;
+				return result;
 			}
 		}
 		// 根据page查询工单

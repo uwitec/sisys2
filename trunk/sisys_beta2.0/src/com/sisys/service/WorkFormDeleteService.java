@@ -96,6 +96,8 @@ public class WorkFormDeleteService {
 		List<SmallWf> smalllist = swd.findEntityByList(sql);
 		for(int j = 0;j < smalllist.size();j++){
 			this.deleteswf(smalllist.get(j));
+			swd = new SmallWfDAO();
+			swd.delete(smalllist.get(j));
 		}
 		return "success";
 	}
