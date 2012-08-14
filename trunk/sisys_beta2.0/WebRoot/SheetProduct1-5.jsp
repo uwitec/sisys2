@@ -43,9 +43,9 @@
 				<tr align="center">				
 					<td><s:property value="proName"/></td>
 					<td><s:property value="proNo"/></td>	
-					<td><s:property value="completeNum" /></td>	
+					<td><s:property value="totalNum" /></td>	
 					<td><s:property value="disqNum"/></td>	
-					<td><s:property value="disqPerc"/></td>
+					<td><s:property value="disqPercent"/></td>
 				</tr>	
 				</s:iterator>
 				<tr align="center">

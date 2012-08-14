@@ -70,7 +70,7 @@ public class SearchWhService {
 			String staNo= staff.get(i).getStaNo();
 		//在smallWF中查找其他信息	
 			SmallWfDAO smallWfDAO =new SmallWfDAO();
-			sql="select * from smallWf where staNo='"+staNo+"' and time between '"+starttime+"' and '"+endtime+"'";
+			sql="select * from smallWf where staffNo='"+staNo+"' and time between '"+starttime+"' and '"+endtime+"'";
 			List<SmallWf> smallWf = new ArrayList<SmallWf>();
 			smallWf=smallWfDAO.findEntityByList(sql);
 			
@@ -166,12 +166,12 @@ public class SearchWhService {
 			salary = 0.00;
 			for(int j = 0;j < list.size();j++){
 				SmallWf wh = list.get(j);
-				BackWorkForm bwf = list1.get(j);
+				//BackWorkForm bwf = list1.get(j);
 				curTime.setTime(wh.getTime());
 				String day = curTime.getTime().getMonth()+1 + "-" + curTime.getTime().getDate();
 				//根据当前对应时间段编号存储wh信息
 				map.put(day, wh);
-				bworkHours +=bwf.getWorkHours();
+				//bworkHours +=bwf.getWorkHours();
 				workHours += wh.getBworkHours();
 				salary += wh.getSalary();
 			}
@@ -195,7 +195,7 @@ public class SearchWhService {
 		List<SmallWf> list=new ArrayList<SmallWf>();
 		String staName =new String();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map=s.Search("5","2012-07-01","2012-07-19");
+		map=s.Search("5","2012-08-01","2012-08-19");
 		map = s.ShowWh(map);
 		System.out.println(map);
 		

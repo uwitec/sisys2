@@ -86,7 +86,8 @@ public class SearchPd4Service {
 					return map;
 				}
 				//temp_totalNum+=scheduleTab.get(j).getDisqNum();
-				tmp.disqNum+=scheduleTab.get(0).getDisqNum();
+				System.out.println(scheduleTab);
+				tmp.disqNum=scheduleTab.get(0).getDisqNum()+scheduleTab.get(0).getNum();
 			}
 				if (tmp.totalNum==0){
 					continue;

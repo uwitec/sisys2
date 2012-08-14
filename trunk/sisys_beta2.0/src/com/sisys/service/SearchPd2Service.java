@@ -50,7 +50,7 @@ public class SearchPd2Service {
 		proName=product.get(0).getProName();
 		int proId=product.get(0).getId();
 		
-		//在batch中查找flowId
+		//在batch中查找batchId
 		BatchDAO batchDAO=new BatchDAO();
 		List<Batch> batch = new ArrayList<Batch>();
 		Map<String, Object> equalsmap1 = new HashMap<String, Object>();
@@ -68,10 +68,8 @@ public class SearchPd2Service {
 	//在ScheduleTab中查找工序信息	
 		ScheduleTabDAO scheduleTabDAO =new ScheduleTabDAO();
 		List<ScheduleTab> scheduleTab = new ArrayList<ScheduleTab>();
-		Map<String, Object> equalsmap2 = new HashMap<String, Object>();
-		equalsmap2.put("batchId", batchId);
-		equalsmap2.put("isDelete", 0);
-		scheduleTab=scheduleTabDAO.findEntity(equalsmap2);
+		String sql="select * from scheduleTab where batchId='"+batchId+"' and time between '"+starttime+"' and '"+endtime+"'";
+		scheduleTab=scheduleTabDAO.findEntityByList(sql);
 		if(scheduleTab.size() == 0){
 			map.put("result", "error");
 			map.put("message", "流程编号不存在！请重新输入！");
@@ -80,8 +78,12 @@ public class SearchPd2Service {
 		System.out.println(scheduleTab);
 		
 //封装每到工序的数据
-		DisqBatch tmp=new DisqBatch();
+		
 		for(int i=0;i<scheduleTab.size();i++){
+			DisqBatch tmp=new DisqBatch();
+			tmp.disqNum=scheduleTab.get(i).getDisqNum();
+			tmp.totalNum=scheduleTab.get(i).getDisqNum()+scheduleTab.get(i).getQuaNum();
+			System.out.println(tmp.totalNum);
 			ProcessesDAO processesDAO =new ProcessesDAO();
 			List<Processes> processes = new ArrayList<Processes>();
 			Map<String, Object> equalsmap3 = new HashMap<String, Object>();
@@ -96,8 +98,6 @@ public class SearchPd2Service {
 			System.out.println(processes);
 			tmp.procName=processes.get(0).getProcName();
 			tmp.procNo=processes.get(0).getProcNo();
-			tmp.disqNum=scheduleTab.get(i).getDisqNum();
-			tmp.totalNum=scheduleTab.get(i).getDisqNum()+scheduleTab.get(i).getQuaNum();
 			
 			double d = (double)((tmp.disqNum*100)/tmp.totalNum);
 			tmp.disqPercent= (tmp.disqNum*100)%tmp.totalNum == 0 ? d/100 : (d+1)/100;
@@ -109,7 +109,7 @@ public class SearchPd2Service {
 		for(int i=0;i<disqBatch.size();i++){
 			disqNum=disqNum+disqBatch.get(i).disqNum;
 		}
-		completeNum=disqBatch.get(0).totalNum+disqBatch.get(0).disqNum;
+		completeNum=disqBatch.get(0).totalNum;
 		double d = (double)((disqNum*100)/completeNum);
 		disqPercent= (disqNum*100)%completeNum == 0 ? d/100 : (d+1)/100;
 		
@@ -127,7 +127,7 @@ public class SearchPd2Service {
 		SearchPd2Service s=new SearchPd2Service();
 		List<DisqBatch> list=new ArrayList<DisqBatch>();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map=s.SearchPd2("1","1","2012-07-08","2012-08-08");
+		map=s.SearchPd2("2012081302","760402","2012-08-01","2012-08-31");
 		
 		list=(List<DisqBatch>) map.get("list");
 		Iterator<DisqBatch> it =list.iterator();
