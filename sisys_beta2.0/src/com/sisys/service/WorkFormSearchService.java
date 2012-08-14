@@ -109,14 +109,8 @@ public class WorkFormSearchService {
 		String result = "";
 		String batchNo = request.getParameter("batchNo");
 		String proNo = request.getParameter("proNo");
-		String staffNo = request.getParameter("staffNo");
 
-		if ("".equals(batchNo)
-				&& "".equals(proNo)
-				&& "".equals(staffNo)
-				&& !(session.get("staffNo") != null
-						|| session.get("proNo") != null || session
-						.get("batchNo") != null)) {
+		if ("".equals(batchNo) && "".equals(proNo)) {
 
 			User user = (User) session.get("user");
 			switch (user.getLevel()) {
@@ -133,7 +127,7 @@ public class WorkFormSearchService {
 		} else {
 			List<WFstandard> wfslist = new ArrayList<WFstandard>();
 
-			wfslist = this.Conditionsearch(staffNo, proNo, batchNo);
+			wfslist = this.Conditionsearch(proNo, batchNo);
 
 			User user = (User) session.get("user");
 			if (wfslist != null) {
@@ -167,63 +161,24 @@ public class WorkFormSearchService {
 		return result;
 	}
 
-	public List<WFstandard> Conditionsearch(String staNo, String proNo,
-			String batNo) {
-		int flag = 0;
+	public List<WFstandard> Conditionsearch(String proNo, String batNo) {
 		String sql = "";
-		int pId = 0;
-		List<Staff> slist = new ArrayList<Staff>();
-		List<Batch> stlist = new ArrayList<Batch>();
-		if (!("").equals(staNo)) {
-			StaffDAO stal = new StaffDAO();
-			sql = "select * from staff where staNo='" + staNo + "'";
-			slist = stal.findEntityByList(sql);
-			if (slist.size() != 0) {
-				flag = flag + 1;
-			} else {
-				return null;
-			}
-		}
-		if (!("").equals(proNo)) {
-			ProductDAO prol = new ProductDAO();
-			sql = "select * from product where proNo='" + proNo + "'";
-			List<Product> plist = prol.findEntityByList(sql);
-			if (plist.size() != 0) {
-				pId = plist.get(0).getId();
-			} else {
-				return null;
-			}
+		ProductDAO prol = new ProductDAO();
+		sql = "select * from product where proNo='" + proNo + "'";
+		List<Product> plist = prol.findEntityByList(sql);
+		if (plist.size() == 0) {
+			return null;
 		}
 
-		if (pId != 0 && !("").equals(batNo)) {
-			BatchDAO batl = new BatchDAO();
-			sql = "select * from batch where proId='" + pId + "' and batchNo='"
-					+ batNo + "'";
-			stlist = batl.findEntityByList(sql);
-			if (stlist.size() != 0) {
-				flag = flag + 2;
-			} else {
-				return null;
-			}
+		BatchDAO batl = new BatchDAO();
+		sql = "select * from batch where proId='" + plist.get(0).getId()
+				+ "' and batchNo='" + batNo + "'";
+		List<Batch> batlist = batl.findEntityByList(sql);
+		if (batlist.size() == 0) {
+			return null;
 		}
-		switch (flag) {
-		case 0:
-			sql = "select * from workForm";
-			break;
-		case 1:
-			sql = "select * from workForm where staId=" + slist.get(0).getId()
-					+ " and isdelete=0 order by procId";
-			break;
-		case 2:
-			sql = "select * from workForm where batchId="
-					+ stlist.get(0).getId() + " and isdelete=0 order by procId";
-			break;
-		case 3:
-			sql = "select * from workForm where batchId="
-					+ stlist.get(0).getId() + " and staId="
-					+ slist.get(0).getId() + " and isdelete=0 order by procId";
-			break;
-		}
+		sql = "select * from workForm where batchId=" + batlist.get(0).getId()
+				+ " and isdelete=0 order by procId";
 		WorkFormDAO wfd = new WorkFormDAO();
 		List<WorkForm> list = wfd.findEntityByList(sql);
 		System.out.println(list.size());
@@ -243,7 +198,8 @@ public class WorkFormSearchService {
 			List<Product> prolist = prod.findEntityByList(sql);
 			BatchDAO batd = new BatchDAO();
 			sql = "select * from batch where Id=" + list.get(i).getBatchId();
-			List<Batch> batlist = batd.findEntityByList(sql);
+			batlist = new ArrayList<Batch>();
+			batlist = batd.findEntityByList(sql);
 			wfsave.setBatchNo(batlist.get(0).getBatchNo());
 			wfsave.setProcName(proclist.get(0).getProcName());
 			wfsave.setProcNo(proclist.get(0).getProcNo());
@@ -456,13 +412,14 @@ public class WorkFormSearchService {
 		if (prolist.size() == 0) {
 			return "error";
 		}
-		sql = "select * from batch where batchNo='" + batNo + "' and proId=" + prolist.get(0).getId();
+		sql = "select * from batch where batchNo='" + batNo + "' and proId="
+				+ prolist.get(0).getId();
 		BatchDAO batd = new BatchDAO();
 		List<Batch> batlist = batd.findEntityByList(sql);
-		if (batlist.size() == 0){
+		if (batlist.size() == 0) {
 			return "error";
 		}
-		
+
 		User user = (User) session.get("user");
 		String name = user.getUsername();
 
@@ -470,7 +427,7 @@ public class WorkFormSearchService {
 		request.setAttribute("proNo", proNo);
 		request.setAttribute("batNo", batNo);
 		request.setAttribute("proName", prolist.get(0).getProName());
-		
+
 		return "success";
 	}
 }

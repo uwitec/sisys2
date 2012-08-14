@@ -7,14 +7,6 @@
 <% String error = request.getParameter("result");
 	if(error == null) {
 		error = "";
-	} else if(error.equals("success")) {
-		error = "修改成功！";
-	} else if(error.equals("nameError")){
-		error = "用户名重复，请重新输入！";
-	} else if(error.equals("false")){
-		error = "修改失败！";
-	} else if(error.equals("empty")) {
-		error = "输入不能为空！";
 	} else if(error.equals("inputerror")) {
 		error = "输入错误，请检查后重新输入！";
 	} else if(error.equals("error")) {
@@ -123,28 +115,25 @@
     	</label>
     	
     	<table>
-    		<form action="formSearch.action" method="post">
-    		<tr>
-    			<td align="center">按产品编号和批次号搜索</td>
-    		</tr>
     		<tr>
     			<td>产品编号</td>
-    			<td><input type="text" name="proNo"></td>
+    		</tr>
+    		<tr>
+    			<td><input type="text" name="proNo"/></td>
+    		</tr>
+    		<tr>
     			<td>批次号</td>    			
-    			<td><input type="text" name="batchNo"></td>
     		</tr>
     		<tr>
-    		<td align="center">按工号搜索</td>
+    			<td><input type="text" name="batchNo"/></td>
     		</tr>
     		<tr>
-    			<td>工号</td>
-    			<td><input type="text" name="staffNo"></td>
-    		</tr>
-    		<tr>
-    			<td><input class="button" type="submit" value="提交"></td>
-				<td><input class="button" type="reset" value="重置"></td>
+    			<td>
+    				<input class="button" type="submit" value="提交"/>
+    				<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    				<input class="button" type="reset" value="重置"/>
+    			</td>
 			</tr>
-			</form>
     	</table>
     </form>
 						
