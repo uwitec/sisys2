@@ -30,6 +30,14 @@ public class ProHashDAO  extends GenericQueryImpl<ProHash, ProHashMapping>{
 		flag = false;
 		list = new ArrayList<ProHash>();
 	}
+	
+	public ProHashDAO(){
+		super(ProHash.class,proHashMapping);
+		value = new ArrayList<Object>();
+		result = 0;
+		flag = false;
+		list = new ArrayList<ProHash>();
+	}
 	public int create(ProHash entity) {
 		// TODO Auto-generated method stub
 		sql = "insert into proHash values (?,?,?,?)";
