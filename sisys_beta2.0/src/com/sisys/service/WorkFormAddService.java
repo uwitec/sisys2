@@ -196,10 +196,16 @@ public class WorkFormAddService {
 		small.setProcId(proc.getId());
 		small.setProNo(proNo);
 		small.setQuaNum(Integer.parseInt(quaNum));
-		small.setBworkHours(Double.parseDouble(doublef.format((double) small
-				.getQuaNum() * 8.0 / proc.getUnitOutput())));
-		small.setSalary(Double.parseDouble(doublef.format(small.getBworkHours()
-				* proc.getUnitCost())));
+		if ("-1".equals(proc.getUnitOutput())) {
+			small.setBworkHours(0);
+			small.setSalary(0);
+		} else {
+			small.setBworkHours(Double.parseDouble(doublef
+					.format((double) small.getQuaNum() * 8.0
+							/ proc.getUnitOutput())));
+			small.setSalary(Double.parseDouble(doublef.format(small
+					.getBworkHours() * proc.getUnitCost())));
+		}
 		small.setTime(date);
 		small.setWfId(work.getId());
 		str = disqDetail.split("-");

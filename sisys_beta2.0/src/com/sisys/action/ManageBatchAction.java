@@ -94,7 +94,7 @@ public class ManageBatchAction extends BaseAction {
 	}
 	
 	//批次添加
-	public String addBatch() {
+	public String addBatch() throws IOException {
 		return mbs.addBatch(product, batch, fpath);
 	}
 	
