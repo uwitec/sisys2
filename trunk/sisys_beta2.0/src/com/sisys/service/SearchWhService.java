@@ -16,6 +16,7 @@ import com.sisys.bean.BackWorkForm;
 import com.sisys.bean.Department;
 import com.sisys.bean.SmallWf;
 import com.sisys.bean.Staff;
+import com.sisys.bean.WorkHoursTab;
 import com.sisys.dao.BackWorkFormDAO;
 import com.sisys.dao.DepartmentDAO;
 import com.sisys.dao.SmallWfDAO;
@@ -140,8 +141,9 @@ public class SearchWhService {
 		List<String> dateNo = new ArrayList<String>();
 		
 		Double workHours = 0.0;
-		Double bworkHours = 0.0;
 		Double salary = 0.0;
+		Double backWorkHours = 0.0;
+		Double totalWorkHours = 0.0;
 		
 		Calendar startTime = Calendar.getInstance();
 		Calendar endTime = Calendar.getInstance();
@@ -159,25 +161,48 @@ public class SearchWhService {
 		for(int i = 0;i < listMap.size();i++){
 			List<SmallWf> list = (List<SmallWf>)listMap.get(i).get("smallWf");
 			List<BackWorkForm> list1 = (List<BackWorkForm>)listMap.get(i).get("backWorkForm");
-			Map<String,SmallWf> map = new HashMap<String,SmallWf>();
+			Map<String,WorkHoursTab> map = new HashMap<String,WorkHoursTab>();
 			Map<String,Double> totalMap = new HashMap<String,Double>();
 			workHours = 0.00;
-			bworkHours = 0.00;
 			salary = 0.00;
+			backWorkHours = 0.00;
+			totalWorkHours = 0.00;
+			
 			for(int j = 0;j < list.size();j++){
-				SmallWf wh = list.get(j);
-				//BackWorkForm bwf = list1.get(j);
-				curTime.setTime(wh.getTime());
+				SmallWf smallWf = list.get(j);
+				WorkHoursTab workHoursTab = new WorkHoursTab();
+				
+				workHoursTab.setWorkHours(smallWf.getBworkHours());
+				workHoursTab.setSalary(smallWf.getSalary());
+				curTime.setTime(smallWf.getTime());
 				String day = curTime.getTime().getMonth()+1 + "-" + curTime.getTime().getDate();
-				//根据当前对应时间段编号存储wh信息
-				map.put(day, wh);
+				
+				map.put(day, workHoursTab);
 				//bworkHours +=bwf.getWorkHours();
-				workHours += wh.getBworkHours();
-				salary += wh.getSalary();
+				workHours += smallWf.getBworkHours();
+				salary += smallWf.getSalary();
 			}
 			list.clear();
+			for(int j = 0;j < list1.size();j++){
+				BackWorkForm backWorkForm = list1.get(j);
+				curTime.setTime(backWorkForm.getTime());
+				WorkHoursTab workHoursTab;
+				String day = curTime.getTime().getMonth()+1 + "-" + curTime.getTime().getDate();
+				if(map.containsKey(day)){
+					workHoursTab = map.get(day);
+					workHoursTab.setBackWorkHours(backWorkForm.getWorkHours());
+				}else{
+					workHoursTab = new WorkHoursTab();
+					workHoursTab.setBackWorkHours(backWorkForm.getWorkHours());
+					map.put(day, workHoursTab);
+				}
+				backWorkHours += backWorkForm.getWorkHours();
+				
+			}
 			totalMap.put("workHours", new BigDecimal(workHours).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
 			totalMap.put("salary", new BigDecimal(salary).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+			totalMap.put("backWorkHours", new BigDecimal(backWorkHours).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+			totalMap.put("totalWorkHours", new BigDecimal(workHours + backWorkHours).setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
 			
 			listMap.get(i).put("whMap", map);
 			listMap.get(i).put("totalMap", totalMap);

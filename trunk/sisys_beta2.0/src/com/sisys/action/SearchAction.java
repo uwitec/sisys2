@@ -76,12 +76,13 @@ public class SearchAction extends BaseAction {
 
 		mapWh = searchWhService.Search(deptNo, startTime, endTime);
 		if(mapWh.get("result").equals("error")){
-			request.setAttribute("resultMap", mapWh);
+			request.setAttribute("message", mapWh.get("message"));
 			return ERROR;
 		}
 		mapWh = searchWhService.ShowWh(mapWh);
 		request.setAttribute("resultMap", mapWh);
 		if(mapWh.get("result").equals("error")){
+			request.setAttribute("message", mapWh.get("message"));
 			return ERROR;
 		}
 		return SUCCESS;

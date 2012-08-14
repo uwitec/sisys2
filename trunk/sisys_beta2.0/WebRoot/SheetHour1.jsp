@@ -62,8 +62,8 @@
 				 %>
 				<tr align="center">
 				
-					<td rowspan='2' style="white-space: nowrap;"><%=listMap.get(i).get("staName") %></td>							
-					<td rowspan='2'><%=listMap.get(i).get("staNo") %></td>
+					<td rowspan='4' style="white-space: nowrap;"><%=listMap.get(i).get("staName") %></td>							
+					<td rowspan='4'><%=listMap.get(i).get("staNo") %></td>
 					<td style="white-space: nowrap;">工时(小时)</td>
 					<%for(String t : dateNo){
 						if(whMap.size() == 0){ %>
@@ -78,7 +78,7 @@
 					<td><%=totalMap.get("workHours") %></td>
 					</tr>
 					<tr align="center">
-						<td>报酬(元)</td>
+						<td style="white-space: nowrap;">报酬(元)</td>
 					<%for(String t : dateNo){
 						if(whMap.size() == 0){ %>
 							<td>&nbsp</td>
@@ -90,6 +90,34 @@
 							<td>&nbsp</td>
 					<%}}} %>
 					<td><%=totalMap.get("salary") %></td>
+					</tr>
+					<tr align="center">
+						<td style="white-space: nowrap;">返工工时(小时)</td>
+					<%for(String t : dateNo){
+						if(whMap.size() == 0){ %>
+							<td>&nbsp</td>
+						<%}else {
+							wh =(WorkHoursTab)whMap.get(t);%>
+							<%if(wh != null){ %>
+								<td><%=wh.getBackWorkHours() %></td>
+							<%}else{%>
+							<td>&nbsp</td>
+					<%}}} %>
+					<td><%=totalMap.get("backWorkHours") %></td>
+					</tr>
+					<tr align="center">
+						<td style="white-space: nowrap;">总工时(小时)</td>
+					<%for(String t : dateNo){
+						if(whMap.size() == 0){ %>
+							<td>&nbsp</td>
+						<%}else {
+							wh =(WorkHoursTab)whMap.get(t);%>
+							<%if(wh != null){ %>
+								<td><%=wh.getTotalWorkHours() %></td>
+							<%}else{%>
+							<td>&nbsp</td>
+					<%}}} %>
+					<td><%=totalMap.get("totalWorkHours") %></td>
 					</tr>
 					
 				<%} %>
