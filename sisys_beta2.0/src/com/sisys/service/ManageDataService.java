@@ -27,6 +27,7 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import com.sisys.bean.Department;
 import com.sisys.bean.Flowpath;
+import com.sisys.bean.ProHash;
 import com.sisys.bean.Processes;
 import com.sisys.bean.Product;
 import com.sisys.bean.ProductLine;
@@ -34,6 +35,7 @@ import com.sisys.bean.Staff;
 import com.sisys.bean.StaffKind;
 import com.sisys.dao.DepartmentDAO;
 import com.sisys.dao.FlowpathDAO;
+import com.sisys.dao.ProHashDAO;
 import com.sisys.dao.ProcessesDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ProductLineDAO;
@@ -475,6 +477,19 @@ public class ManageDataService {
 		r = flowpathDAO.create(flowpath);
 		if(r <= 0){
 			return "error";
+		}
+		
+		//插入产品哈希表
+		ProHashDAO proHashDAO;
+		ProHash proHash;
+		for(int i = 1;i <= 20;i++){
+			proHash = new ProHash();
+			proHashDAO = new ProHashDAO();
+			proHash.setProNo(product.getProNo());
+			proHash.setHash(i);
+			if(proHashDAO.create(proHash) != 1){
+				return "error";
+			}
 		}
 		
 		return "success";
