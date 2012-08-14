@@ -1,5 +1,8 @@
 package com.sisys.service;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.*;
 import java.util.*;
 
@@ -109,7 +112,9 @@ public class ManageBatchService {
 	}
 
 	// 批次添加
-	public String addBatch(Product product, Batch batch, String fpath) {
+	public String addBatch(Product product, Batch batch, String fpath)
+			throws IOException {
+		User user = (User) session.get("user");
 		System.out.println(product);
 		System.out.println(batch);
 		System.out.println(fpath);
@@ -143,6 +148,7 @@ public class ManageBatchService {
 		}
 		// 批次不存在，新建批次
 		Calendar startTime = Calendar.getInstance();
+		Date nowTime = new Date();//这个是现在的时间，判断scgd是否生成pdf时会用到
 		String batchNo = batch.getBatchNo();
 		String num = batchNo.substring(8, batchNo.length());
 		batch.setTotalNum(batch.getTotalNum() + Integer.parseInt(num));
@@ -153,6 +159,36 @@ public class ManageBatchService {
 		startTime.add(Calendar.DATE, p.getProCycle());
 		batch.setEndTime(startTime.getTime());
 
+		// 调用跟单生成程序SCGD
+		/***这一段先注释掉，等黄欣来补完吧***/
+		/*
+		//inputPath和outputPath是我所存的输入和输入文件的绝对地址
+		String inputPath = "E:/Program Files/MyEclipse/workspace/sisys2/sisys_beta2.0/input.tex";
+		String outputPath = "E:/Program Files/MyEclipse/workspace/sisys2/sisys_beta2.0/gd.pdf";
+		File f = new File(inputPath);
+		FileWriter fw = new FileWriter(f);
+		//在输入文件中写入数据
+		fw.write(p.getProNo() + "\r\n" + p.getProName() + "\r\n"
+				+ batch.getBatchNo() + "\r\n" + batch.getTotalNum() + "\r\n"
+				+ user.getUsername());
+		fw.close();
+		//cmd命令，不过不知道写对没有，test中有完整的能够实现该命令的程序，不过在这里不能实现
+		String command = "cmd.exe /c start scgd";// " + inputPath + " " + outputPath;
+		Runtime rt = Runtime.getRuntime();
+		Process process = rt.exec(command);
+		//这个是让系统休息15秒，cmd命令和java程序是并行执行的，后面的判断要基于cmd命令的结果
+		try{
+		    Thread.sleep(15000);
+		}catch(Exception e){
+		}
+		//读取所生成的pdf
+		File f2 = new File(outputPath);
+		Date date = new Date(f2.lastModified());//查看pdf的修改时间
+		//如果所生成的pdf不存在或者修改时间在进入该程序之前，即scgd生成pdf失败，则返回生成失败
+		if (!f2.exists() && date.before(nowTime)) {
+			return "false";
+		}
+		*/
 		// 找到对应的流程
 		FlowpathDAO fdao = new FlowpathDAO();
 		// Map<String, String> equalsMap = new HashMap<String, String>();
@@ -254,7 +290,6 @@ public class ManageBatchService {
 
 		// 记录管理员操作信息
 		// LogInfo logInfo = new LogInfo();
-		User user = (User) session.get("user");
 		String content = "管理员" + user.getUsername() + "新建批次。产品名称："
 				+ p.getProName() + ",产品编号：" + product.getProNo() + ";批次号："
 				+ batch.getBatchNo();
