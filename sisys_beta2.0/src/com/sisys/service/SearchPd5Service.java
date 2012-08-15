@@ -88,7 +88,7 @@ public class SearchPd5Service {
 					return map;
 				}
 				//temp_totalNum+=scheduleTab.get(j).getDisqNum();
-				tmp.disqNum=scheduleTab.get(0).getDisqNum()+scheduleTab.get(0).getNum();
+				tmp.disqNum+=scheduleTab.get(0).getDisqNum()+scheduleTab.get(0).getNum();
 			}
 				if (tmp.totalNum==0){
 					continue;
@@ -114,7 +114,7 @@ public class SearchPd5Service {
 			}						
 		map.put("result", "success");
 		map.put("list", list);
-		map.put("proLineName", proLineName);
+		map.put("lineDesc", proLineName);
 		map.put("completeNum", completeNum);
 		map.put("disqNum", disqNum);
 		map.put("disqPercent", disqPercent);

@@ -22,7 +22,7 @@
 		
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		
-<title>Simpla Admin</title>
+<title>生产物流统计系统</title>
 		
 		<!--                       CSS                       -->
 	  
