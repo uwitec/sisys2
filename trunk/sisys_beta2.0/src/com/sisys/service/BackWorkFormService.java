@@ -23,7 +23,7 @@ import com.sisys.dao.BatchDAO;
 import com.sisys.dao.ProcessesDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.StaffDAO;
-
+import com.sisys.service.ManageWorkFormService;
 
 public class BackWorkFormService {
 	
@@ -193,11 +193,13 @@ public class BackWorkFormService {
 			List<Product> proList = productDAO.findEntity(equalsMap);
 			bwfs.setProName(proList.get(0).getProName());
 			
-			ProcessesDAO processesDAO = new ProcessesDAO();
+			ManageWorkFormService mwf =new ManageWorkFormService();
+			bwfs.setProcName(mwf.preAddProcNo(bwf.getProcNo(), bwf.getProNo(), bwf.getBatchNo()));
+			/*ProcessesDAO processesDAO = new ProcessesDAO();
 			equalsMap.clear();
 			equalsMap.put("procNo", bwf.getProcNo());
 			List<Processes> procList = processesDAO.findEntity(equalsMap);
-			bwfs.setProcName(procList.get(0).getProcName());
+			bwfs.setProcName(procList.get(0).getProcName());*/
 			
 			equalsMap.clear();
 			equalsMap.put("staNo", bwf.getStaNo());
