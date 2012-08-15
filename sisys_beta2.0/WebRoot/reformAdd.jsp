@@ -200,9 +200,10 @@ function check(){
 									<td>
 										<select name="kind" id="kind">
 									<option value="">----请选择--</option>
+									<%if(flag == 0) {%>
 									<%for(int i = 0;i < kindList.size();i++){%>
 									<option value="<%=kindList.get(i).getName() %>"><%=kindList.get(i).getName() %></option>
-									<%} %>
+									<%}} %>
 								</select>
 									</td>
 									
