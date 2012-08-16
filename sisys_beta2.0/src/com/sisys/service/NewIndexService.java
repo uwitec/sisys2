@@ -106,10 +106,12 @@ public class NewIndexService {
 			map.put("message", "请导入数据！");
 			return map;
 		}
+		
 		for(int i = 0;i < batchList.size() ;i++){
 			if(batchList.get(i).getEndTime().compareTo(now) < 0){
 				batchList.get(i).setStatus(2);
-				batchDAO.update(batchList.get(i), 0);
+				BatchDAO batchDAO1=new BatchDAO();
+				batchDAO1.update(batchList.get(i), i);
 			}
 		}
 		return map;
