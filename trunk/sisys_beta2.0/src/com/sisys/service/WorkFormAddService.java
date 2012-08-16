@@ -151,7 +151,7 @@ public class WorkFormAddService {
 		}
 		// 搜索工单，找到刚刚存储的工单id
 		sql = "select * from workform where batchId=" + bat.getId()
-				+ " and procId=" + proc.getId();
+				+ " and procId=" + proc.getId() + " and isDelete=0";
 		wfd = new WorkFormDAO();
 		List<WorkForm> worklist = wfd.findEntityByList(sql);
 		work = worklist.get(0);
