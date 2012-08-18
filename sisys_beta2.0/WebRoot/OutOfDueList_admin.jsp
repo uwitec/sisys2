@@ -1,23 +1,13 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="java.text.*" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="com.sisys.bean.OutDueBatchCopy" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%
-	String result = request.getParameter("result");
-	String message = "";
-	if(result != null){
-		message = request.getAttribute("message").toString();;
-	}
-	Calendar cal = Calendar.getInstance();
-	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	Date time = cal.getTime();
-	time.setDate(1);
-	String startTime = format.format(time);
-	time.setMonth(time.getMonth() + 1);
-	time.setDate(0);
-	String endTime = format.format(time);
-	
+	List<OutDueBatchCopy> outOfDueList = (List<OutDueBatchCopy>)request.getAttribute("outOfDueList");
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -55,13 +45,6 @@
 <!--[if lte IE 7]>
 			<link rel="stylesheet" href="resources/css/ie.css" type="text/css" media="screen" />
 		<![endif]-->
-		<script type="text/javascript">
-			function loadTime(){
-				document.getElementsByName("startTime")[0].value = "<%=startTime%>";
-				document.getElementsByName("endTime")[0].value = "<%=endTime%>";
-				
-			}
-		</script>
 
 <!--                       Javascripts                       -->
 
@@ -98,7 +81,7 @@
 
 </head>
 
-<body onload=loadTime()>
+<body>
 	<div id="body-wrapper">
 		<!-- Wrapper for the radial gradient background -->
 
@@ -130,31 +113,58 @@
 				<!-- End .content-box-header -->
 
 				<div class="content-box-content">
-				<div align="center">
-					<label>
-						<%=message%>
-					</lable>
-				</div>
 
 					<div id="login-content">
 						
-						<form action="outOfDueList.action" method="get">
-							<table>
-								<tr>
-									<td>起始时间(YYYY-MM-DD)</td>
-									<td><input type="text" name="startTime" onClick="WdatePicker()"></td>
+						<table>
+							
+							<thead>
+								<tr>								   
+								  <tr>
+									<tr>
+									<th width=10%>产品名称</th>
+									<th width=10%>批次号</th>
+									<th width=10%>是否完成</th>
+									<th width=10%>是否处理</th>
+									<th width=30%>备注</th>
+									<th width="3%">操作</th>
+								</tr>
+								</tr>
 								</tr>
 								
+							</thead>
+						 
+							<tfoot>
 								<tr>
-									<td>截止时间(YYYY-MM-DD)</td>
-									<td><input type="text" name="endTime" onClick="WdatePicker()"></td>
+									<td colspan="7"><br /></td>
 								</tr>
-							</table>
-							<input type="submit" value="确定" class="button"/>
-						</form>
-						
-						<!--<a href="OutofDueResult.jsp?current=OutOfDue" class="button" type="button">确定</a>
-						-->
+							</tfoot>
+						 
+							<tbody>
+								<c:forEach items="${outOfDueList }" var="entity">
+									<tr>
+										<td>${entity.proName}</td>
+										<td>${entity.batchNo}<br /></td>
+										<td>
+										<c:if test="${entity.isOver eq 1}">是</c:if>
+										<c:if test="${entity.isOver eq 0}">否</c:if>
+										</td>
+										<td>
+									    <c:if test="${entity.isHandle eq 1}">是</c:if>
+									    <c:if test="${entity.isHandle eq 0}">否</c:if>
+									    </td>
+										<td>${entity.note}</td>
+										<td>
+										<!-- Icons -->
+										
+											<a href="OutOfDue.jsp?current=OutOfDue" title="Edit"><img src="resources/images/icons/pencil.png" alt="Edit" /></a>
+											
+										</td>
+									</tr>							
+								</c:forEach>
+							</tbody>
+							
+						</table>
 					</div>
 					<!-- End #login-content -->
 				</div>

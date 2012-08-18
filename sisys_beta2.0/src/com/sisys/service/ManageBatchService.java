@@ -13,6 +13,7 @@ import org.apache.struts2.StrutsStatics;
 import com.opensymphony.xwork2.ActionContext;
 import com.sisys.bean.Batch;
 import com.sisys.bean.Flowpath;
+import com.sisys.bean.OutDueBatchCopy;
 import com.sisys.bean.ProHash;
 import com.sisys.bean.Processes;
 import com.sisys.bean.Product;
@@ -115,6 +116,8 @@ public class ManageBatchService {
 	public String addBatch(Product product, Batch batch, String fpath)
 			throws IOException {
 		User user = (User) session.get("user");
+		//User user = new User();
+		user.setUsername("admin");
 		System.out.println(product);
 		System.out.println(batch);
 		System.out.println(fpath);
@@ -161,10 +164,16 @@ public class ManageBatchService {
 
 		// 调用跟单生成程序SCGD
 		/***这一段先注释掉，等黄欣来补完吧***/
-		/*
+		
+		String content = p.getProNo() + "\r\n" + p.getProName() + "\r\n"
+		+ batch.getBatchNo() + "\r\n" + batch.getTotalNum() + "\r\n"
+		+ user.getUsername();
+		System.out.println(content);
+		createPDF(content);
+		
 		//inputPath和outputPath是我所存的输入和输入文件的绝对地址
-		String inputPath = "E:/Program Files/MyEclipse/workspace/sisys2/sisys_beta2.0/input.tex";
-		String outputPath = "E:/Program Files/MyEclipse/workspace/sisys2/sisys_beta2.0/gd.pdf";
+		/*String inputPath = "E:/Program Files/workspace/sisys_beta2.0/input.tex";
+		String outputPath = "E:/Program Files/workspace/sisys_beta2.0/gd.pdf";
 		File f = new File(inputPath);
 		FileWriter fw = new FileWriter(f);
 		//在输入文件中写入数据
@@ -173,9 +182,30 @@ public class ManageBatchService {
 				+ user.getUsername());
 		fw.close();
 		//cmd命令，不过不知道写对没有，test中有完整的能够实现该命令的程序，不过在这里不能实现
-		String command = "cmd.exe /c start scgd";// " + inputPath + " " + outputPath;
+		String command = "cmd.exe /k start scgd input.tex gd.pdf";// " + inputPath + " " + outputPath;
+		
 		Runtime rt = Runtime.getRuntime();
 		Process process = rt.exec(command);
+		
+		Process ps = null;   
+		try {  
+		            ps = rt.exec("cmd.exe /C start /b D:\\test.bat");  
+		} catch (IOException e1) {  
+		            e1.printStackTrace();  
+		}   
+		try {
+			ps.waitFor();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+		int j = ps.exitValue();   
+		if (j == 0) {   
+		     System.out.println("执行完成.") ;   
+		} else {   
+		     System.out.println("执行失败.") ;  
+		}
+		
 		//这个是让系统休息15秒，cmd命令和java程序是并行执行的，后面的判断要基于cmd命令的结果
 		try{
 		    Thread.sleep(15000);
@@ -187,8 +217,28 @@ public class ManageBatchService {
 		//如果所生成的pdf不存在或者修改时间在进入该程序之前，即scgd生成pdf失败，则返回生成失败
 		if (!f2.exists() && date.before(nowTime)) {
 			return "false";
+		}*/
+		
+		
+		/*File f = new File("E:/Program Files/workspace/sisys_beta2.0/input.tex");
+		String outputPath = "E:/Program Files/workspace/sisys_beta2.0/gd.pdf";
+		FileWriter fw =  new FileWriter(f);
+		fw.write("010104\r\n368曲轴正时皮带轮\r\n2012081302\r\n2001\r\n李一三五");
+		fw.close();
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date(f.lastModified());
+		String command = "cmd.exe /c start scgd input.tex gd.pdf";
+		Runtime rt = Runtime.getRuntime();
+		Process process = rt.exec(command);
+		try{
+		    Thread.sleep(15000);
+		}catch(Exception e){
 		}
-		*/
+		File f2 = new File(outputPath);
+		Date date1 = new Date(f2.lastModified());
+		System.out.println(df.format(date1));
+		System.out.println(df.format(new Date()));*/
+		
 		// 找到对应的流程
 		FlowpathDAO fdao = new FlowpathDAO();
 		// Map<String, String> equalsMap = new HashMap<String, String>();
@@ -290,9 +340,9 @@ public class ManageBatchService {
 
 		// 记录管理员操作信息
 		// LogInfo logInfo = new LogInfo();
-		String content = "管理员" + user.getUsername() + "新建批次。产品名称："
+		/*String content = "管理员" + user.getUsername() + "新建批次。产品名称："
 				+ p.getProName() + ",产品编号：" + product.getProNo() + ";批次号："
-				+ batch.getBatchNo();
+				+ batch.getBatchNo();*/
 		// logInfo.saveLog(user, content, System.currentTimeMillis());
 
 		return "success";
@@ -354,35 +404,124 @@ public class ManageBatchService {
 	}
 
 	// 进入超期批次列表
-	/*
-	 * public String outOfDueList() { List<OutDueBatchCopy> outOfDueList = new
-	 * ArrayList<OutDueBatchCopy> (); String result = ""; //得到开始时间和截止时间 String
-	 * startTime = request.getParameter("startTime"); String endTime =
-	 * request.getParameter("endTime"); SimpleDateFormat sdf = new
-	 * SimpleDateFormat("yyyy-MM-dd"); String start = null; String end = null;
-	 * try { start = sdf.format(sdf.parse(startTime)); end =
-	 * sdf.format(sdf.parse(endTime)); } catch (ParseException e) {
-	 * e.printStackTrace(); } System.out.println(start);
-	 * System.out.println(end); //包含超期未完成、超期已完成、超期已处理三种类型 String sql1 =
-	 * "select * from batch where startTime<'" + end + "' and endTime>'" + start
-	 * + "' and status=2 or status=3 or status=4"; BatchDAO bdao = new
-	 * BatchDAO(); List<Batch> blist = bdao.findEntityByList(sql1);
-	 * if(blist.size() != 0) { for(int i=0; i<blist.size(); i++) { Batch batch =
-	 * blist.get(i); //System.out.println(batch); String sql2 =
-	 * "select * from product where id=" + batch.getProId(); ProductDAO pdao =
-	 * new ProductDAO(); List<Product> plist = pdao.findEntityByList(sql2);
-	 * if(plist.size() != 0) { Product product = plist.get(0); OutDueBatchCopy
-	 * outDue = new OutDueBatchCopy(); outDue.setBatchNo(batch.getBatchNo());
-	 * outDue.setId(batch.getId()); if(batch.getStatus() == 2) { //超期未完成
-	 * outDue.setIsHandle(0); outDue.setIsOver(0); } else if(batch.getStatus()
-	 * == 3) { //超期已处理 outDue.setIsHandle(1); outDue.setIsOver(0); } else
-	 * if(batch.getStatus() == 4) { //超期已完成 outDue.setIsHandle(0);
-	 * outDue.setIsOver(1); } outDue.setNote(batch.getNote());
-	 * outDue.setProName(product.getProName()); outOfDueList.add(outDue); } } }
-	 * //System.out.println(outOfDueList); request.setAttribute("outOfDueList",
-	 * outOfDueList); User user = (User)session.get("user");
-	 * switch(user.getLevel()) { case 1: result = "viewer"; break; case 2:
-	 * result = "operator"; break; case 3: result = "admin"; break; } return
-	 * result; }
-	 */
+	
+	 public String outOfDueList() { 
+		 List<OutDueBatchCopy> outOfDueList = new ArrayList<OutDueBatchCopy> (); 
+		 String result = ""; //得到开始时间和截止时间 String
+		 String startTime = request.getParameter("startTime"); 
+		 String endTime = request.getParameter("endTime"); 
+		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		 String start = null; 
+		 String end = null;
+		 try { 
+			 start = sdf.format(sdf.parse(startTime)); 
+			 end = sdf.format(sdf.parse(endTime)); 
+		 } catch (ParseException e) {
+			 e.printStackTrace(); 
+		 } 
+		 System.out.println(start);
+		 System.out.println(end); 
+		 //包含超期未完成、超期已完成、超期已处理三种类型
+		 String sql1 = "select * from batch where startTime<'" + end + "' and endTime>'" + start
+		 + "' and endTime <'"+end+"' and status=2 or status=3 or status=4"; 
+		 BatchDAO bdao = new BatchDAO(); 
+		 List<Batch> blist = bdao.findEntityByList(sql1);
+		 if(blist.size() != 0) { 
+			 for(int i=0; i<blist.size(); i++) { 
+				 Batch batch = blist.get(i); 
+				 //System.out.println(batch); 
+				 String sql2 = "select * from product where id=" + batch.getProId(); 
+				 ProductDAO pdao = new ProductDAO(); 
+				 List<Product> plist = pdao.findEntityByList(sql2);
+				 if(plist.size() != 0) { 
+					 Product product = plist.get(0);
+					 OutDueBatchCopy outDue = new OutDueBatchCopy(); 
+					 outDue.setBatchNo(batch.getBatchNo());
+					 outDue.setId(batch.getId()); 
+					 if(batch.getStatus() == 2) { //超期未完成
+						 outDue.setIsHandle(0); 
+						 outDue.setIsOver(0); 
+					} else if(batch.getStatus() == 3) { //超期已处理 
+						outDue.setIsHandle(1); 
+						outDue.setIsOver(0);
+					} else if(batch.getStatus() == 4) { //超期已完成
+						outDue.setIsHandle(0);
+						outDue.setIsOver(1); 
+					} 
+					 outDue.setNote(batch.getNote());
+					 outDue.setProName(product.getProName()); 
+					 outOfDueList.add(outDue);
+				}
+			} 
+		}
+		 //System.out.println(outOfDueList); 
+		 request.setAttribute("outOfDueList", outOfDueList); 
+		 User user = (User)session.get("user");
+		 switch(user.getLevel()) { 
+		 case 1: 
+			 result = "viewer"; 
+			 break; 
+		 case 2:
+			 result = "operator"; 
+			 break; 
+		 case 3: 
+			 result = "admin";
+			 break; 
+		 } 
+		 return result;
+	}
+	 
+	
+	public static void main(String[] args) {
+		Product p = new Product();
+		p.setProName("JL474气门导管");
+		p.setProNo("010403");
+		Batch b = new Batch();
+		b.setBatchNo("2012081702");
+		b.setTotalNum(1002);
+		User user = new User();
+		user.setUsername("admin");
+		ManageBatchService s = new ManageBatchService();
+		try {
+			s.addBatch(p, b, null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//createPDF();
+		
+	}
+	
+	public void createPDF(String content) {
+		File f = new File("E:/Program Files/workspace/sisys_beta2.0/input.tex");
+		String outputPath = "E:/Program Files/workspace/sisys_beta2.0/gd.pdf";
+		FileWriter fw;
+		try {
+			fw = new FileWriter(f);
+			fw.write(content);
+			fw.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date(f.lastModified());
+		String command = "cmd.exe /k start scgd input.tex gd.pdf";
+		Runtime rt = Runtime.getRuntime();
+		try {
+			Process process = rt.exec(command);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try{
+		    Thread.sleep(15000);
+		}catch(Exception e){
+		}
+		File f2 = new File(outputPath);
+		Date date1 = new Date(f2.lastModified());
+		System.out.println(f2.exists());
+		System.out.println(df.format(date1));
+		System.out.println(df.format(new Date()));
+	}
 }
