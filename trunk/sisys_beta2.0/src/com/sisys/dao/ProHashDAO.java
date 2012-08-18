@@ -169,9 +169,8 @@ public class ProHashDAO  extends GenericQueryImpl<ProHash, ProHashMapping>{
 		ProHashMapping proHashMapping = new ProHashMapping();
 		ProHash proHash = null;
 		ResultSet resultSet;
-		sql = "select * from proHash where proNo=? and own=?";
+		sql = "select * from proHash where proNo=?";
 		value.add(proNo);
-		value.add(0);
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
 		try {

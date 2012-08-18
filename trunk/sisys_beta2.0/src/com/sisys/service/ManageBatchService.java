@@ -95,10 +95,18 @@ public class ManageBatchService {
 		ProHashDAO pDao = new ProHashDAO(ProHash.class, phMapping);
 		List<ProHash> pList1 = pDao.readByProNo(product.getProNo());
 		if (!pList1.isEmpty() && pList1.size() != 0) {
-			ProHash ph = pList1.get(0);
-			if (ph == null) {
+			int num = 0;
+			int flag = -1;
+			for (int i = 0; i < pList1.size(); i++) {
+				num += pList1.get(i).getHash();
+				if (pList1.get(i).getHash() == 0 && flag != -1) {
+					flag = i;
+				}
+			}
+			if (num >= 20 || flag < 0) {
 				result.append(";该产品批次已满！");
 			} else {
+				ProHash ph = pList1.get(flag);
 				if (ph.getHash() < 10) {
 					sb.append("0" + ph.getHash());
 				} else {
@@ -310,7 +318,7 @@ public class ManageBatchService {
 		ProHashMapping phMapping = new ProHashMapping();
 		ProHashDAO phDao = new ProHashDAO(ProHash.class, phMapping);
 		List<ProHash> phlist = phDao.findEntityByList(sql);
-		phlist.get(0).setOwn(1);
+		phlist.get(0).setOwn(phlist.get(0).getOwn() + 1);
 		phDao = new ProHashDAO(ProHash.class, phMapping);
 		phDao.update(phlist.get(0), 1);
 
