@@ -9,15 +9,18 @@ import com.sisys.bean.Batch;
 import com.sisys.bean.DisqKind;
 import com.sisys.bean.DisqKindDetail;
 import com.sisys.bean.Flowpath;
+import com.sisys.bean.ProHash;
 import com.sisys.bean.Processes;
 import com.sisys.bean.Product;
 import com.sisys.bean.ScheduleTab;
 import com.sisys.bean.SmallWf;
 import com.sisys.bean.WorkForm;
+import com.sisys.bean.mapping.ProHashMapping;
 import com.sisys.dao.BatchDAO;
 import com.sisys.dao.DisqKindDAO;
 import com.sisys.dao.DisqKindDetailDAO;
 import com.sisys.dao.FlowpathDAO;
+import com.sisys.dao.ProHashDAO;
 import com.sisys.dao.ProcessesDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
@@ -186,7 +189,18 @@ public class WorkFormAlterService {
 			swd.delete(smalll.get(j));
 		}
 		if (i == str1.length - 1) {
-			// 如果所删除工单是共批次最后一个工序，则修改完成标志
+			// 如果所删除工单是该批次最后一个工序，则修改proHash表和完成标志
+			sql = "selece * from product where id=" + bat.getProId();
+			prod = new ProductDAO();
+			List<Product> prol = prod.findEntityByList(sql);
+			sql = "select * from proHash where proNo='"
+					+ prol.get(0).getProNo() + "' and hash="
+					+ Integer.parseInt(bat.getBatchNo().substring(8));
+			ProHashDAO phd = new ProHashDAO();
+			List<ProHash> phl = phd.findEntityByList(sql);
+			phl.get(0).setOwn(phl.get(0).getOwn() + 1);
+			phd = new ProHashDAO();
+			phd.update(phl.get(0), 0);
 			if (batsave.getStatus() == 1) {
 				if (date.after(batsave.getEndTime())) {
 					batsave.setStatus(2);
@@ -208,6 +222,15 @@ public class WorkFormAlterService {
 			}
 			batd = new BatchDAO();
 			batd.update(bat, 1);
+			// 重置proHash表中的own属性
+			sql = "select * from proHash where proNo='" + proNo + "' and hash="
+					+ Integer.parseInt(batNo.substring(8, 10));
+			ProHashMapping phMapping = new ProHashMapping();
+			ProHashDAO phDao = new ProHashDAO(ProHash.class, phMapping);
+			List<ProHash> phlist = phDao.findEntityByList(sql);
+			phlist.get(0).setOwn(phlist.get(0).getHash() - 1);
+			phDao = new ProHashDAO(ProHash.class, phMapping);
+			phDao.update(phlist.get(0), 1);
 		}
 		sche.setColorNo(proc.getColorNo());
 		sche.setDisqNum(disqNum);
