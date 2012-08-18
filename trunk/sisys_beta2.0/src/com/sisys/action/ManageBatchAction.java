@@ -125,8 +125,7 @@ public class ManageBatchAction extends BaseAction {
 	
 	//进入超期批次列表
 	public String outOfDueList() {
-		//return mbs.outOfDueList();
-		return null;
+		return mbs.outOfDueList();
 	}
 
 }
