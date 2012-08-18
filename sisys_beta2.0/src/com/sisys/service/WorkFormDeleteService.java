@@ -7,12 +7,16 @@ import java.util.List;
 import com.sisys.bean.Batch;
 import com.sisys.bean.DisqKindDetail;
 import com.sisys.bean.Flowpath;
+import com.sisys.bean.ProHash;
+import com.sisys.bean.Product;
 import com.sisys.bean.ScheduleTab;
 import com.sisys.bean.SmallWf;
 import com.sisys.bean.WorkForm;
 import com.sisys.dao.BatchDAO;
 import com.sisys.dao.DisqKindDetailDAO;
 import com.sisys.dao.FlowpathDAO;
+import com.sisys.dao.ProHashDAO;
+import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
 import com.sisys.dao.SmallWfDAO;
 import com.sisys.dao.WorkFormDAO;
@@ -53,7 +57,7 @@ public class WorkFormDeleteService {
 		int i = 0;
 		for (; i < str.length; i++) {
 			if (Integer.parseInt(str[i]) == work.getProcId()) {
-				break;//找到相应工序的位置
+				break;// 找到相应工序的位置
 			}
 		}
 		// 搜索进度表，并判断前后工序关系
@@ -67,9 +71,20 @@ public class WorkFormDeleteService {
 				return "outofline";
 			}
 		} else {
-			//如果所删除工单是该批次最后一个工序，则修改完成标志
+			// 如果所删除工单是该批次最后一个工序，则修改proHash表和完成标志
+			sql = "selece * from product where id=" + bat.getProId();
+			ProductDAO prod = new ProductDAO();
+			List<Product> prol = prod.findEntityByList(sql);
+			sql = "select * from proHash where proNo='"
+					+ prol.get(0).getProNo() + "' and hash="
+					+ Integer.parseInt(bat.getBatchNo().substring(8));
+			ProHashDAO phd = new ProHashDAO();
+			List<ProHash> phl = phd.findEntityByList(sql);
+			phl.get(0).setOwn(phl.get(0).getOwn() + 1);
+			phd = new ProHashDAO();
+			phd.update(phl.get(0), 0);
 			if (bat.getStatus() == 1) {
-				if(date.after(bat.getEndTime())){
+				if (date.after(bat.getEndTime())) {
 					bat.setStatus(2);
 				} else {
 					bat.setStatus(0);
@@ -90,29 +105,32 @@ public class WorkFormDeleteService {
 		std.update(sche, 1);
 		wfd = new WorkFormDAO();
 		wfd.update(work, 1);
-		//搜索小工单，找到与该大工单对应的若干小工单
+		// 搜索小工单，找到与该大工单对应的若干小工单
 		sql = "select * from smallwf where wfid=" + work.getId();
 		SmallWfDAO swd = new SmallWfDAO();
 		List<SmallWf> smalllist = swd.findEntityByList(sql);
-		for(int j = 0;j < smalllist.size();j++){
+		for (int j = 0; j < smalllist.size(); j++) {
 			this.deleteswf(smalllist.get(j));
 			swd = new SmallWfDAO();
 			swd.delete(smalllist.get(j));
 		}
 		return "success";
 	}
-	
-	public void deleteswf(SmallWf wf){
+
+	public void deleteswf(SmallWf wf) {
 		String sql;
 		String[] str;
 		str = wf.getDisqDetail().split("-");
 		DisqKindDetailDAO dkdd;
-		for(int i = 1; i <= str.length; i++){
+		for (int i = 1; i <= str.length; i++) {
 			sql = "select * from disqkinddetail where disqkid=" + i
 					+ " and time='" + time + "'";
 			dkdd = new DisqKindDetailDAO();
 			List<DisqKindDetail> dkdlist = dkdd.findEntityByList(sql);
-			dkdlist.get(0).setDisqKNum(dkdlist.get(0).getDisqKNum() - Integer.parseInt(str[i - 1]));
+			dkdlist.get(0)
+					.setDisqKNum(
+							dkdlist.get(0).getDisqKNum()
+									- Integer.parseInt(str[i - 1]));
 			dkdd = new DisqKindDetailDAO();
 			dkdd.update(dkdlist.get(0), 1);
 		}

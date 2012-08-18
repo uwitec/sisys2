@@ -115,6 +115,7 @@ public class WorkFormAddService {
 			}
 		}
 		if (sche.getIsEnd() == 1) {
+			// 如果是最后一道工序，则修改批次完成标志
 			if (bat.getStatus() == 2) {
 				bat.setStatus(4);
 			} else if (bat.getStatus() == 0) {
@@ -122,6 +123,15 @@ public class WorkFormAddService {
 			}
 			batd = new BatchDAO();
 			batd.update(bat, 1);
+			// 重置proHash表中的own属性
+			sql = "select * from proHash where proNo='" + proNo + "' and hash="
+					+ Integer.parseInt(batNo.substring(8, 10));
+			ProHashMapping phMapping = new ProHashMapping();
+			ProHashDAO phDao = new ProHashDAO(ProHash.class, phMapping);
+			List<ProHash> phlist = phDao.findEntityByList(sql);
+			phlist.get(0).setOwn(phlist.get(0).getHash() - 1);
+			phDao = new ProHashDAO(ProHash.class, phMapping);
+			phDao.update(phlist.get(0), 1);
 		}
 		sche.setColorNo(proc.getColorNo());
 		sche.setDisqNum(disqNum);
@@ -138,17 +148,6 @@ public class WorkFormAddService {
 		std.update(sche, 1);
 		WorkFormDAO wfd = new WorkFormDAO();
 		wfd.create(work);
-		// 如果所输入工单是最后一个，重置proHash表中的own属性
-		if (Integer.parseInt(procNo) == str.length) {
-			sql = "select * from proHash where proNo='" + proNo + "' and hash="
-					+ Integer.parseInt(batNo.substring(8, 10));
-			ProHashMapping phMapping = new ProHashMapping();
-			ProHashDAO phDao = new ProHashDAO(ProHash.class, phMapping);
-			List<ProHash> phlist = phDao.findEntityByList(sql);
-			phlist.get(0).setOwn(0);
-			phDao = new ProHashDAO(ProHash.class, phMapping);
-			phDao.update(phlist.get(0), 1);
-		}
 		// 搜索工单，找到刚刚存储的工单id
 		sql = "select * from workform where batchId=" + bat.getId()
 				+ " and procId=" + proc.getId() + " and isDelete=0";
