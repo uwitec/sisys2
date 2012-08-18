@@ -323,7 +323,7 @@ public class ManageBatchService {
 		phDao.update(phlist.get(0), 1);
 
 		// 生成条码字符串（以后要删除或注释）
-		code.append(batch.getBatchNo());
+		/*code.append(batch.getBatchNo());
 		code.append(product.getProNo());
 		code.append("" + batch.getTotalNum());
 		if (code.toString().length() < 21) {
@@ -342,7 +342,7 @@ public class ManageBatchService {
 			evenNum += Integer.parseInt(str[i] + "");
 		}
 		tnum = oddNum * 3 + evenNum;
-		code.append("" + (10 - tnum % 10) % 10);
+		code.append("" + (10 - tnum % 10) % 10);*/
 
 		request.setAttribute("code", code.toString());
 

@@ -386,11 +386,8 @@ public class WorkFormSearchService {
 		String code = request.getParameter("barCode");
 		System.out.println(code);
 		System.out.println(code.length());
-		if (code.length() != 22) {
-			return "error";
-		}
 		String batNo = code.substring(0, 10);
-		String proNo = code.substring(10, 16);
+		String proNo = code.substring(10, code.length() - 2);
 		char[] str = code.toCharArray();
 		int oddNum = 0;
 		int evenNum = 0;
@@ -402,7 +399,7 @@ public class WorkFormSearchService {
 			evenNum += Integer.parseInt(str[i] + "");
 		}
 		num = oddNum * 3 + evenNum;
-		if (Integer.parseInt(str[21] + "") != (10 - num % 10) % 10) {
+		if (Integer.parseInt(str[code.length() - 1] + "") != (10 - num % 10) % 10) {
 			return "error";
 		}
 		String sql;
