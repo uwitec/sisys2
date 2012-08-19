@@ -24,6 +24,7 @@ public class ManageWorkFormService {
 		ProductDAO pdao = new ProductDAO();
 		Map<String, Object> equalsMap = new HashMap<String, Object>();
 		equalsMap.put("proNo", proNo);
+		equalsMap.put("isDelete", 0);
 		List<Product> pList = pdao.findEntity(equalsMap);
 		if(pList.size() != 0) {
 			sb.append(pList.get(0).getProName());
@@ -38,6 +39,9 @@ public class ManageWorkFormService {
 		sql = "select * from product where proNo='" + proNo + "'";
 		ProductDAO prod = new ProductDAO();
 		List<Product> prolist = prod.findEntityByList(sql);
+		if (prolist.size() == 0) {
+			return "error";
+		}
 		sql = "select * from batch where batchNo='" + batNo + "' and proId=" + prolist.get(0).getId();
 		BatchDAO batd = new BatchDAO();
 		List<Batch> batlist = batd.findEntityByList(sql);
@@ -66,6 +70,7 @@ public class ManageWorkFormService {
 		StaffDAO sdao = new StaffDAO();
 		Map<String, Object> equalsMap = new HashMap<String, Object>();
 		equalsMap.put("staNo", staNo);
+		equalsMap.put("isDelete", 0);
 		List<Staff> sList = sdao.findEntity(equalsMap);
 		if(sList.size() != 0) {
 			sb.append(sList.get(0).getStaName());

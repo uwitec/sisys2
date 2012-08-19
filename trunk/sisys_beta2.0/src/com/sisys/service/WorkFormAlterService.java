@@ -190,15 +190,15 @@ public class WorkFormAlterService {
 		}
 		if (i == str1.length - 1) {
 			// 如果所删除工单是该批次最后一个工序，则修改proHash表和完成标志
-			sql = "selece * from product where id=" + bat.getProId();
+			sql = "selece * from product where id=" + batsave.getProId();
 			prod = new ProductDAO();
 			List<Product> prol = prod.findEntityByList(sql);
 			sql = "select * from proHash where proNo='"
 					+ prol.get(0).getProNo() + "' and hash="
-					+ Integer.parseInt(bat.getBatchNo().substring(8));
+					+ Integer.parseInt(batsave.getBatchNo().substring(8));
 			ProHashDAO phd = new ProHashDAO();
 			List<ProHash> phl = phd.findEntityByList(sql);
-			phl.get(0).setOwn(phl.get(0).getOwn() + 1);
+			phl.get(0).setOwn(phl.get(0).getOwn() - 1);
 			phd = new ProHashDAO();
 			phd.update(phl.get(0), 0);
 			if (batsave.getStatus() == 1) {
@@ -228,7 +228,7 @@ public class WorkFormAlterService {
 			ProHashMapping phMapping = new ProHashMapping();
 			ProHashDAO phDao = new ProHashDAO(ProHash.class, phMapping);
 			List<ProHash> phlist = phDao.findEntityByList(sql);
-			phlist.get(0).setOwn(phlist.get(0).getHash() - 1);
+			phlist.get(0).setOwn(phlist.get(0).getHash() + 1);
 			phDao = new ProHashDAO(ProHash.class, phMapping);
 			phDao.update(phlist.get(0), 1);
 		}
