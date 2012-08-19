@@ -53,14 +53,15 @@
 
 		<script language="JavaScript"> 
 		function presubmit(){
-		var code = document.getElementById("barCode").value.trim();
-		document.getElementById("barCode").focus();
-		if (code.length == 22) {
-			document.getElementById("myForm1").submit();
+		
+			document.getElementById("barCode").focus();
 		}
-		setTimeout('presubmit()',4000);
-		}
+		
 </script>
+
+		<script type="text/javascript"
+			src="resources/scripts/keyCheck.js">
+	</script>
 <!--<script language="JavaScript"> 
 		function myrefresh() 
 		{ 
@@ -159,16 +160,10 @@
 									</tr>
 									<tr>
 										<td>
-											<input type="text" style="width: 300px" name="barCode" id="barCode">
+											<input type="text" style="width: 300px" name="barCode" id="barCode" onkeypress="check(event)" onchange="recheck()">
 										</td>
 									</tr>
-									<tr>
-										<td>
-											<input class="button" type="submit" value="提交">
-											<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-											<input class="button" type="reset" value="重置">
-										</td>
-									</tr>
+									
 								</table>
 							</form>
 
