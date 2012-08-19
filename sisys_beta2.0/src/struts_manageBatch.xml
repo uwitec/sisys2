@@ -30,7 +30,7 @@
 			<result name="false">/BatchAdd_${level}.jsp?result=false&amp;current=batchAdd</result>
 			<result name="pnone">/BatchAdd_${level}.jsp?result=pnone&amp;current=batchAdd</result>
 			<result name="isnull">/BatchAdd_${level}.jsp?result=isnull&amp;current=batchAdd</result>
-			<result name="success">/BatchAdd_${level}.jsp?result=success&amp;current=batchAdd</result>
+			<result name="success">/OpenPDF.jsp</result>
 		</action>
 		
 		<action name="modifyOutDue" class="com.sisys.action.ManageBatchAction" method="modifyOutDue">

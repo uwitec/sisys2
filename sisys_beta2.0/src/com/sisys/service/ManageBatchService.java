@@ -93,13 +93,14 @@ public class ManageBatchService {
 		StringBuffer sb = new StringBuffer(sdf.format(date));
 		ProHashMapping phMapping = new ProHashMapping();
 		ProHashDAO pDao = new ProHashDAO(ProHash.class, phMapping);
-		List<ProHash> pList1 = pDao.readByProNo(product.getProNo());
+		String sql = "select * from prohash where proNo='" + product.getProNo() + "'";
+		List<ProHash> pList1 = pDao.findEntityByList(sql);
 		if (!pList1.isEmpty() && pList1.size() != 0) {
 			int num = 0;
 			int flag = -1;
 			for (int i = 0; i < pList1.size(); i++) {
-				num += pList1.get(i).getHash();
-				if (pList1.get(i).getHash() == 0 && flag != -1) {
+				num += pList1.get(i).getOwn();
+				if (pList1.get(i).getOwn() == 0 && flag == -1) {
 					flag = i;
 				}
 			}
@@ -180,9 +181,9 @@ public class ManageBatchService {
 		createPDF(content);
 		
 		//inputPath和outputPath是我所存的输入和输入文件的绝对地址
-		/*String inputPath = "E:/Program Files/workspace/sisys_beta2.0/input.tex";
-		String outputPath = "E:/Program Files/workspace/sisys_beta2.0/gd.pdf";
-		File f = new File(inputPath);
+		//String inputPath = "E:/Program Files/workspace/sisys_beta2.0/input.tex";
+		String outputPath = "E://Program Files//Myeclipse//workspace//sisys2//sisys_beta2.0//gd.pdf";
+		/*File f = new File(inputPath);
 		FileWriter fw = new FileWriter(f);
 		//在输入文件中写入数据
 		fw.write(p.getProNo() + "\r\n" + p.getProName() + "\r\n"
@@ -195,37 +196,18 @@ public class ManageBatchService {
 		Runtime rt = Runtime.getRuntime();
 		Process process = rt.exec(command);
 		
-		Process ps = null;   
-		try {  
-		            ps = rt.exec("cmd.exe /C start /b D:\\test.bat");  
-		} catch (IOException e1) {  
-		            e1.printStackTrace();  
-		}   
-		try {
-			ps.waitFor();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}   
-		int j = ps.exitValue();   
-		if (j == 0) {   
-		     System.out.println("执行完成.") ;   
-		} else {   
-		     System.out.println("执行失败.") ;  
-		}
-		
-		//这个是让系统休息15秒，cmd命令和java程序是并行执行的，后面的判断要基于cmd命令的结果
+		//这个是让系统休息20秒，cmd命令和java程序是并行执行的，后面的判断要基于cmd命令的结果
 		try{
-		    Thread.sleep(15000);
+		    Thread.sleep(20000);
 		}catch(Exception e){
-		}
+		}*/
 		//读取所生成的pdf
 		File f2 = new File(outputPath);
 		Date date = new Date(f2.lastModified());//查看pdf的修改时间
 		//如果所生成的pdf不存在或者修改时间在进入该程序之前，即scgd生成pdf失败，则返回生成失败
-		if (!f2.exists() && date.before(nowTime)) {
+		if (!f2.exists() || date.before(nowTime)) {
 			return "false";
-		}*/
+		}
 		
 		
 		/*File f = new File("E:/Program Files/workspace/sisys_beta2.0/input.tex");
@@ -479,7 +461,7 @@ public class ManageBatchService {
 	}
 	 
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Product p = new Product();
 		p.setProName("JL474气门导管");
 		p.setProNo("010403");
@@ -497,11 +479,11 @@ public class ManageBatchService {
 		}
 		//createPDF();
 		
-	}
+	}*/
 	
 	public void createPDF(String content) {
-		File f = new File("E:/Program Files/workspace/sisys_beta2.0/input.tex");
-		String outputPath = "E:/Program Files/workspace/sisys_beta2.0/gd.pdf";
+		File f = new File("E://Program Files//Myeclipse//workspace//sisys2//sisys_beta2.0//input.tex");
+		String outputPath = "E://Program Files//Myeclipse//workspace//sisys2//sisys_beta2.0//gd.pdf";
 		FileWriter fw;
 		try {
 			fw = new FileWriter(f);
@@ -511,8 +493,6 @@ public class ManageBatchService {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date(f.lastModified());
 		String command = "cmd.exe /k start scgd input.tex gd.pdf";
 		Runtime rt = Runtime.getRuntime();
 		try {
@@ -522,13 +502,13 @@ public class ManageBatchService {
 			e1.printStackTrace();
 		}
 		try{
-		    Thread.sleep(15000);
+		    Thread.sleep(20000);
 		}catch(Exception e){
 		}
-		File f2 = new File(outputPath);
+		/*File f2 = new File(outputPath);
 		Date date1 = new Date(f2.lastModified());
 		System.out.println(f2.exists());
 		System.out.println(df.format(date1));
-		System.out.println(df.format(new Date()));
+		System.out.println(df.format(new Date()));*/
 	}
 }
