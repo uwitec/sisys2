@@ -97,9 +97,11 @@ public class BatchDAO  extends GenericQueryImpl<Batch, BatchMapping>{
 		value.add(entity.getIsDelete());
 		value.add(entity.getDeleteTime());
 		value.add(entity.getId());
+		System.out.println(entity);
 		
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
+		
 		try {
 			result = genericTemplate.executeUpdate();
 		} catch(Exception ex) {

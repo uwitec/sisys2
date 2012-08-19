@@ -43,7 +43,7 @@
 				<s:iterator value="disqStaff" id="pd3">
 				<tr align="center">				
 					<td><s:property value="#pd3.staName"/></td>
-					<td><s:property value="staNo"/></td>		
+					<td><a target="_blank" href=SearchPpByDisq?staNo=<s:property value="staNo"/>><s:property value="staNo"/></a></td>		
 					<s:set name="list1" value="#pd3.disqTypeNum"></s:set>
 					<s:iterator value="#list1" id="type">
 					<td><s:property/></td>

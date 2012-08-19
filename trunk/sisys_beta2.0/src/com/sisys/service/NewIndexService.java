@@ -101,11 +101,11 @@ public class NewIndexService {
 		equalMap.put("status", 0);
 		equalMap.put("isDelete", 0);
 		batchList = batchDAO.findEntity(equalMap);
-		if(batchList.size() == 0){
+		/*if(batchList.size() == 0){
 			map.put("result", "error");
 			map.put("message", "请导入数据！");
 			return map;
-		}
+		}*/
 		
 		for(int i = 0;i < batchList.size() ;i++){
 			if(batchList.get(i).getEndTime().compareTo(now) < 0){
