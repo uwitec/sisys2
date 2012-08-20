@@ -68,7 +68,7 @@ public class SearchPd4Service {
 			tmp.proName=product.get(i).getProName();
 			List<Batch> batch=new ArrayList<Batch>();
 			BatchDAO batchDAO=new BatchDAO();
-			String sql1="select * from batch where proId ='"+product.get(i).getId()+"' and endtime between '"+starttime+"' and '"+endtime+"' and isDelete='0' and status in(1,3,4)";
+			String sql1="select * from batch where proId ='"+product.get(i).getId()+"' and endtime between '"+starttime+"' and '"+endtime+"' and isDelete='0' and status in(1,4)";
 			batch=batchDAO.findEntityByList(sql1);
 			if(batch.size() == 0){
 				continue;
