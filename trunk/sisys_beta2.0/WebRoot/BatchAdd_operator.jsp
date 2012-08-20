@@ -16,6 +16,8 @@
 <%
 	
 	String result = request.getParameter("result");
+	String proNo = (String)request.getAttribute("pro");
+	String batNo = (String)request.getAttribute("bat");
 	String code = (String) request.getAttribute("code");
 	String error = "";
 	if(result == null) {
@@ -77,10 +79,20 @@
 	src="resources/scripts/addBatch.js"></script>
 	
 <script type="text/javascript">
+	function ale()
+	{//这个基本没有什么说的，就是弹出一个提醒的对话框
+		document.getElementById("myForm").submit();
+     	alert("正在处理…");
+	}
+</script>
+
+<script type="text/javascript">
 	window.onload = function send() {
 		var result = "<%=result%>";
+		var pro = "<%=proNo%>";
+		var bat = "<%=batNo%>";
 		if(result=="success")
-			window.open("http://localhost:8080/sisys_beta2.0/OpenPDF.jsp");
+			window.open("http://localhost:8080/sisys_beta2.0/" + pro + "/" + bat + ".pdf");
 	}
 </script>
 
@@ -156,7 +168,7 @@
 							<%=error%>
 						</label>
 						
-						<form action="addBatch.action" method="post">
+						<form id="myForm" action="addBatch.action" method="post">
 
 						<table class="">
 								<tr>
@@ -183,8 +195,8 @@
 								</tr>
 								
 								<tr>
-									<td><input class="button" type="submit" value="提交"></td>
-									<td><input class="button" type="reset" value="重置"></td>
+									<td><input class="button" type="button" value="提交" onclick="ale()"/></td>
+									<td><input class="button" type="reset" value="重置"/></td>
 								</tr>
 							</table>
 							
