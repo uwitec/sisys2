@@ -126,7 +126,8 @@ public class ManageDataService {
 		MysqlConfig mc = new MysqlConfig();
 		try{
 			Runtime rt = Runtime.getRuntime();
-			Process child = rt.exec(mc.getPath() + "mysqldump -u" + mc.getUser() + " -p" + mc.getPassword() + " sisys2");
+			String command = mc.getPath() + "mysqldump -u" + mc.getUser() + " -p" + mc.getPassword() + " sisys2";
+			Process child = rt.exec(command);
 			
 			InputStream in = child.getInputStream();
 			InputStreamReader isr = new InputStreamReader(in,"utf8");

@@ -1,8 +1,12 @@
 package com.sisys.service;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.text.*;
 import java.util.*;
 
@@ -26,6 +30,7 @@ import com.sisys.dao.ProHashDAO;
 import com.sisys.dao.ProcessesDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
+import com.sisys.test.test;
 
 public class ManageBatchService {
 
@@ -182,7 +187,7 @@ public class ManageBatchService {
 		
 		//inputPath和outputPath是我所存的输入和输入文件的绝对地址
 		//String inputPath = "E:/Program Files/workspace/sisys_beta2.0/input.tex";
-		String outputPath = "E://Program Files//Myeclipse//workspace//sisys2//sisys_beta2.0//gd.pdf";
+		String outputPath = "e:/gd.pdf";
 		/*File f = new File(inputPath);
 		FileWriter fw = new FileWriter(f);
 		//在输入文件中写入数据
@@ -482,29 +487,69 @@ public class ManageBatchService {
 	}*/
 	
 	public void createPDF(String content) {
-		File f = new File("E://Program Files//Myeclipse//workspace//sisys2//sisys_beta2.0//input.tex");
-		String outputPath = "E://Program Files//Myeclipse//workspace//sisys2//sisys_beta2.0//gd.pdf";
-		FileWriter fw;
+		String inputPath = "e:/input.tex";
+		String outputPath = "e:/gd.pdf";
+
 		try {
-			fw = new FileWriter(f);
-			fw.write(content);
-			fw.close();
+			File file = new File(inputPath);
+			if(!file.exists()) {
+				file.createNewFile();
+			}
+			FileOutputStream fos = new FileOutputStream(file);
+			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+			osw.write(content);
+			osw.close();
+			fos.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		String command = "cmd.exe /k start scgd input.tex gd.pdf";
+		
+		//String command = "cmd.exe /k start scgd "+inputPath+" "+ outputPath;
+		String command = "cmd.exe /c start scgd " + inputPath + " " + outputPath;
 		Runtime rt = Runtime.getRuntime();
+			try {
+				Process process = rt.exec(command);
+				
+				process.waitFor();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+//		String command = "cmd /k scgd input.tex gd.pdf>a.txt";
+//		Runtime rt = Runtime.getRuntime();
+//		try {
+//			Process process = rt.exec(command);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+	/*	Runtime rt = Runtime.getRuntime();
 		try {
 			Process process = rt.exec(command);
+			
+			String line = "";
+			BufferedReader br = new BufferedReader(new 
+					InputStreamReader(process.getInputStream()));
+			while((line=br.readLine()) != null) {
+				System.out.println(line);
+			}
+			process.waitFor();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		try{
 		    Thread.sleep(20000);
 		}catch(Exception e){
-		}
+		}*/
 		/*File f2 = new File(outputPath);
 		Date date1 = new Date(f2.lastModified());
 		System.out.println(f2.exists());
