@@ -16,19 +16,20 @@
 
 <%
 	
-	String error = request.getParameter("result");
+	String result = request.getParameter("result");
 	String code = (String) request.getAttribute("code");
-	if(error == null) {
+	String error = "";
+	if(result == null) {
 		error = "";
-	} else if(error.equals("success")) {
+	} else if(result.equals("success")) {
 		error = "添加成功！条码为：" + code;
-	}  else if(error.equals("false")) {
+	}  else if(result.equals("false")) {
 		error = "添加失败！";
-	}  else if(error.equals("repetition")) {
+	}  else if(result.equals("repetition")) {
 		error = "该批次已存在！";
-	}  else if(error.equals("isnull")) {
+	}  else if(result.equals("isnull")) {
 		error = "输入不能为空！";
-	}  else if(error.equals("pnone")) {
+	}  else if(result.equals("pnone")) {
 		error = "该产品不存在！";
 	}
 %>
@@ -75,6 +76,14 @@
 
 <script type="text/javascript"
 	src="resources/scripts/addBatch.js"></script>
+
+<script type="text/javascript">
+	window.onload = function send() {
+		var result = "<%=result%>";
+		if(result=="success")
+			window.open("http://localhost:8080/sisys_beta2.0/OpenPDF.jsp");
+	}
+</script>
 
 <!-- jQuery -->
 <script type="text/javascript"
