@@ -132,9 +132,6 @@ public class ManageBatchService {
 		User user = (User) session.get("user");
 		//User user = new User();
 		user.setUsername("admin");
-		System.out.println(product);
-		System.out.println(batch);
-		System.out.println(fpath);
 		// 判断输入是否完整
 		StringBuffer code = new StringBuffer("");
 		if ("".equals(batch.getBatchNo()) || "".equals(batch.getTotalNum())
@@ -179,64 +176,26 @@ public class ManageBatchService {
 		// 调用跟单生成程序SCGD
 		/***这一段先注释掉，等黄欣来补完吧***/
 		
+		String flag = "success";
 		String content = p.getProNo() + "\r\n" + p.getProName() + "\r\n"
 		+ batch.getBatchNo() + "\r\n" + batch.getTotalNum() + "\r\n"
 		+ user.getUsername();
-		System.out.println(content);
 		createPDF(content);
 		
-		//inputPath和outputPath是我所存的输入和输入文件的绝对地址
-		//String inputPath = "E:/Program Files/workspace/sisys_beta2.0/input.tex";
+		
 		String outputPath = "e:/gd.pdf";
-		/*File f = new File(inputPath);
-		FileWriter fw = new FileWriter(f);
-		//在输入文件中写入数据
-		fw.write(p.getProNo() + "\r\n" + p.getProName() + "\r\n"
-				+ batch.getBatchNo() + "\r\n" + batch.getTotalNum() + "\r\n"
-				+ user.getUsername());
-		fw.close();
-		//cmd命令，不过不知道写对没有，test中有完整的能够实现该命令的程序，不过在这里不能实现
-		String command = "cmd.exe /k start scgd input.tex gd.pdf";// " + inputPath + " " + outputPath;
 		
-		Runtime rt = Runtime.getRuntime();
-		Process process = rt.exec(command);
-		
-		//这个是让系统休息20秒，cmd命令和java程序是并行执行的，后面的判断要基于cmd命令的结果
-		try{
-		    Thread.sleep(20000);
-		}catch(Exception e){
-		}*/
 		//读取所生成的pdf
 		File f2 = new File(outputPath);
 		Date date = new Date(f2.lastModified());//查看pdf的修改时间
 		//如果所生成的pdf不存在或者修改时间在进入该程序之前，即scgd生成pdf失败，则返回生成失败
 		if (!f2.exists() || date.before(nowTime)) {
-			return "false";
+			flag = "false";
 		}
 		
-		
-		/*File f = new File("E:/Program Files/workspace/sisys_beta2.0/input.tex");
-		String outputPath = "E:/Program Files/workspace/sisys_beta2.0/gd.pdf";
-		FileWriter fw =  new FileWriter(f);
-		fw.write("010104\r\n368曲轴正时皮带轮\r\n2012081302\r\n2001\r\n李一三五");
-		fw.close();
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date date = new Date(f.lastModified());
-		String command = "cmd.exe /c start scgd input.tex gd.pdf";
-		Runtime rt = Runtime.getRuntime();
-		Process process = rt.exec(command);
-		try{
-		    Thread.sleep(15000);
-		}catch(Exception e){
-		}
-		File f2 = new File(outputPath);
-		Date date1 = new Date(f2.lastModified());
-		System.out.println(df.format(date1));
-		System.out.println(df.format(new Date()));*/
 		
 		// 找到对应的流程
 		FlowpathDAO fdao = new FlowpathDAO();
-		// Map<String, String> equalsMap = new HashMap<String, String>();
 		equalsMap.clear();
 		equalsMap.put("sequence", fpath);
 		List<Flowpath> fList = fdao.findEntity(equalsMap);
@@ -245,14 +204,13 @@ public class ManageBatchService {
 
 		BatchDAO bdao1 = new BatchDAO();
 		batch.setStatus(0);
-		bdao1 = new BatchDAO();
 		int num1 = bdao1.create(batch);
 		if (num1 == 0) {
-			return "false";
+			System.out.println("1");
+			flag = "false";
 		}
 
 		// 在工作表建立初始化的相应记录
-		ScheduleTabDAO stdao = new ScheduleTabDAO();
 		ScheduleTab sch = new ScheduleTab();
 		sch.setProcId(Integer.parseInt(processes[0]));
 		int batchId = 0;
@@ -273,9 +231,11 @@ public class ManageBatchService {
 			sch.setColorNo(plist.get(0).getColorNo());
 		}
 
+		ScheduleTabDAO stdao = new ScheduleTabDAO();
 		num1 = stdao.create(sch);
 		if (num1 == 0) {
-			return "false";
+			System.out.println("2");
+			flag = "false";
 		}
 		for (int i = 1; i < processes.length; i++) {
 			ScheduleTabDAO stdao1 = new ScheduleTabDAO();
@@ -296,7 +256,8 @@ public class ManageBatchService {
 			}
 			num1 = stdao1.create(sch1);
 			if (num1 == 0) {
-				return "false";
+				System.out.println("3");
+				flag = "false";
 			}
 		}
 		// 设置proHash表中相应记录状态为1
@@ -339,7 +300,7 @@ public class ManageBatchService {
 				+ batch.getBatchNo();*/
 		// logInfo.saveLog(user, content, System.currentTimeMillis());
 
-		return "success";
+		return flag;
 	}
 
 	// 超期批次的修改
@@ -466,25 +427,6 @@ public class ManageBatchService {
 	}
 	 
 	
-	/*public static void main(String[] args) {
-		Product p = new Product();
-		p.setProName("JL474气门导管");
-		p.setProNo("010403");
-		Batch b = new Batch();
-		b.setBatchNo("2012081702");
-		b.setTotalNum(1002);
-		User user = new User();
-		user.setUsername("admin");
-		ManageBatchService s = new ManageBatchService();
-		try {
-			s.addBatch(p, b, null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//createPDF();
-		
-	}*/
 	
 	public void createPDF(String content) {
 		String inputPath = "e:/input.tex";
@@ -498,62 +440,34 @@ public class ManageBatchService {
 			FileOutputStream fos = new FileOutputStream(file);
 			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
 			osw.write(content);
-			osw.close();
-			fos.close();
+			osw.flush();
+			if(osw!=null) {
+				osw.close();
+				osw = null;
+				System.out.println("4");
+			}
+			if(fos != null) {
+				fos.close();
+				fos = null;
+				System.out.println("5");
+			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
-		//String command = "cmd.exe /k start scgd "+inputPath+" "+ outputPath;
 		String command = "cmd.exe /c start scgd " + inputPath + " " + outputPath;
 		Runtime rt = Runtime.getRuntime();
 			try {
 				Process process = rt.exec(command);
-				
-				process.waitFor();
+				Thread.sleep(3000);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		
-//		String command = "cmd /k scgd input.tex gd.pdf>a.txt";
-//		Runtime rt = Runtime.getRuntime();
-//		try {
-//			Process process = rt.exec(command);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-	/*	Runtime rt = Runtime.getRuntime();
-		try {
-			Process process = rt.exec(command);
-			
-			String line = "";
-			BufferedReader br = new BufferedReader(new 
-					InputStreamReader(process.getInputStream()));
-			while((line=br.readLine()) != null) {
-				System.out.println(line);
-			}
-			process.waitFor();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try{
-		    Thread.sleep(20000);
-		}catch(Exception e){
-		}*/
-		/*File f2 = new File(outputPath);
-		Date date1 = new Date(f2.lastModified());
-		System.out.println(f2.exists());
-		System.out.println(df.format(date1));
-		System.out.println(df.format(new Date()));*/
+			} 
+
 	}
 }
