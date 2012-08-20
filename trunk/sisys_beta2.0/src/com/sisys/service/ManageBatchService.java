@@ -456,11 +456,18 @@ public class ManageBatchService {
 			e1.printStackTrace();
 		}
 		
-		String command = "cmd.exe /c start scgd " + inputPath + " " + outputPath;
+		String command = "cmd /c scgd \"" + inputPath + "\" \"" + outputPath + "\"";
 		Runtime rt = Runtime.getRuntime();
 			try {
+				String ls_1;
 				Process process = rt.exec(command);
-				Thread.sleep(3000);
+				BufferedReader bufferReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+				while((ls_1=bufferReader.readLine())!=null){
+					System.out.println(ls_1);
+					
+	
+				}
+				process.waitFor();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
