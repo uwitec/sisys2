@@ -19,7 +19,7 @@ String basePath = request.getScheme() + "://"
    response.setContentType("application/pdf");  
   
    try {  
-    String strPdfPath = new String("E://Program Files//Myeclipse//workspace//sisys2//sisys_beta2.0//gd.pdf");  
+    String strPdfPath = new String("e:/gd.pdf");  
     //判断该路径下的文件是否存在  
     File file = new File(strPdfPath);  
     if (file.exists()) {  
