@@ -169,7 +169,7 @@
 							<%=error%>
 						</label>
 						
-						<form action="addBatch.action" method="post">
+						<form id="myForm" action="addBatch.action" method="post">
 
 						<table class="">
 								<tr>
