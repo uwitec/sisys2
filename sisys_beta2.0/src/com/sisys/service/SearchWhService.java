@@ -24,7 +24,8 @@ import com.sisys.dao.StaffDAO;
 
 public class SearchWhService {
 	
-	
+	java.text.DecimalFormat   df=new   java.text.DecimalFormat("#0.00"); 
+
 	//private Date startTime;
 	//private Date endTime
 	String sql;
@@ -110,8 +111,11 @@ public class SearchWhService {
 							}
 						}
 					}
-		
-		System.out.println(smallWf.get(0).getTime());			
+		/*for(int m=0;m<smallWf.size();m++){
+			smallWf.get(m).setBworkHours(Double.parseDouble(df.format(smallWf.get(m).getBworkHours())));
+			smallWf.get(m).setSalary(Double.parseDouble(df.format(smallWf.get(m).getSalary())));
+		}*/
+		System.out.println(smallWf);			
 			
 		Whmap.put("smallWf", smallWf);
 		Whmap.put("backWorkForm", backWorkForm);
@@ -172,8 +176,8 @@ public class SearchWhService {
 				SmallWf smallWf = list.get(j);
 				WorkHoursTab workHoursTab = new WorkHoursTab();
 				
-				workHoursTab.setWorkHours(smallWf.getBworkHours());
-				workHoursTab.setSalary(smallWf.getSalary());
+				workHoursTab.setWorkHours(Double.parseDouble(df.format(smallWf.getBworkHours())));
+				workHoursTab.setSalary(Double.parseDouble(df.format(smallWf.getSalary())));
 				curTime.setTime(smallWf.getTime());
 				String day = curTime.getTime().getMonth()+1 + "-" + curTime.getTime().getDate();
 				

@@ -28,7 +28,7 @@ public class SearchPpService {
 	private String staName;
 	private String deptName;
 	String sql;
-
+	java.text.DecimalFormat   df=new   java.text.DecimalFormat("#0.00"); 
 	
 	public Map<String,Object> SearchPp(String staNo,String starttime,String endtime) throws SQLException, ParseException{
 		Map<String,Object> map = new HashMap<String, Object>();
@@ -126,7 +126,7 @@ public class SearchPpService {
 			tmp.quaNum=list.get(i).getQuaNum();
 			tmp.gWaste=list.get(i).getgWasteNum();
 			tmp.lWaste=list.get(i).getlWasteNum();
-			tmp.workHours=list.get(i).getBworkHours();
+			tmp.workHours=Double.parseDouble(df.format(list.get(i).getBworkHours()));
 			
 			peopleComp.add(tmp);
 		}
