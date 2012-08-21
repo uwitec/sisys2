@@ -60,27 +60,29 @@
 <!--                       Javascripts                       -->
 
 <script type="text/javascript">
-function ale()
-	{//这个基本没有什么说的，就是弹出一个提醒的对话框
-		document.getElementById("myForm").submit();
-		while(1){
-		alert("正在处理…");
-		}
-	}
+
 function check(){
 	var batNo = document.getElementById("batNo").value;
-	var quaNum = document.getElementById("quaNum").value;
-	var staName = document.getElementById("staName").value;
+	var staName1 = document.getElementById("staName1").value;
+	var staName2 = document.getElementById("staName2").value;
+	var staName3 = document.getElementById("staName3").value;
+	var staName4 = document.getElementById("staName4").value;
+	var staName5 = document.getElementById("staName5").value;
  	var proName = document.getElementById("proName").value;
  	var procName = document.getElementById("procName").value;
- 	if(staName=="该员工不存在" || proName=="该产品不存在" || procName=="该工序不存在") {
+ 	if(staName1=="该员工不存在" || staName2=="该员工不存在" || staName3=="该员工不存在" || 
+ 		staName4=="该员工不存在" || staName5=="该员工不存在" || proName=="该产品不存在" || 
+ 		procName=="该工序不存在") {
  		alert("输入信息有误，请重新输入！");
- 	} else if(batNo == "" || quaNum == "" || staName == "" || proName == "" || procName == "") {
+ 	} else if(batNo == "" || (staName1 == "" && staName2 == "" && staName3 == "" && 
+ 			staName4 == "" && staName5 == "")|| proName == "" || procName == "") {
  		alert("输入信息不能为空！");
  	}
  	 else {
- 	 	ale();
  		document.getElementById("myForm").submit();
+		while(1){
+		alert("正在处理…");
+		}
  		
  	}
 }
@@ -164,13 +166,13 @@ function check(){
 						</label>
 						
 						<form id="myForm" action="addWorkForm.action" method="post">
-						    <input type="hidden" name="name" value="${name}" />
 							<div class="formHeader">
-								<span>产品编号</span><input type="text" name="proNo" id="proNo" value="${proNo}">
-								<span>产品名称</span><input type="text" name="proName" class="readonly" value="${proName}">
-								<span>工序编号</span><input type="text" name="procNo" id="procNo" onblur='displayProcNo()'>
-								<span>工序名称</span><input type="text" name="procName" id="procName" class="readonly">
-								<span>批次编号</span><input type="text" name="batNo" id="batNo" class="readonly" value="${batNo}">
+						    	<input type="hidden" name="name" value="${name}" />
+								<span>产品编号</span><input type="text" name="proNo" id="proNo" value="${proNo}"/>
+								<span>产品名称</span><input type="text" name="proName" id="proName" class="readonly" value="${proName}"/>
+								<span>工序编号</span><input type="text" name="procNo" id="procNo" onblur='displayProcNo()'/>
+								<span>工序名称</span><input type="text" name="procName" id="procName" class="readonly"/>
+								<span>批次编号</span><input type="text" name="batNo" id="batNo" class="readonly" value="${batNo}"/>
 							</div>
 							<table class="formAdd" id="table">
 								<tr>
@@ -263,25 +265,25 @@ function check(){
 									<td><input type="text" name="disqNum4-11" ></td>
 								</tr>
 								<tr class="formContent">
-									<td><input type="text" name="staNo5" id="staNo5" onblur='displayStaNo5()'></td>
-									<td><input type="text" name="staName5" id="staName5" class="readonly"></td>
-									<td><input type="text" name="quaNum5" ></td>
-									<td><input type="text" name="disqNum5-1" ></td>
-									<td><input type="text" name="disqNum5-2" ></td>
-									<td><input type="text" name="disqNum5-3" ></td>
-									<td><input type="text" name="disqNum5-4" ></td>
-									<td><input type="text" name="disqNum5-5" ></td>
-									<td><input type="text" name="disqNum5-6" ></td>
-									<td><input type="text" name="disqNum5-7" ></td>
-									<td><input type="text" name="disqNum5-8" ></td>
-									<td><input type="text" name="disqNum5-9" ></td>
-									<td><input type="text" name="disqNum5-10" ></td>
-									<td><input type="text" name="disqNum5-11" ></td>
+									<td><input type="text" name="staNo5" id="staNo5" onblur='displayStaNo5()'/></td>
+									<td><input type="text" name="staName5" id="staName5" class="readonly"/></td>
+									<td><input type="text" name="quaNum5" /></td>
+									<td><input type="text" name="disqNum5-1" /></td>
+									<td><input type="text" name="disqNum5-2" /></td>
+									<td><input type="text" name="disqNum5-3" /></td>
+									<td><input type="text" name="disqNum5-4" /></td>
+									<td><input type="text" name="disqNum5-5" /></td>
+									<td><input type="text" name="disqNum5-6" /></td>
+									<td><input type="text" name="disqNum5-7" /></td>
+									<td><input type="text" name="disqNum5-8" /></td>
+									<td><input type="text" name="disqNum5-9" /></td>
+									<td><input type="text" name="disqNum5-10" /></td>
+									<td><input type="text" name="disqNum5-11" /></td>
 								</tr>
 									
 								<tr>
-									<td class="but"><input class="button" type="submit" onclick="check()" value="提交"/></td>
-									<td class="but"><input class="button" type="reset" value="重置"/></td>
+									<td><input class="button" type="button" onclick="check()" value="提交"/></td>
+									<td><input class="button" type="reset" value="重置"/></td>
 								</tr>
 							</table>
 
