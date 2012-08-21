@@ -190,7 +190,7 @@ public class WorkFormAlterService {
 		}
 		if (i == str1.length - 1) {
 			// 如果所删除工单是该批次最后一个工序，则修改proHash表和完成标志
-			sql = "selece * from product where id=" + batsave.getProId();
+			sql = "select * from product where id=" + batsave.getProId();
 			prod = new ProductDAO();
 			List<Product> prol = prod.findEntityByList(sql);
 			sql = "select * from proHash where proNo='"
