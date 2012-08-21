@@ -62,6 +62,33 @@
 		<![endif]-->
 
 <!--                       Javascripts                       -->
+<script type="text/javascript">
+function check(){
+	var batNo = document.getElementById("batNo").value;
+	var staName1 = document.getElementById("staName1").value;
+	var staName2 = document.getElementById("staName2").value;
+	var staName3 = document.getElementById("staName3").value;
+	var staName4 = document.getElementById("staName4").value;
+	var staName5 = document.getElementById("staName5").value;
+ 	var proName = document.getElementById("proName").value;
+ 	var procName = document.getElementById("procName").value;
+ 	if(staName1=="该员工不存在" || staName2=="该员工不存在" || staName3=="该员工不存在" || 
+ 		staName4=="该员工不存在" || staName5=="该员工不存在" || proName=="该产品不存在" || 
+ 		procName=="该工序不存在") {
+ 		alert("输入信息有误，请重新输入！");
+ 	} else if(batNo == "" || (staName1 == "" && staName2 == "" && staName3 == "" && 
+ 			staName4 == "" && staName5 == "")|| proName == "" || procName == "") {
+ 		alert("输入信息不能为空！");
+ 	}
+ 	 else {
+ 		document.getElementById("myForm").submit();
+		while(1){
+		alert("正在处理…");
+		}
+ 		
+ 	}
+}
+</script>
 
 <script type="text/javascript"
 	src="resources/scripts/addWorkForm.js"></script>
@@ -138,7 +165,7 @@
 							<%=error%>
 						<label>
 						
-						<form id="" method="post" action="alterWorkForm.action">
+						<form id="myForm" method="post" action="alterWorkForm.action">
 						    <input type="hidden" name="wfId" value="${wfsave.wfId}" />
 							<div class="formHeader">
 								<span>产品编号</span><input type="text" name="proNo" value="${wfsave.proNo}" id="proNo" onblur='displayProNo()'>
@@ -255,7 +282,7 @@
 								</tr>
 									
 								<tr>
-									<td class="but"><input class="button" type="submit" onclick="check()" value="提交"/></td>
+									<td class="but"><input class="button" type="button" onclick="check()" value="提交"/></td>
 									<td class="but"><input class="button" type="reset" value="重置"/></td>
 								</tr>
 							</table>

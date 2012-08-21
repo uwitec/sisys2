@@ -61,6 +61,9 @@ function check(){
  	}
  	 else {
  		document.getElementById("myForm").submit();
+		while(1){
+		alert("正在处理…");
+		}
  	}
 }
 </script>
