@@ -133,7 +133,8 @@ public class WorkFormAlterService {
 		std = new ScheduleTabDAO();
 		List<ScheduleTab> schelist = std.findEntityByList(sql);
 		sche = schelist.get(Integer.parseInt(procNo) - 1);
-		if (sche.getQuaNum() != 0 && sche.getId() != schesave.getId()) {
+		if (sche.getQuaNum() != 0 && !(sche.getProcId() == schesave.getProcId()
+				&& bat.getBatchNo().equals(batsave.getBatchNo()))) {
 			return "outofline";
 		}
 		// 如果是第一道工序，则num为0
