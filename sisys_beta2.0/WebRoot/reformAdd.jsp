@@ -184,7 +184,7 @@ function check(){
 									<td><input type="text" width="50px" id="proNo" name="proNo" onblur="displayProNo()"/></td>
 				
 									<td><span>产品名称</span></td>
-									<td><input readOnly="true" type="text" width="50px"  id="proName" name="proName"/></td>
+									<td><input class="readonly" type="text" width="50px"  id="proName" name="proName"/></td>
 								</tr>
 								<tr>
 									<td><span>批次号</span></td>
@@ -195,14 +195,14 @@ function check(){
 									<td><input type="text" width="50px" id="procNo" name="procNo" onblur="displayProcNo()"/></td>
 				
 									<td><span>工序名称</span></td>
-									<td><input readOnly="true" type="text" width="50px"  id="procName" name="procName"/></td>
+									<td><input class="readonly" type="text" width="50px"  id="procName" name="procName"/></td>
 								</tr>
 								<tr>
 									<td><span>员工工号</span></td>
 									<td><input type="text" width="50px" id="staNo" name="staNo" onblur="displayStaNo()"/></td>
 				
 									<td><span>员工姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px"  id="staName" name="staName"/></td>
+									<td><input class="readonly" type="text" width="50px"  id="staName" name="staName"/></td>
 								</tr>
 								<tr>
 									<td><span>返工类别</span></td>
@@ -224,14 +224,14 @@ function check(){
 									<td><input type="text" width="50px" id="respNo" name="respNo" onblur="displayRespNo()"/></td>
 								
 									<td><span>责任人姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px" id="respName" name="respName"/></td>
+									<td><input class="readonly" type="text" width="50px" id="respName" name="respName"/></td>
 								</tr>
 								<tr>
 									<td><span>审批人工号</span></td>
 									<td><input type="text" width="50px" id="checkNo" name="checkNo" onblur="displayCheckNo()"/></td>
 								
 									<td><span>审批人姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px" id="checkName" name="checkName"/></td>
+									<td><input class="readonly" type="text" width="50px" id="checkName" name="checkName"/></td>
 								</tr>
 								
 								

@@ -180,7 +180,7 @@
 									<td><span>产品编号</span></td>
 									<td><input type="text" width="50px"  id="proNo" name="product.proNo"  onblur='display()'></td>
 									<td><span>批次号</span></td>
-									<td><input type="text" width="50px"  id="batchNo" readOnly="true" name="batch.batchNo"></td>
+									<td><input type="text" width="50px"  id="batchNo" class="readonly" name="batch.batchNo"></td>
 									
 								</tr>
 								<tr>
