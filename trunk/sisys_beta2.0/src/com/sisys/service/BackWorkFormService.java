@@ -107,8 +107,16 @@ public class BackWorkFormService {
 			resultMap.put("message", "逻辑错误！");
 			return resultMap;
 		}
+		
+		BackKindDAO backKindDAO = new BackKindDAO();
+		List<BackKind> kindList = backKindDAO.findAll();
+		if(kindList.size() == 0){
+			resultMap.put("result", "error");
+			return resultMap;
+		}
 		bwfList = bwfTobwfs(list);
 		resultMap.put("result", "success");
+		resultMap.put("kindList", kindList);
 		resultMap.put("bwf", bwfList.get(0));
 		return resultMap;
 		

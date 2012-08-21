@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.sisys.bean.DisqKind"%>
+<%@ page import="com.sisys.bean.BackKind"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+<%
+String kind = (String) request.getAttribute("kind");
+List<BackKind> kindList = (List<BackKind>)request.getAttribute("kindList");
+%>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -48,7 +51,7 @@
 <!--                       Javascripts                       -->
 <script type="text/javascript">
 function check(){
-	var batNo = document.getElementById("batchNo").value;
+	var batNo = document.getElementById("batNo").value;
 	var staName = document.getElementById("staName").value;
  	var proName = document.getElementById("proName").value;
  	var respName = document.getElementById("respName").value;
@@ -158,7 +161,7 @@ function check(){
 								</tr>
 								<tr>
 									<td><span>批次号</span></td>
-									<td><input type="text" width="50px" id="batchNo" name="batchNo" value="${bwf.batchNo }"/></td>
+									<td><input type="text" width="50px" id="batNo" name="batchNo" value="${bwf.batchNo }"/></td>
 								</tr>
 								<tr>
 									<td><span>工序号</span></td>
@@ -176,7 +179,24 @@ function check(){
 								</tr>
 								<tr>
 									<td><span>返工类别</span></td>
-									<td><input type="text" width="50px" id="kind" name="kind" value="${bwf.kind }"/></td>
+									<td>
+										<select name="kind" id="kind">
+									<option value="">----请选择--</option>
+									<%for(int i = 0;i < kindList.size();i++){%>
+									<option value="<%=kindList.get(i).getName() %>" 
+									<%
+									if(kindList.get(i).getName().equals(kind))
+									{
+									%>
+										selected="selected"
+									<%
+									} 
+									%>>
+									<%=kindList.get(i).getName() %>
+									</option>
+									<%} %>
+								</select>
+									</td>
 									
 									<td><span>返工工时</span></td>
 									<td><input type="text" width="50px" id="workHours" name="workHours" value="${bwf.workHours }"/></td>
