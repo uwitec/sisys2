@@ -80,7 +80,10 @@ public class BackWorkFormAction extends BaseAction {
 		if(resultMap.get("result").equals("error")){
 			return ERROR;
 		}
+		BWFstandard back = (BWFstandard)resultMap.get("bwf");
+		request.setAttribute("kind", back.getKind());
 		request.setAttribute("bwf", resultMap.get("bwf"));
+		request.setAttribute("kindList", resultMap.get("kindList"));
 		return SUCCESS;
 	}
 	
