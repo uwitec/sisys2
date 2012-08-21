@@ -11,7 +11,6 @@
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ path + "/";
 	
-	
 %>
 
 <%
@@ -83,7 +82,10 @@
 	function ale()
 	{//这个基本没有什么说的，就是弹出一个提醒的对话框
 		document.getElementById("myForm").submit();
-     	alert("正在处理…");
+		while(1){
+		alert("正在处理…");
+		}
+
 	}
 </script>
 
@@ -93,7 +95,7 @@
 		var pro = "<%=proNo%>";
 		var bat = "<%=batNo%>";
 		if(result=="success")
-			window.open("http://localhost:8080/sisys_beta2.0/" + pro + "/" + bat + ".pdf");
+			window.open("http://localhost:8080/sisys_beta2.0/PDFs/" + pro + "/" + bat + ".pdf");
 	}
 </script>
 
@@ -130,6 +132,8 @@
 </head>
 
 <body>
+<div id="div1" style="position:absolute;top:0px;left:0px;width:1200px;height:60000px;display:none;"></div>
+
 
 	<div id="body-wrapper">
 		<!-- Wrapper for the radial gradient background -->
@@ -194,6 +198,7 @@
 										</div>
 									</td>
 								</tr>
+								
 								<tr>
 									<td><input class="button" type="button" value="提交" onclick="ale()"/></td>
 									<td><input class="button" type="reset" value="重置"/></td>

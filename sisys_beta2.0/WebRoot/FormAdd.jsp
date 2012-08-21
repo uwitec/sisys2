@@ -60,6 +60,13 @@
 <!--                       Javascripts                       -->
 
 <script type="text/javascript">
+function ale()
+	{//这个基本没有什么说的，就是弹出一个提醒的对话框
+		document.getElementById("myForm").submit();
+		while(1){
+		alert("正在处理…");
+		}
+	}
 function check(){
 	var batNo = document.getElementById("batNo").value;
 	var quaNum = document.getElementById("quaNum").value;
@@ -72,11 +79,12 @@ function check(){
  		alert("输入信息不能为空！");
  	}
  	 else {
+ 	 	ale();
  		document.getElementById("myForm").submit();
+ 		
  	}
 }
 </script>
-
 
 <script type="text/javascript"
 	src="resources/scripts/addWorkForm.js"></script>
