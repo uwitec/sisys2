@@ -157,7 +157,7 @@ function check(){
 									<td><input type="text" width="50px" id="proNo" name="proNo" value="${bwf.proNo }" onblur="displayProNo()"/></td>
 				
 									<td><span>产品名称</span></td>
-									<td><input readOnly="true" type="text" width="50px"  id="proName" name="proName" value="${bwf.proName }"/></td>
+									<td><input class="readonly" type="text" width="50px"  id="proName" name="proName" value="${bwf.proName }"/></td>
 								</tr>
 								<tr>
 									<td><span>批次号</span></td>
@@ -168,14 +168,14 @@ function check(){
 									<td><input type="text" width="50px" id="procNo" name="procNo" value="${bwf.procNo }" onblur="displayProcNo()"/></td>
 				
 									<td><span>工序名称</span></td>
-									<td><input readOnly="true" type="text" width="50px"  id="procName" name="procName" value="${bwf.procName }"/></td>
+									<td><input class="readonly" type="text" width="50px"  id="procName" name="procName" value="${bwf.procName }"/></td>
 								</tr>
 								<tr>
 									<td><span>员工工号</span></td>
 									<td><input type="text" width="50px" id="staNo" name="staNo" value="${bwf.staNo }" onblur="displayStaNo()"/></td>
 				
 									<td><span>员工姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px"  id="staName" name="staName" value="${bwf.staName}"/></td>
+									<td><input class="readonly" type="text" width="50px"  id="staName" name="staName" value="${bwf.staName}"/></td>
 								</tr>
 								<tr>
 									<td><span>返工类别</span></td>
@@ -206,14 +206,14 @@ function check(){
 									<td><input type="text" width="50px" id="respNo" name="respNo" value="${bwf.respNo }" onblur="displayRespNo()"/></td>
 								
 									<td><span>责任人姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px" id="respName" name="respName" value="${bwf.respName }"/></td>
+									<td><input class="readonly" type="text" width="50px" id="respName" name="respName" value="${bwf.respName }"/></td>
 								</tr>
 								<tr>
 									<td><span>审批人工号</span></td>
 									<td><input type="text" width="50px" id="checkNo" name="checkNo" value="${bwf.checkNo }" onblur="displayCheckNo()"/></td>
 								
 									<td><span>审批人姓名</span></td>
-									<td><input readOnly="true" type="text" width="50px" id="checkName" name="checkName" value="${bwf.checkName }"/></td>
+									<td><input class="readonly" type="text" width="50px" id="checkName" name="checkName" value="${bwf.checkName }"/></td>
 								</tr>
 								
 								

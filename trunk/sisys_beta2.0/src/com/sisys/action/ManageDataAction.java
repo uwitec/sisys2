@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import com.sisys.action.BaseAction;
+import com.sisys.dao.StaffDAO;
 import com.sisys.service.ManageDataService;
 
 public class ManageDataAction extends BaseAction{
@@ -21,6 +22,8 @@ public class ManageDataAction extends BaseAction{
     private String myFileFileName;   // 上传文件的文件名
 	
 	private ManageDataService manageDataService = new ManageDataService();
+	
+	
 	
 	//表格导出为excel文件
 	public String tableExport() throws Exception{
@@ -69,7 +72,8 @@ public class ManageDataAction extends BaseAction{
 			return ERROR;
 		}
 		String result = manageDataService.staffImport(myFile);
-		
+		StaffDAO staffDAO=new StaffDAO();
+		staffDAO.checkStaff();
 		return result;
 	}
 	
