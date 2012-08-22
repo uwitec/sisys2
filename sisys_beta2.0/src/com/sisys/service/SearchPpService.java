@@ -79,7 +79,7 @@ public class SearchPpService {
 		for(int i=0;i<list.size();i++){
 			System.out.println(list.get(i).getBworkHours());
 			for(int j=i+1;j<list.size();j++){
-				if(list.get(j).getProNo()==list.get(i).getProNo()&&list.get(j).getProcId()==list.get(i).getProcId()){
+				if(list.get(j).getProNo().equals(list.get(i).getProNo())&&list.get(j).getProcId()==list.get(i).getProcId()){
 					list.get(i).setQuaNum(list.get(i).getQuaNum()+list.get(j).getQuaNum());
 					list.get(i).setgWasteNum(list.get(i).getgWasteNum()+list.get(j).getgWasteNum());
 					list.get(i).setlWasteNum(list.get(i).getlWasteNum()+list.get(j).getlWasteNum());
