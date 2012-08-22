@@ -220,14 +220,23 @@ public class ManageDataService {
 				departmentDAO = new DepartmentDAO();
 				depList = departmentDAO.findEntity(equalsMap);
 				if(depList.size() == 0){
+					if(deptName.equals("外协")){
+						department = new Department();
+						department.setDeptName(deptName);
+						department.setDeptNo("0");
+						System.out.println(department.getDeptNo());
+					}
+					else{
 					department = new Department();
 					department.setDeptName(deptName);
 					department.setDeptNo(String.valueOf(deptNo));
 					System.out.println(department.getDeptNo());
+					}
 					int r = new DepartmentDAO().create(department);
 					if(r <= 0){
 						return "error";
 					}
+					
 				}
 				departmentDAO = new DepartmentDAO();
 				department = departmentDAO.findEntity(equalsMap).get(0);

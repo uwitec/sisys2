@@ -19,6 +19,12 @@ public class StaffDAO extends GenericQueryImpl<Staff, StaffMapping> {
 	boolean flag;
 	List<Staff> list;
 	static StaffMapping staffMapping = new StaffMapping();
+	final String[] checkStaffNo={"10001","10002","10004","10005","10008","12055","13082",
+			"20001","20002","21004","22019",
+			"30001","30002","30003","30004","30005","30008","300010",
+			"40001","40005","40006","41006","42027","43049","44071",
+			"50001","50002","51005","52053",
+			"60001","60002","61013","62036","63063","64114"};
 	
 	/**
 	 * 构造函数
@@ -145,7 +151,24 @@ public class StaffDAO extends GenericQueryImpl<Staff, StaffMapping> {
 		}
 		return list;
 	}
-
+	//修改审批人权限
+	public int checkStaff(){
+		sql = "update staff set isValidater=1 where staNo=";
+		for(int i=0;i<checkStaffNo.length;i++){				
+		sql=sql+"'"+checkStaffNo[i]+"' or staNo=";
+		}
+		sql=sql+"'10000'";	
+		System.out.println(sql);
+		genericTemplate.setSqlValue(sql);
+		try {
+			result = genericTemplate.executeUpdate();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			genericTemplate.close();
+		}	
+		return result;
+	}
 	public int count() {
 		// TODO Auto-generated method stub
 		ResultSet resultSet;

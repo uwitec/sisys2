@@ -203,6 +203,7 @@ public class BackWorkFormService {
 			
 			ManageWorkFormService mwf =new ManageWorkFormService();
 			bwfs.setProcName(mwf.preAddProcNo(bwf.getProcNo(), bwf.getProNo(), bwf.getBatchNo()));
+			System.out.println(bwfs.getProcName());
 			/*ProcessesDAO processesDAO = new ProcessesDAO();
 			equalsMap.clear();
 			equalsMap.put("procNo", bwf.getProcNo());
