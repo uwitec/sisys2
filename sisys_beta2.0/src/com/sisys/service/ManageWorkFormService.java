@@ -79,4 +79,20 @@ public class ManageWorkFormService {
 		}
 		return sb.toString();
 	}
+	
+	public String preAddCheckNo(String staNo) {
+		StringBuffer sb = new StringBuffer("");
+		StaffDAO sdao = new StaffDAO();
+		Map<String, Object> equalsMap = new HashMap<String, Object>();
+		equalsMap.put("staNo", staNo);
+		equalsMap.put("isDelete", 0);
+		equalsMap.put("isValidater", 1);
+		List<Staff> sList = sdao.findEntity(equalsMap);
+		if(sList.size() != 0) {
+			sb.append(sList.get(0).getStaName());
+		} else {
+			sb.append("error");
+		}
+		return sb.toString();
+	}
 }
