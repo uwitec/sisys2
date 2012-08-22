@@ -395,6 +395,24 @@ public class WorkFormAction extends BaseAction {
 		}
 		return null;
 	}
+	
+	/**
+	 * 添加返工工单时的审批人同步显示
+	 * @return
+	 */
+	public String preAddCheckNo() {
+		mwfs = new ManageWorkFormService();
+		String staNo = request.getParameter("staNo");
+		String result = mwfs.preAddCheckNo(staNo);
+		response.setCharacterEncoding("UTF-8");
+		try {
+			response.getWriter().write(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public String preAddProcNo() {
 		mwfs = new ManageWorkFormService();

@@ -32,6 +32,9 @@
 		<action name="preAddWorkFormStaNo" class="com.sisys.action.WorkFormAction" method="preAddStaNo">   		
 		</action>
 		
+		<action name="preAddWorkFormCheckNo" class="com.sisys.action.WorkFormAction" method="preAddCheckNo">   		
+		</action>
+		
 		<action name="preAddWorkFormProcNo" class="com.sisys.action.WorkFormAction" method="preAddProcNo">
 		</action>		
 		

@@ -163,7 +163,7 @@
       	  return;
         }
         creatXmlHttp();
-        xmlHttp.open("GET", "preAddWorkFormStaNo.action?staNo="+staNo , true);
+        xmlHttp.open("GET", "preAddWorkFormCheckNo.action?staNo="+staNo , true);
         xmlHttp.onreadystatechange = doworkCheckNo;
         xmlHttp.send(null);
       }
@@ -174,7 +174,7 @@
      			var text = xmlHttp.responseText;
      			if(text == "error"){
      				document.getElementById("checkName").value = "";
-     				alert("该工号不存在！请重新输入！");
+     				alert("该审批人工号不存在！请重新输入！");
      			}else{
      				document.getElementById("checkName").value = text;//将内容放入
      			}       				
