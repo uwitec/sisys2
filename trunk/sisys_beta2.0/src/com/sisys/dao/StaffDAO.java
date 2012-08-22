@@ -34,7 +34,7 @@ public class StaffDAO extends GenericQueryImpl<Staff, StaffMapping> {
 	
 	public int create(Staff entity) {
 		// TODO Auto-generated method stub
-		sql = "insert into staff values (?,?,?,?,?,?,?)";
+		sql = "insert into staff values (?,?,?,?,?,?,?,?)";
 		
 		value.add(entity.getId());
 		value.add(entity.getDeptId());
@@ -43,6 +43,7 @@ public class StaffDAO extends GenericQueryImpl<Staff, StaffMapping> {
 		value.add(entity.getStaNo());
 		value.add(entity.getIsDelete());
 		value.add(entity.getDeleteTime());
+		value.add(entity.getIsValidater());
 		
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);
@@ -78,7 +79,7 @@ public class StaffDAO extends GenericQueryImpl<Staff, StaffMapping> {
 
 	public int update(Staff entity) {
 		// TODO Auto-generated method stub
-		sql = "update staff set deptId=?,kind=?,staName=?,staNo=?,isDelete=?,deleteTime=? where id=?";
+		sql = "update staff set deptId=?,kind=?,staName=?,staNo=?,isDelete=?,deleteTime=?,isValidater=? where id=?";
 
 
 		value.add(entity.getDeptId());
@@ -87,6 +88,7 @@ public class StaffDAO extends GenericQueryImpl<Staff, StaffMapping> {
 		value.add(entity.getStaNo());
 		value.add(entity.getIsDelete());
 		value.add(entity.getDeleteTime());
+		value.add(entity.getIsValidater());
 		value.add(entity.getId());
 		
 		genericTemplate.setSqlValue(sql);

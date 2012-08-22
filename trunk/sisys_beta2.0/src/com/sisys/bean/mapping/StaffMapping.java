@@ -20,6 +20,7 @@ public class StaffMapping extends BasicMapping<Staff>{
 			Staff.setStaNo(rs.getString("staNo"));			
 			Staff.setIsDelete(rs.getInt("isDelete"));
 			Staff.setDeleteTime(rs.getDate("deleteTime"));
+			Staff.setIsValidater(rs.getInt("isValidater"));
 
 		} catch(SQLException ex) {
 			ex.printStackTrace();
