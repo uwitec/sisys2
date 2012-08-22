@@ -95,7 +95,7 @@
 		var pro = "<%=proNo%>";
 		var bat = "<%=batNo%>";
 		if(result=="success")
-			window.open("http://localhost:8080/sisys_beta2.0/PDFs/" + pro + "/" + bat + ".pdf");
+			window.open("PDFs/" + pro + "/" + bat + ".pdf");
 	}
 </script>
 

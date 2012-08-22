@@ -188,7 +188,7 @@ public class ManageBatchService {
 		// inputPath和outputPath是我所存的输入和输入文件的绝对地址
 		// String inputPath =
 		// "E:/Program Files/workspace/sisys_beta2.0/input.tex";
-		String path = "E:/360data/java3/.metadata/.me_tcat/webapps/sisys_beta2.0";
+		String path = "C:/Java/Tomcat 6.0/webapps/sisys_beta2.0";
 		String inputPath = "e:/input.tex";
 		String outputPath = path + "/PDFs/" + p.getProNo() + "/"
 				+ batch.getBatchNo() + ".pdf";
@@ -285,7 +285,8 @@ public class ManageBatchService {
 		phDao.update(phlist.get(0), 1);
 
 		// 生成条码字符串（以后要删除或注释）
-		code.append(batch.getBatchNo());
+		
+/*		code.append(batch.getBatchNo());
 		code.append(product.getProNo());
 		if (code.toString().length() % 2 == 1) {
 			code.append("01");
@@ -303,7 +304,7 @@ public class ManageBatchService {
 			evenNum += Integer.parseInt(str[i] + "");
 		}
 		tnum = oddNum * 3 + evenNum;
-		code.append("" + (10 - tnum % 10) % 10);
+		code.append("" + (10 - tnum % 10) % 10);*/
 
 		request.setAttribute("code", code.toString());
 

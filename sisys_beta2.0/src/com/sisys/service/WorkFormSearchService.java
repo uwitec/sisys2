@@ -386,7 +386,7 @@ public class WorkFormSearchService {
 		String code = request.getParameter("barCode");
 		System.out.println(code);
 		System.out.println(code.length());
-		if (code.length() < 14) {
+		if (code.length() < 18) {
 			return "error";
 		}
 		String batNo = code.substring(0, 10);
@@ -410,6 +410,29 @@ public class WorkFormSearchService {
 		if (Integer.parseInt(str[code.length() - 1] + "") != (10 - num % 10) % 10) {
 			return "error";
 		}
+		
+		StringBuffer newproNo=new StringBuffer();
+		char[] proNum_str = proNo.toCharArray();
+		for(int i=0;i<proNo.length()/2;i++){
+			if(proNum_str[i*2]=='0'){
+				newproNo.append(proNum_str[i*2+1]);
+			}
+			else if(proNum_str[i*2]=='1'){
+				if(proNum_str[i*2+1]=='1'){
+					newproNo.append("-");
+				}
+				else if(proNum_str[i*2+1]=='2'){
+					newproNo.append("/");
+				}
+				else
+					return "error";
+			}
+			else
+				return "error";
+		}
+		proNo=newproNo.toString();
+		
+		
 		String sql;
 		sql = "select * from product where proNo='" + proNo + "'";
 		ProductDAO prod = new ProductDAO();
