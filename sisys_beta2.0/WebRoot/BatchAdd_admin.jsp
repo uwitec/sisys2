@@ -23,7 +23,7 @@
 	if(result == null) {
 		error = "";
 	} else if(result.equals("success")) {
-		error = "添加成功！条码为：" + code;
+		error = "添加成功！" + code;
 	}  else if(result.equals("false")) {
 		error = "添加失败！";
 	}  else if(result.equals("repetition")) {
