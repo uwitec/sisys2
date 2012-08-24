@@ -34,7 +34,7 @@
 	media="screen" />
 
 <!-- Main Stylesheet -->
-<link rel="stylesheet" href="resources/css/style.css" type="text/css"
+<link rel="stylesheet" href="resources/css/style-add.css" type="text/css"
 	media="screen" />
 
 <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
