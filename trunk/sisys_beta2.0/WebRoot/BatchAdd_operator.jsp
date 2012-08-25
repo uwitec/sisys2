@@ -81,11 +81,21 @@
 <script type="text/javascript">
 	function ale()
 	{//这个基本没有什么说的，就是弹出一个提醒的对话框
-		document.getElementById("myForm").submit();
-		while(1){
-		alert("正在处理…");
+		var batchNo = document.getElementById("batchNo").value;
+		var flowpath = document.getElementById("flowpath").value;
+		if(batchNo == "undefine" || batchNo == "该产品批次已满！") {
+			alert(batchNo);
+		} else if(flowpath == "未找到相应流程！请重新输入产品编号") {
+			alert("未找到相应流程！请重新输入产品编号或检查该产品是否已导入");
+		} else {
+			document.getElementById("myForm").submit();
+			
+			while(1){
+				alert("正在处理…");
+			}
 		}
 		
+
 	}
 </script>
 
