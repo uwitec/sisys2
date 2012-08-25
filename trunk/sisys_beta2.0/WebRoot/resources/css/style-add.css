@@ -15,7 +15,7 @@ body {
                 }
 
 #body-wrapper {
-                background: url('../images/bg-radial-gradient.gif') fixed 180px top no-repeat;
+                background: url('../images/bg-radial-gradient.gif') fixed 230px top no-repeat;
                 }                
 
 /********************************      Elements styling      ********************************/
@@ -99,7 +99,7 @@ a.remove-link:hover {
 
 #sidebar {
                 background: url('../images/bg-sidebar.gif') top left no-repeat;
-                width: 180px;
+                width: 230px;
                 height: 100%;
                 position: absolute;
                 left: 0;
@@ -139,7 +139,7 @@ a.remove-link:hover {
 /************ Sidebar Accordion Menu ************/
 
 #sidebar #main-nav {
-                width: 156px;
+                width: 206px;
                 padding: 0;
                 margin: 0 0 0 15px;
                 font-family: Helvetica, Arial, sans-serif;
@@ -161,7 +161,7 @@ a.remove-link:hover {
                 display: block;
                 text-decoration: none;
 				width:100px;
-				margin-left:30px;
+				margin-left:80px;
 
 
                 }
@@ -235,7 +235,7 @@ a.remove-link:hover {
 /************ Layout ************/
 
 #main-content {
-                margin: 0 -300px 0 210px;
+                margin: 0 -300px 0 260px;
                 padding: 40px 0 0 0;
                 }
 
