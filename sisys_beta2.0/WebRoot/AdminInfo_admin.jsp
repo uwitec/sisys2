@@ -86,8 +86,9 @@
 		
 	</head>
   
-	<body><div id="body-wrapper"> <!-- Wrapper for the radial gradient background -->
-		
+	<body>
+	<p align="right"><a href="help.htm" target="_blank"><font size="7"></>使用说明</font></a></p>
+	<div id="body-wrapper"> <!-- Wrapper for the radial gradient background -->
 		<jsp:include flush="true" page="banner_admin.jsp"></jsp:include>
 		
 		<div id="main-content"> <!-- Main Content Section with everything -->

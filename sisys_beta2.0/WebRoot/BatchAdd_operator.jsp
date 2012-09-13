@@ -142,6 +142,7 @@
 </head>
 
 <body>
+<p align="right"><a href="help.htm" target="_blank"><font size="7"></>使用说明</font></a></p>
 <div id="div1" style="position:absolute;top:0px;left:0px;width:1200px;height:60000px;display:none;"></div>
 
 

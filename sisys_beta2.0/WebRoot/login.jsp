@@ -74,11 +74,13 @@
 	</head>
   
 	<body id="login">
-		
+		<p align="right"><a href="help.htm" target="_blank"><font size="7"></>使用说明</font></a></p>
   <div id="login-wrapper" class="png_bg">
 			<div id="login-top">
 			
 				<h1>物流信息统计系统</h1>
+				
+				
 				<!-- Logo (221px width) -->
 				<img id="logo" src="resources/images/logo1.png" alt="Simpla Admin logo" />
 			</div> <!-- End #logn-top -->

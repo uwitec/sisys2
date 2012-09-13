@@ -126,6 +126,7 @@ function check(){
 </head>
 
 <body>
+<p align="right"><a href="help.htm" target="_blank"><font size="7"></>使用说明</font></a></p>
 	<div id="body-wrapper">
 		<!-- Wrapper for the radial gradient background -->
 		
