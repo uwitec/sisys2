@@ -159,6 +159,7 @@
 												tmp_od_No.add(product_od.get(j).getProNo());														
 													flag=1;
 													product_od.remove(j);
+													break;
 												}
 											}
 											if(flag==0){
@@ -235,6 +236,7 @@
 													
 													flag=1;
 													product_ing.remove(j);
+													break;
 												}
 											}
 											if(flag==0){
@@ -246,6 +248,7 @@
 									tmp_ing.add(null);
 									tmp_ing_No.add(null);
 								}
+								System.out.println(tmp_ing);
 										%>
 									
 									<tr>
@@ -253,6 +256,7 @@
 										<td><h3><%=department.get(i).getDeptName()%></h3></td>
 										<%}%>
 									</tr>
+									
 								<tr>
 								<%for(int i=0;i<tmp_ing.size();i++){%>
 								<%if(tmp_ing.get(i)==null){%>
@@ -261,6 +265,7 @@
 								<td><a target="_blank" href=SearchIndexJd?proNo=<%=par%>><%=tmp_ing.get(i)%></a></td><%}}%>
 							
 							</tr>
+							
 							<%
 								}else
 									out.println(resultMap.get("message_ing"));

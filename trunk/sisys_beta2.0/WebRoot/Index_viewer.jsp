@@ -142,6 +142,7 @@
 												tmp_od_No.add(product_od.get(j).getProNo());														
 													flag=1;
 													product_od.remove(j);
+													break;
 												}
 											}
 											if(flag==0){
@@ -218,6 +219,7 @@
 													
 													flag=1;
 													product_ing.remove(j);
+													break;
 												}
 											}
 											if(flag==0){
