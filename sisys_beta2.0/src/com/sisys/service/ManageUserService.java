@@ -30,6 +30,7 @@ public class ManageUserService {
 			User u = uList.get(0);
 			ActionContext actionContext = ActionContext.getContext(); 
 		    Map session = actionContext.getSession();
+		    session.remove("user");
 		    session.put("user", u);
 		    if(u.getLevel() == 1) {
 		    	return "viewer";

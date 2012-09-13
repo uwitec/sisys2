@@ -490,18 +490,13 @@ public class ManageDataService {
 		}
 		
 		//插入产品哈希表
-		ProHashDAO proHashDAO;
-		ProHash proHash;
-		for(int i = 1;i <= 20;i++){
-			proHash = new ProHash();
-			proHashDAO = new ProHashDAO();
-			proHash.setProNo(product.getProNo());
-			proHash.setHash(i);
-			if(proHashDAO.create(proHash) != 1){
-				return "error";
-			}
+		ProHashDAO proHashDAO = new ProHashDAO();
+		ProHash proHash = new ProHash();
+		proHash.setProNo(product.getProNo());
+		proHash.setDate("");
+		if(proHashDAO.create(proHash) != 1){
+			return "error";
 		}
-		
 		return "success";
 	}
 	

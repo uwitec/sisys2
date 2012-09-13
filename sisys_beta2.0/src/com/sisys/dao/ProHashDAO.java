@@ -44,7 +44,7 @@ public class ProHashDAO  extends GenericQueryImpl<ProHash, ProHashMapping>{
 		
 		value.add(entity.getId());
 		value.add(entity.getProNo());
-		value.add(entity.getHash());
+		value.add(entity.getDate());
 		value.add(entity.getOwn());		
 		
 		genericTemplate.setSqlValue(sql);
@@ -79,10 +79,10 @@ public class ProHashDAO  extends GenericQueryImpl<ProHash, ProHashMapping>{
 
 	public int update(ProHash entity, Integer pk) {
 		// TODO Auto-generated method stub
-		sql = "update proHash set proNo=?,hash=?,own=? where id=?";
+		sql = "update proHash set proNo=?,date=?,own=? where id=?";
 
 		value.add(entity.getProNo());
-		value.add(entity.getHash());
+		value.add(entity.getDate());
 		value.add(entity.getOwn());
 		value.add(entity.getId());
 		

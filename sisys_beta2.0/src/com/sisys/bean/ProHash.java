@@ -3,7 +3,7 @@ package com.sisys.bean;
 public class ProHash {
 	private int id;
 	private String proNo;
-	private int hash;
+	private String date;
 	private int own;
 	public int getId() {
 		return id;
@@ -17,11 +17,11 @@ public class ProHash {
 	public void setProNo(String proNo) {
 		this.proNo = proNo;
 	}
-	public int getHash() {
-		return hash;
+	public String getDate() {
+		return date;
 	}
-	public void setHash(int hash) {
-		this.hash = hash;
+	public void setDate(String date) {
+		this.date = date;
 	}
 	public int getOwn() {
 		return own;
@@ -33,7 +33,7 @@ public class ProHash {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + hash;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + id;
 		result = prime * result + own;
 		result = prime * result + ((proNo == null) ? 0 : proNo.hashCode());
@@ -48,7 +48,10 @@ public class ProHash {
 		if (getClass() != obj.getClass())
 			return false;
 		ProHash other = (ProHash) obj;
-		if (hash != other.hash)
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
 			return false;
 		if (id != other.id)
 			return false;
@@ -63,20 +66,19 @@ public class ProHash {
 	}
 	@Override
 	public String toString() {
-		return "ProHash [id=" + id + ", proNo=" + proNo + ", hash=" + hash
+		return "ProHash [id=" + id + ", proNo=" + proNo + ", date=" + date
 				+ ", own=" + own + "]";
 	}
-	public ProHash(int id, String proNo, int hash, int own) {
+	public ProHash(int id, String proNo, String date, int own) {
 		super();
 		this.id = id;
 		this.proNo = proNo;
-		this.hash = hash;
+		this.date = date;
 		this.own = own;
 	}
 	public ProHash() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 }

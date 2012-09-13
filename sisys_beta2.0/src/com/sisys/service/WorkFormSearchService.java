@@ -389,13 +389,13 @@ public class WorkFormSearchService {
 		if (code.length() < 18) {
 			return "error";
 		}
-		String batNo = code.substring(0, 10);
+		String batNo = code.substring(0, 12);
 		char[] str = code.toCharArray();
 		String proNo;
 		if ("1".equals(str[code.length() - 2] + "")) {
-			proNo = code.substring(10, code.length() - 3);
+			proNo = code.substring(12, code.length() - 3);
 		} else {
-			proNo = code.substring(10, code.length() - 2);
+			proNo = code.substring(12, code.length() - 2);
 		}
 		int oddNum = 0;
 		int evenNum = 0;

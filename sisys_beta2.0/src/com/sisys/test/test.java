@@ -4,6 +4,9 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 
+import com.sisys.dao.*;
+import com.sisys.bean.*;
+
 public class test {
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws IOException {
@@ -31,8 +34,26 @@ public class test {
 	
 	
 		//String command = "cmd.exe /k start scgd input.tex gd.pdf>a.txt";
-		test t = new test();
-		t.test();
+		/*test t = new test();
+		t.test();*/
+		String sql = "select * from product";
+		ProductDAO prod = new ProductDAO();
+		List<Product> pro = prod.findEntityByList(sql);
+		for (int i = 0; i < pro.size(); i++) {
+			ProHash proh = new ProHash();
+			proh.setProNo(pro.get(i).getProNo());
+			proh.setDate("");
+			ProHashDAO prohd = new ProHashDAO();
+			prohd.create(proh);
+		}
+		/*String sql = "select * from prohash";
+		ProHashDAO prohd = new ProHashDAO();
+		List<ProHash> prohl = prohd.findEntityByList(sql);
+		for (int i = 0; i < prohl.size(); i++) {
+			prohl.get(i).setId(prohl.get(i).getId() - 2660);
+			ProHashDAO prohdao = new ProHashDAO();
+			prohdao.create(prohl.get(i));
+		}*/
 			
 	}
 	public void test() {

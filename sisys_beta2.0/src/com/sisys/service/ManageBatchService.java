@@ -30,7 +30,6 @@ import com.sisys.dao.ProHashDAO;
 import com.sisys.dao.ProcessesDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
-import com.sisys.test.test;
 
 public class ManageBatchService {
 
@@ -95,32 +94,18 @@ public class ManageBatchService {
 		// 自动生成批次号
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		DecimalFormat df = new DecimalFormat("0000");
 		StringBuffer sb = new StringBuffer(sdf.format(date));
 		ProHashMapping phMapping = new ProHashMapping();
 		ProHashDAO pDao = new ProHashDAO(ProHash.class, phMapping);
-		String sql = "select * from prohash where proNo='" + product.getProNo()
-				+ "'";
+		String sql = "select * from prohash where proNo='" + product.getProNo() + "'";
 		List<ProHash> pList1 = pDao.findEntityByList(sql);
 		if (!pList1.isEmpty() && pList1.size() != 0) {
-			int num = 0;
-			int flag = -1;
-			for (int i = 0; i < pList1.size(); i++) {
-				num += pList1.get(i).getOwn();
-				if (pList1.get(i).getOwn() == 0 && flag == -1) {
-					flag = i;
-				}
-			}
-			if (num >= 20 || flag < 0) {
-				result.append(";该产品批次已满！");
+			ProHash proh = pList1.get(0);
+			if (proh.getDate().equals(sb.toString())) {
+				result.append(";" + sb.toString() + df.format(proh.getOwn() + 1));
 			} else {
-				ProHash ph = pList1.get(flag);
-				if (ph.getHash() < 10) {
-					sb.append("0" + ph.getHash());
-				} else {
-					sb.append(ph.getHash());
-				}
-				System.out.println(sb.toString());
-				result.append(";" + sb.toString());
+				result.append(";" + sb.toString() + "0001");
 			}
 		}
 
@@ -132,7 +117,6 @@ public class ManageBatchService {
 			throws IOException {
 		User user = (User) session.get("user");
 		// User user = new User();
-		user.setUsername("admin");
 		System.out.println(product);
 		System.out.println(batch);
 		System.out.println(fpath);
@@ -169,7 +153,7 @@ public class ManageBatchService {
 		Date nowTime = new Date();// 这个是现在的时间，判断scgd是否生成pdf时会用到
 		String batchNo = batch.getBatchNo();
 		String num = batchNo.substring(8, batchNo.length());
-		batch.setTotalNum(batch.getTotalNum() + Integer.parseInt(num));
+		//batch.setTotalNum(batch.getTotalNum() + Integer.parseInt(num));
 		batch.setIsDelete(0);
 		batch.setDeleteTime(null);
 		batch.setProId(p.getId());
@@ -274,13 +258,18 @@ public class ManageBatchService {
 				return "false";
 			}
 		}
-		// 设置proHash表中相应记录状态为1
-		String sql = "select * from proHash where proNo='" + product.getProNo()
-				+ "' and hash=" + Integer.parseInt(num);
+		// 更新proHash表中相应记录
+		String sql = "select * from proHash where proNo='" + product.getProNo() + "'";
 		ProHashMapping phMapping = new ProHashMapping();
 		ProHashDAO phDao = new ProHashDAO(ProHash.class, phMapping);
 		List<ProHash> phlist = phDao.findEntityByList(sql);
-		phlist.get(0).setOwn(phlist.get(0).getOwn() + 1);
+		phlist.get(0).setOwn(Integer.parseInt(num));
+		if (num.equals("0001")) {
+			Date d = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+			String da = sdf.format(d);
+			phlist.get(0).setDate(da);
+		}
 		phDao = new ProHashDAO(ProHash.class, phMapping);
 		phDao.update(phlist.get(0), 1);
 
