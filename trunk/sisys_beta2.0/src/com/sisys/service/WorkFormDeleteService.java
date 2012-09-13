@@ -7,16 +7,12 @@ import java.util.List;
 import com.sisys.bean.Batch;
 import com.sisys.bean.DisqKindDetail;
 import com.sisys.bean.Flowpath;
-import com.sisys.bean.ProHash;
-import com.sisys.bean.Product;
 import com.sisys.bean.ScheduleTab;
 import com.sisys.bean.SmallWf;
 import com.sisys.bean.WorkForm;
 import com.sisys.dao.BatchDAO;
 import com.sisys.dao.DisqKindDetailDAO;
 import com.sisys.dao.FlowpathDAO;
-import com.sisys.dao.ProHashDAO;
-import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
 import com.sisys.dao.SmallWfDAO;
 import com.sisys.dao.WorkFormDAO;
@@ -71,18 +67,7 @@ public class WorkFormDeleteService {
 				return "outofline";
 			}
 		} else {
-			// 如果所删除工单是该批次最后一个工序，则修改proHash表和完成标志
-			sql = "select * from product where id=" + bat.getProId();
-			ProductDAO prod = new ProductDAO();
-			List<Product> prol = prod.findEntityByList(sql);
-			sql = "select * from proHash where proNo='"
-					+ prol.get(0).getProNo() + "' and hash="
-					+ Integer.parseInt(bat.getBatchNo().substring(8));
-			ProHashDAO phd = new ProHashDAO();
-			List<ProHash> phl = phd.findEntityByList(sql);
-			phl.get(0).setOwn(phl.get(0).getOwn() + 1);
-			phd = new ProHashDAO();
-			phd.update(phl.get(0), 0);
+			// 如果所删除工单是该批次最后一个工序，则修改完成标志
 			if (bat.getStatus() == 1) {
 				if (date.after(bat.getEndTime())) {
 					bat.setStatus(2);

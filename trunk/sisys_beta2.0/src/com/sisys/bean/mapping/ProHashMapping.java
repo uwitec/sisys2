@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 
-import com.sisys.bean.Batch;
 import com.sisys.bean.ProHash;
 
 public class ProHashMapping extends BasicMapping<ProHash> {
@@ -14,7 +13,7 @@ public class ProHashMapping extends BasicMapping<ProHash> {
 		// TODO Auto-generated method stub
 		ProHash proHash = new ProHash();
 		try {
-			proHash.setHash(rs.getInt("hash"));
+			proHash.setDate(rs.getString("date"));
 			proHash.setId(rs.getInt("id"));
 			proHash.setOwn(rs.getInt("own"));
 			proHash.setProNo(rs.getString("proNo"));
