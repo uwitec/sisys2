@@ -37,6 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  <p align="right"><a href="help.htm" target="_blank"><font size="7"></>使用说明</font></a></p>
     <form id="myForm" action="addDisqKind.action" method="post">
     	<label>
     		<%=error%>
