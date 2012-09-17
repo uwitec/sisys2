@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="com.sisys.bean.Department" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%@ taglib prefix="s" uri="/struts-tags"%>
@@ -17,7 +19,10 @@
 		error = "添加用户失败！";
 	} else if(error.equals("empty")) {
 		error = "输入不能为空！";
+	} else if("noDept".equals(error)) {
+		error = "部门信息未导入，请先导入部门信息";
 	}
+	List<Department> list = (List<Department>)request.getAttribute("list");
 	
  %>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -107,8 +112,6 @@
 			<h2>添加用户</h2>
 			<p id="page-intro">Add User</p>
 
-
-
 			<div class="clear"></div>
 			<!-- End .clear -->
 
@@ -153,6 +156,16 @@
 							</p>
 							<div class="clear"></div>
 
+							<p>
+								<label>所属部门</label> <select name="user.deptName">
+									<c:forEach items="${list }" var="entity">
+									<option value="${entity.deptName }">${entity.deptName }</option>
+									</c:forEach>
+									<option value=" ">无</option>
+									</select>
+							</p>
+							<div class="clear"></div>
+							
 							<p>
 								<input type="submit" class="button" value="确定" />
 							</p>

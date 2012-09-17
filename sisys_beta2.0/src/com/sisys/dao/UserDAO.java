@@ -32,7 +32,7 @@ public class UserDAO extends GenericQueryImpl<User, UserMapping>{
 	
 	public int create(User entity) {
 		// TODO Auto-generated method stub
-		sql = "insert into user values (?,?,?,?,?,?)";
+		sql = "insert into user values (?,?,?,?,?,?,?)";
 		
 		value.add(entity.getId());
 		value.add(entity.getUsername());
@@ -40,6 +40,7 @@ public class UserDAO extends GenericQueryImpl<User, UserMapping>{
 		value.add(entity.getLevel());
 		value.add(entity.getIsDelete());
 		value.add(entity.getDeleteTime());
+		value.add(entity.getDeptName());
 		
 		genericTemplate.setSqlValue(sql);
 		genericTemplate.setValues(value);

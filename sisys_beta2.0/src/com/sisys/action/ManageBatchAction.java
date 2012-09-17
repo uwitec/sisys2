@@ -30,13 +30,22 @@ public class ManageBatchAction extends BaseAction {
 	private Product product = new Product();
 	private Flowpath flowpath = new Flowpath();
 	private String fp = "";
+	private String deptId = "";
 	//相应ajax请求
 	private InputStream inputStream;
 	private String fpath;
 	
+	
 	//对应的get()和set()方法
+	
 	public Batch getBatch() {
 		return batch;
+	}
+	public String getDeptId() {
+		return deptId;
+	}
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
 	}
 	public void setBatch(Batch batch) {
 		this.batch = batch;
@@ -95,7 +104,7 @@ public class ManageBatchAction extends BaseAction {
 	
 	//批次添加
 	public String addBatch() throws IOException {
-		return mbs.addBatch(product, batch, fpath);
+		return mbs.addBatch(product, batch, deptId, fpath);
 	}
 	
 	//超期批次的修改

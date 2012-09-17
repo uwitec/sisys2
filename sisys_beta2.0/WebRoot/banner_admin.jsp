@@ -83,7 +83,7 @@
 		</li>
 		
 		<li>
-			<a href="UserAdd.jsp?current=userAdd" class="nav-top-item no-submenu <%if(cur.equals("userAdd")) out.println("current"); %>"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
+			<a href="preAddUser.action" class="nav-top-item no-submenu <%if(cur.equals("userAdd")) out.println("current"); %>"> <!-- Add the class "no-submenu" to menu items with no sub menu -->
 				添加用户
 			</a>
 		</li>

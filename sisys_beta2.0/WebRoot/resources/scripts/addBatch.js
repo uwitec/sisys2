@@ -36,6 +36,21 @@
        			}
        			document.getElementById("flowpath").innerHTML = flow[0];//将内容放入
        			document.getElementById("batchNo").value = flow[1];
+       			var deptNames = flow[2];
+       			
+       			var sel = document.getElementById("deptId");
+       			var depts;
+       			if(deptNames != "") {
+       				depts = flow[2].split("-");
+       			}
+       			if(flow.length == 4) {
+       				sel.options.add(new Option(depts[0],depts[0]));
+       				document.getElementById("deptId").disabled = false;
+       			}
+       			for(var i=0; i<depts.length; i++) {
+       				sel.options.add(new Option(depts[i],depts[i]))
+       			}
+       			
       		}else { //页面不正常  
                 window.alert("您所请求的页面有异常。");  
             }  

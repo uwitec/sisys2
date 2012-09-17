@@ -16,6 +16,7 @@ import org.apache.struts2.StrutsStatics;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.sisys.bean.Batch;
+import com.sisys.bean.Department;
 import com.sisys.bean.Flowpath;
 import com.sisys.bean.OutDueBatchCopy;
 import com.sisys.bean.ProHash;
@@ -25,6 +26,7 @@ import com.sisys.bean.ScheduleTab;
 import com.sisys.bean.User;
 import com.sisys.bean.mapping.ProHashMapping;
 import com.sisys.dao.BatchDAO;
+import com.sisys.dao.DepartmentDAO;
 import com.sisys.dao.FlowpathDAO;
 import com.sisys.dao.ProHashDAO;
 import com.sisys.dao.ProcessesDAO;
@@ -45,10 +47,20 @@ public class ManageBatchService {
 		Map<String, Object> equalsMap = new HashMap<String, Object>();
 		equalsMap.put("proNo", product.getProNo());
 		List<Product> pList = pdao.findEntity(equalsMap);
+		List<Department> list = new ArrayList<Department>();
 		/*
 		 * //若产品不存在，返回none if(pList.size() == 0) { return "pnone"; }
 		 */
+		for(int i=0; i<pList.size(); i++) {
+			int deptId = pList.get(i).getDeptId();
+			equalsMap.clear();
+			equalsMap.put("deptId", deptId);
+			DepartmentDAO dDao = new DepartmentDAO();
+			list = dDao.readByPk(deptId);
+			
+		}
 		product = pList.get(0);
+		
 		FlowpathDAO fdao = new FlowpathDAO();
 		equalsMap.clear();
 		equalsMap.put("proId", product.getId());
@@ -108,12 +120,30 @@ public class ManageBatchService {
 				result.append(";" + sb.toString() + "0001");
 			}
 		}
-
+		result.append(";");
+		User user = (User) session.get("user");
+		System.out.println(user);
+		switch(user.getLevel()) {
+		case 2:
+			result.append(user.getDeptName() + ";1-");
+			break;
+		case 3:
+			for(int i=0; i<list.size(); i++) {
+				Department dept = list.get(i);
+				if(dept != null) {
+					result.append(list.get(i).getDeptName() + "-");
+				}
+				
+			}
+			break;
+		}
+		
+		result.delete(result.length()-1, result.length());
 		return result.toString();
 	}
 
 	// 批次添加
-	public String addBatch(Product product, Batch batch, String fpath)
+	public String addBatch(Product product, Batch batch, String deptId, String fpath)
 			throws IOException {
 		User user = (User) session.get("user");
 		// User user = new User();
@@ -126,10 +156,21 @@ public class ManageBatchService {
 				|| "".equals(product.getProNo())) {
 			return "isnull";
 		}
+		Department dept;
+		DepartmentDAO dDao = new DepartmentDAO();
+		Map<String, Object> equalsMap = new HashMap<String, Object>();
+		equalsMap.put("deptName", deptId);
+		List<Department> dList = dDao.findEntity(equalsMap);
+		if(dList != null) {
+			dept = dList.get(0);
+		} else {
+			return "pnone";
+		}
 		// 判断产品是否存在
 		ProductDAO pdao = new ProductDAO();
-		Map<String, Object> equalsMap = new HashMap<String, Object>();
+		equalsMap.clear();
 		equalsMap.put("proNo", product.getProNo());
+		equalsMap.put("deptId", dept.getId());
 		List<Product> pList = pdao.findEntity(equalsMap);
 		Product p;
 		// 若产品不存在，返回none

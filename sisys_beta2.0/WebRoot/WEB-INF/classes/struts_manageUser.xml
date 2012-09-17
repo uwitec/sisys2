@@ -42,6 +42,11 @@
             <result name="login">/login.jsp</result>  
         </global-results>
 		
+		<action name="preAddUser" class="com.sisys.action.ManageUserAction" method="preAdd">
+			<result name="success">/UserAdd.jsp?current=userAdd</result>
+			<result name="noDept">/UserAdd.jsp?result=noDept&amp;current=userAdd</result>
+		</action>
+		
 		<action name="addUser" class="com.sisys.action.ManageUserAction" method="add">
 			<result name="empty">/UserAdd.jsp?result=empty&amp;current=userAdd</result>
 			<result name="nameError">/UserAdd.jsp?result=nameError&amp;current=userAdd</result>
