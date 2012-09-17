@@ -5,11 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts2.StrutsStatics;
+
 import com.opensymphony.xwork2.ActionContext;
+import com.sisys.bean.Department;
 import com.sisys.bean.User;
+import com.sisys.dao.DepartmentDAO;
 import com.sisys.dao.UserDAO;
 
 public class ManageUserService {
+	
+	ActionContext actionContext = ActionContext.getContext();
+	Map session = actionContext.getSession();
+	HttpServletRequest request = (HttpServletRequest) actionContext
+			.get(StrutsStatics.HTTP_REQUEST);
+
 	
 	//登录
 	public String login(User user) {
@@ -43,6 +55,19 @@ public class ManageUserService {
 		//return "default";
 	}
 	
+	//进入添加员工界面
+	public String preAdd() {
+		DepartmentDAO dDao = new DepartmentDAO();
+		List<Department> dList = dDao.readAll();
+		request.setAttribute("list", dList);
+		if(dList != null && dList.size() > 0) {
+			return "success";
+		} else {
+			return "noDept";
+		}
+		
+	}
+	
 	//增加人员
 	public String add(User user) {
 		if(user.getLevel()==0 || user.getPassword()=="" || user.getUsername()=="") {
@@ -62,7 +87,10 @@ public class ManageUserService {
 		//System.out.println("uList:" + uList);
 		if(uList.size()!=0) {
 			return "nameError";
+		} else if(user.getLevel()==2 && "无".equals(user.getDeptName())) {
+			return "false";
 		} else {
+			
 			UserDAO userDao2 = new UserDAO();
 			int row = userDao2.create(user);
 			//System.out.println("row:" + row);

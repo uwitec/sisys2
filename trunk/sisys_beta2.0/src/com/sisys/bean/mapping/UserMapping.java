@@ -21,7 +21,7 @@ public class UserMapping extends BasicMapping<User>{
 				user.setIsDelete(rs.getInt("isDelete"));
 				user.setDeleteTime(rs.getDate("deleteTime"));
 				user.setLevel(rs.getInt("level"));
-			
+				user.setDeptName(rs.getString("deptName"));
 			
 		} catch(SQLException ex) {
 			ex.printStackTrace();

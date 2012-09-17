@@ -28,6 +28,11 @@ public class ManageUserAction extends BaseAction{
 		
 	}
 	
+	//进入添加用户界面
+	public String preAdd() {
+		return mus.preAdd();
+	}
+	
 	//增加用户
 	public String add() {
 		return mus.add(user);

@@ -195,6 +195,11 @@
 									
 								</tr>
 								<tr>
+									<td><span>生产部门</span></td>
+									<td><select name="deptId" id="deptId">
+											
+										</select>
+										</td>
 									<td><span>目标数量</span></td>
 									<td><input type="text" width="50px" name="batch.totalNum"></td>
 									

@@ -14,6 +14,7 @@ public class User {
 	private int level; // 用户权限，1代表查看人员，2代表普通统计员，3代表管理员
 	private int isDelete;
 	private Date deleteTime;
+	private String deptName;
 
 	// get和set方法
 	public Integer getId() {
@@ -87,13 +88,18 @@ public class User {
 	}
 
 	// 得到hashCode
+	
+
+	// 判断两个类是否相同
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
 				+ ((deleteTime == null) ? 0 : deleteTime.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((deptName == null) ? 0 : deptName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + isDelete;
 		result = prime * result + level;
 		result = prime * result
@@ -103,7 +109,7 @@ public class User {
 		return result;
 	}
 
-	// 判断两个类是否相同
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -118,7 +124,15 @@ public class User {
 				return false;
 		} else if (!deleteTime.equals(other.deleteTime))
 			return false;
-		if (id != other.id)
+		if (deptName == null) {
+			if (other.deptName != null)
+				return false;
+		} else if (!deptName.equals(other.deptName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (isDelete != other.isDelete)
 			return false;
@@ -136,13 +150,22 @@ public class User {
 			return false;
 		return true;
 	}
-
 	// 转换为字符串
+	
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password="
 				+ password + ", level=" + level + ", isDelete=" + isDelete
-				+ ", deleteTime=" + deleteTime + "]";
+				+ ", deleteTime=" + deleteTime + ", deptName=" + deptName + "]";
+	}
+
+	public void setDeptName(String deptNo) {
+		this.deptName = deptNo;
+	}
+
+	public String getDeptName() {
+		return deptName;
 	}
 
 }

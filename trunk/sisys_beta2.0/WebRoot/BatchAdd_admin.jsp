@@ -3,6 +3,7 @@
 <%@ page import="com.sisys.bean.Batch"%>
 <%@ page import="com.sisys.bean.Flowpath"%>
 <%@ page import="com.sisys.bean.Product"%>
+<%@ page import="com.sisys.bean.Department"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%
@@ -10,7 +11,7 @@
 	String basePath = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ path + "/";
-	
+	List<Department> list = (List<Department>)request.getAttribute("list");
 %>
 
 <%
@@ -195,6 +196,11 @@
 									
 								</tr>
 								<tr>
+									<td><span>生产部门</span></td>
+									<td><select name="deptId" id="deptId">
+											
+										</select>
+										</td>
 									<td><span>目标数量</span></td>
 									<td><input type="text" width="50px" name="batch.totalNum"></td>
 									

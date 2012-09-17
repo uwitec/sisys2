@@ -130,8 +130,10 @@ public class DepartmentDAO extends GenericQueryImpl<Department, DepartmentMappin
 		genericTemplate.setValues(value);
 		try {
 			resultSet = genericTemplate.executeQuery();
-			department = departmentMapping.mapping(resultSet);
-			list.add(department);
+			while(resultSet.next()) {
+				department = departmentMapping.mapping(resultSet);
+				list.add(department);
+			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}finally {
@@ -159,4 +161,27 @@ public class DepartmentDAO extends GenericQueryImpl<Department, DepartmentMappin
 		return result;
 	}
 
+	//得到所有的部门
+	public List<Department> readAll() {
+		DepartmentMapping departmentMapping = new DepartmentMapping();
+		Department department = null;
+		ResultSet resultSet;
+		sql = "select * from department";
+		//value.add(null);
+		genericTemplate.setSqlValue(sql);
+		//genericTemplate.setValues(value);
+		try {
+			resultSet = genericTemplate.executeQuery();
+			while(resultSet.next()) {
+				department = departmentMapping.mapping(resultSet);
+				list.add(department);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}finally {
+			genericTemplate.close();
+		}
+		return list;
+	}
+	
 }
