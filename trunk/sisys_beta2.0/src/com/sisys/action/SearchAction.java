@@ -65,7 +65,6 @@ public class SearchAction extends BaseAction {
 	// 不合格生产线输出
 	Map<String, Object> mapPd5 = new HashMap<String, Object>();
 
-	@SuppressWarnings("unchecked")
 	public String SearchWh() throws Exception {
 		deptNo = request.getParameter("deptNo");
 		startTime = request.getParameter("startTime");
@@ -92,13 +91,14 @@ public class SearchAction extends BaseAction {
 
 	public String SearchJd() throws Exception {
 		proNo = request.getParameter("proNo");
+		deptNo = request.getParameter("deptNo");
 		startTime = request.getParameter("startTime");
 		endTime = request.getParameter("endTime");
 
 		SearchJdService searchJdService = new SearchJdService();
 				
 
-		mapJd = searchJdService.SearchJd(proNo, startTime, endTime);
+		mapJd = searchJdService.SearchJd(deptNo,proNo, startTime, endTime);
 		
 		session.setAttribute("mapJd", mapJd);
 		if (mapJd.get("result").equals("success")) {
@@ -123,7 +123,7 @@ public class SearchAction extends BaseAction {
 		SearchJdService searchJdService = new SearchJdService();
 				
 
-		mapJd = searchJdService.SearchJd(proNo, startTime, endTime);
+		mapJd = searchJdService.SearchJd(deptNo,proNo, startTime, endTime);
 		Map<String,Object> resultMap = new HashMap<String,Object>();
 		resultMap = searchJdService.ShowJd(mapJd);
 		System.out.println(resultMap);
@@ -212,13 +212,14 @@ public class SearchAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	public String SearchPd() throws Exception {
 		proNo = request.getParameter("proNo");
+		deptNo = request.getParameter("deptNo");
 		startTime = request.getParameter("startTime");
 		endTime = request.getParameter("endTime");
 		System.out.println(proNo);
 
 		SearchPdService searchPdService = new SearchPdService();
 
-		mapPd = searchPdService.SearchPd(proNo, startTime, endTime);
+		mapPd = searchPdService.SearchPd(deptNo,proNo, startTime, endTime);
 
 		if (mapPd.get("result").equals("success")) {
 			listPd = (List<Batch>) mapPd.get("list");

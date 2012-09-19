@@ -11,9 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.sisys.bean.Batch;
+import com.sisys.bean.Department;
 import com.sisys.bean.Product;
 import com.sisys.bean.ScheduleTab;
 import com.sisys.dao.BatchDAO;
+import com.sisys.dao.DepartmentDAO;
 import com.sisys.dao.ProductDAO;
 import com.sisys.dao.ScheduleTabDAO;
 
@@ -31,14 +33,29 @@ public class SearchJdService {
 	String sql;
 
 	
-	public Map<String,Object> SearchJd(String proNo,String starttime,String endTime) throws SQLException, ParseException{
+	public Map<String,Object> SearchJd(String deptNo,String proNo,String starttime,String endTime) throws SQLException, ParseException{
 		Map<String,Object> map = new HashMap<String, Object>();
+		//在department表中查找deptId
+		DepartmentDAO departmentDAO=new DepartmentDAO();
+		List<Department> department = new ArrayList<Department>();
+		Map<String, String> equalsmap0 = new HashMap<String, String>();
+		equalsmap0.put("deptNo", deptNo);
+		
+		department=departmentDAO.findEntity(equalsmap0);
+		if(department.size() == 0){
+			map.put("result", "error");
+			map.put("message", "部门编号不存在！请重新输入！");
+			return map;
+		}
+		int deptId=department.get(0).getId();			
 		//在product表中查找proName和Id
 	
 		ProductDAO productDAO=new ProductDAO();
 		List<Product> product = new ArrayList<Product>();
-		Map<String, String> equalsmap = new HashMap<String, String>();
+		Map<String, Object> equalsmap = new HashMap<String, Object>();
 		equalsmap.put("proNo", proNo);
+		equalsmap.put("deptId", deptId);
+		
 		product=productDAO.findEntity(equalsmap);
 		if(product.size() == 0){
 			map.put("result", "error");
@@ -141,7 +158,7 @@ public class SearchJdService {
 		List<ScheduleTab> list=new ArrayList<ScheduleTab>();
 		String staName =new String();
 		Map<String,Object> map = new HashMap<String, Object>();
-		map=s.SearchJd("760402","2012-07-14","2012-07-16");
+		map=s.SearchJd("5","760402","2012-07-14","2012-07-16");
 		
 		map = s.ShowJd(map);
 		

@@ -167,6 +167,7 @@
 
 							<p>
 								 <s:textfield name="proNo" label="产品编号"></s:textfield>
+								 <s:textfield name="deptNo" label="部门编号"></s:textfield>
 								<s:textfield name="startTime" label="起始时间(YYYY-MM-DD)"
 									onClick="WdatePicker()"></s:textfield>
 								<s:textfield name="endTime" label="截止时间(YYYY-MM-DD)"
