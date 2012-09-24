@@ -362,16 +362,6 @@ public class ManageDataService {
 		
 		Map<String,String> equalsMap = new HashMap<String,String>();
 		
-		//查询产品编号是否存在
-		String proNo = cells[11].getContents();
-		equalsMap.clear();
-		equalsMap.put("proNo", proNo);
-		productDAO = new ProductDAO();
-		proList = productDAO.findEntity(equalsMap);
-		if(proList.size() != 0){
-			return "error";
-		}
-		
 		//查询生产线编号是否存在
 		String lineNo = "";
 		Cell[] lineCell = sheet.getColumn(21);
@@ -400,6 +390,20 @@ public class ManageDataService {
 		if(deptList.size() ==0){
 			return "error";
 		}
+		
+		equalsMap.clear();
+		//查询产品编号是否存在
+		String proNo = cells[11].getContents();
+		equalsMap.clear();
+		equalsMap.put("proNo", proNo);
+		equalsMap.put("deptId", deptList.get(0).getId().toString());
+		productDAO = new ProductDAO();
+		proList = productDAO.findEntity(equalsMap);
+		if(proList.size() != 0){
+			return "error";
+		}
+		
+		
 		
 		//生产周期
 		int proCycle = 0;
