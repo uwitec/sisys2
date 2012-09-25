@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <%
+	List<String> errorPro=(List<String>)request.getAttribute("errorPro");
 	String result = request.getParameter("result");
 	if(result == null) {
 		result = "";
 	}else if(result.equals("error")){
+		
 		result = "数据导入出错！";
 	}else if(result.equals("dataError")) {
 		result = "文件内容不匹配！请重新导入！";
@@ -78,6 +80,15 @@
 				DD_belatedPNG.fix('.png_bg, img, li');
 			</script>
 		<![endif]-->
+		<script type="text/javascript">
+	function ale()
+	{//这个基本没有什么说的，就是弹出一个提醒的对
+			document.getElementById("myForm").submit();
+			while(1){
+				alert("正在处理…");
+			}
+	}
+</script>
 		
 		<script type="text/javascript">
 			function checkType(){
@@ -130,14 +141,18 @@
 				<div class="content-box-content">
 				<div align="center">
 					<label>
-						<%=result%>
+						<%if(result.equals("errormore")){
+						%><p>导入失败有：</p><%
+						for(int i=0;i<errorPro.size();i++){
+						%><p><%=errorPro.get(i)%></p><%;}
+						}else%><%=result%><%;%>
 					</lable>
 				</div>
 		
 				<div id="login-content">
 				
 				<form method="post" action="proImport.action" name="fileForm" enctype="multipart/form-data" >
-				
+					<p>单文件导入</p>
 					<p>
 						<label>路径</label>
 						<input class="text-input" type="file" name="myFile"/>
@@ -149,6 +164,20 @@
 					</p>
 					
 				</form>
+				<form method="post" action="moreproImport.action" id="myForm">
+					<p>批量导入</p>
+					<p>
+						<label>路径</label>
+						<input class="text-input" type="text" name="path"/>
+					</p>
+					
+					<div class="clear"></div>
+					<p>
+						<input onclick=ale() class="button" type="button" value="确定" />
+					</p>
+					
+				</form>
+					
 			</div> <!-- End #login-content -->
 						</div>
 						
