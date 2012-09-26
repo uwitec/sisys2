@@ -18,7 +18,10 @@ public class NewIndexService {
 	Map<String,Object> map=new HashMap<String,Object>();
 	List<Department> department=new ArrayList<Department>();
 	List<Product> product_ing=new ArrayList<Product>();
+	List<String> product_ing_deptNo=new ArrayList<String>();
+	
 	List<Product> product_od=new ArrayList<Product>();
+	List<String> product_od_deptNo=new ArrayList<String>();
 	
 	public Map<String,Object> NewIndex(){
 		map.put("result", "success");
@@ -62,8 +65,19 @@ public class NewIndexService {
 				map.put("message_ing", "没有正在生产批次对应产品！");
 				return map;
 			}
+			//查找产品所属部门编号
+			DepartmentDAO department1DAO=new DepartmentDAO();
+			List<Department> department1 =new ArrayList<Department>();
+			Map<String,Integer> equalsmap_temp=new HashMap<String,Integer>();		
+			equalsmap_temp.put("isDelete", 0);
+			equalsmap_temp.put("Id", product1.get(i).getDeptId());
+			department1 =department1DAO.findEntity(equalsmap_temp);
+			product_ing_deptNo.add(department1.get(0).getDeptNo());
 			product_ing.add(product1.get(0));
+			
+		
 		}
+			map.put("product_ing_deptNo", product_ing_deptNo);
 			map.put("product_ing", product_ing);			
 		
 	//查找超期产品
@@ -86,9 +100,19 @@ public class NewIndexService {
 					map.put("error_od", "error");
 					map.put("message_od", "没有超期批次对应产品！");
 					return map;
-				}			
+				}
+				//查找产品所属部门编号
+				DepartmentDAO department2DAO=new DepartmentDAO();
+				List<Department> department2 =new ArrayList<Department>();
+				Map<String,Integer> equalsmap_temp=new HashMap<String,Integer>();		
+				equalsmap_temp.put("isDelete", 0);
+				equalsmap_temp.put("Id", product2.get(i).getDeptId());
+				department2 =department2DAO.findEntity(equalsmap_temp);
+				product_od_deptNo.add(department2.get(0).getDeptNo());
+				
 				product_od.add(product2.get(0));
 			}
+				map.put("product_od_deptNo", product_od_deptNo);	
 				map.put("product_od", product_od);		
 		return map;
 	}

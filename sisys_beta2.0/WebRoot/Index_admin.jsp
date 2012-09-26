@@ -8,11 +8,17 @@
 	Map resultMap = (Map)request.getAttribute("mapNI");
 	List<Department> department=(List)resultMap.get("department");
 	List<Product> product_ing=(List)resultMap.get("product_ing");
+	List<String> product_ing_deptNo=(List)resultMap.get("product_ing_deptNo");
 	List<Product> product_od=(List)resultMap.get("product_od");
+	List<String> product_od_deptNo=(List)resultMap.get("product_od_deptNo");
 	List<String> tmp_ing=new ArrayList<String>();
 	List<String> tmp_ing_No=new ArrayList<String>();
+	List<String> tmp_ing_deptNo=new ArrayList<String>();
+	
 	List<String> tmp_od_No=new ArrayList<String>();
 	List<String> tmp_od=new ArrayList<String>();
+	List<String> tmp_od_deptNo=new ArrayList<String>();
+	
 	List<Product> product_ing_bu=product_ing;
 	List<Product> product_od_bu=product_od;
 	
@@ -143,21 +149,27 @@
 											for(int j=0;j<product_od.size();j++){ 
 												if(product_od.get(j).getDeptId()==department.get(i).getId()){
 												tmp_od.add(product_od.get(j).getProName());
-												tmp_od_No.add(product_od.get(j).getProNo());														
+												tmp_od_No.add(product_od.get(j).getProNo());
+												tmp_od_deptNo.add(product_od_deptNo.get(j));														
 													flag=1;
 													product_od.remove(j);
+													product_od_deptNo.remove(j);
 													break;
 												}
 											}
 											if(flag==0){
 												tmp_od.add("&nbsp;");
 												tmp_od_No.add("&nbsp;");
+												tmp_od_deptNo.add("&nbsp;");
 											}
 											
 										}
 									tmp_od.add(null);
 									tmp_od_No.add(null);
+									tmp_od_deptNo.add(null);
 								}
+								System.out.println(tmp_od);
+								System.out.println(tmp_od_deptNo);
 										%>
 									
 									<tr>
@@ -171,7 +183,7 @@
 								</tr><tr><%}else{
 								String par=tmp_od_No.get(i);
 								System.out.println(par);%>
-								<td><a style="color:red" target="_blank" href=SearchIndexJd?proNo=<%=par%>><%=tmp_od.get(i)%></a></td>
+								<td><a style="color:red" target="_blank" href="SearchIndexJd?proNo=<%=par%>&deptNo=<%=tmp_od_deptNo.get(i)%>"><%=tmp_od.get(i)%></a></td>
 								<%}}
 								}else
 									out.println(resultMap.get("message_od"));
@@ -220,20 +232,24 @@
 												if(product_ing.get(j).getDeptId()==department.get(i).getId()){
 												tmp_ing.add(product_ing.get(j).getProName());
 												tmp_ing_No.add(product_ing.get(j).getProNo());
+												tmp_ing_deptNo.add(product_ing_deptNo.get(j));
 													
 													flag=1;
 													product_ing.remove(j);
+													product_ing_deptNo.remove(j);
 													break;
 												}
 											}
 											if(flag==0){
 												tmp_ing.add("&nbsp;");
 												tmp_ing_No.add("&nbsp;");
+												tmp_ing_deptNo.add("&nbsp;");
 											}
 												
 										}
 									tmp_ing.add(null);
 									tmp_ing_No.add(null);
+									tmp_ing_deptNo.add(null);
 								}
 										%>
 									
@@ -247,7 +263,7 @@
 								<%if(tmp_ing.get(i)==null){%>
 								</tr><tr><%}else{
 								String par=tmp_ing_No.get(i);%>
-								<td><a target="_blank" href=SearchIndexJd?proNo=<%=par%>><%=tmp_ing.get(i)%></a></td><%}}%>
+								<td><a target="_blank" href="SearchIndexJd?proNo=<%=par%>&deptNo=<%=tmp_ing_deptNo.get(i)%>"><%=tmp_ing.get(i)%></a></td><%}}%>
 							
 							</tr>
 							<%}else
