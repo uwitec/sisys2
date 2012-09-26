@@ -110,6 +110,7 @@ public class SearchAction extends BaseAction {
 	
 	public String SearchIndexJd() throws Exception {
 		proNo = request.getParameter("proNo");
+		deptNo = request.getParameter("deptNo");
 		
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
