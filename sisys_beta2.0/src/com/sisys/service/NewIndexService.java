@@ -70,8 +70,13 @@ public class NewIndexService {
 			List<Department> department1 =new ArrayList<Department>();
 			Map<String,Integer> equalsmap_temp=new HashMap<String,Integer>();		
 			equalsmap_temp.put("isDelete", 0);
-			equalsmap_temp.put("Id", product1.get(i).getDeptId());
+			equalsmap_temp.put("Id", product1.get(0).getDeptId());
 			department1 =department1DAO.findEntity(equalsmap_temp);
+			if(department1.size() == 0){
+				map.put("error_ing", "error");
+				map.put("message_ing", "产品没有对应部门！");
+				return map;
+			}
 			product_ing_deptNo.add(department1.get(0).getDeptNo());
 			product_ing.add(product1.get(0));
 			
@@ -106,8 +111,13 @@ public class NewIndexService {
 				List<Department> department2 =new ArrayList<Department>();
 				Map<String,Integer> equalsmap_temp=new HashMap<String,Integer>();		
 				equalsmap_temp.put("isDelete", 0);
-				equalsmap_temp.put("Id", product2.get(i).getDeptId());
+				equalsmap_temp.put("Id", product2.get(0).getDeptId());
 				department2 =department2DAO.findEntity(equalsmap_temp);
+				if(department2.size() == 0){
+					map.put("error_ing", "error");
+					map.put("message_ing", "产品没有对应部门！");
+					return map;
+				}
 				product_od_deptNo.add(department2.get(0).getDeptNo());
 				
 				product_od.add(product2.get(0));

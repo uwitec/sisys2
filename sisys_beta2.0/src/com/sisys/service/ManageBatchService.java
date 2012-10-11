@@ -213,7 +213,7 @@ public class ManageBatchService {
 		// inputPath和outputPath是我所存的输入和输入文件的绝对地址
 		// String inputPath =
 		// "E:/Program Files/workspace/sisys_beta2.0/input.tex";
-		String path = "C:/Tomcat 6.0/webapps/sisys_beta2.0";
+		String path = "C:/Java/Tomcat 6.0/webapps/sisys_beta2.0";
 		String inputPath = "e:/input.tex";
 		String outputPath = path + "/PDFs/" + p.getProNo() + "/"
 				+ batch.getBatchNo() + ".pdf";
