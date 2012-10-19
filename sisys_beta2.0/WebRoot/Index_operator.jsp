@@ -104,17 +104,27 @@
 			
 			<ul class="shortcut-buttons-set">
 				
-				<li><a class="shortcut-button" href="searchByBatch_admin.jsp?current=workForm"><span>
+				<li><a class="shortcut-button" href="BeforeAdd.jsp?current=workForm"><span>
+					<img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
+					添加工单
+				</span></a></li>
+				
+				<li><a class="shortcut-button" href="addBackFormIndex.action"><span>
+					<img src="resources/images/icons/pencil_48.png" alt="icon" /><br />
+					添加返工工单
+				</span></a></li>
+				
+				<li><a class="shortcut-button" href="searchByBatch_operator.jsp?current=workForm"><span>
 					<img src="resources/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
 					工单列表
 				</span></a></li>
 				
-				<li><a class="shortcut-button" href="searchReForm_admin.jsp?current=workForm"><span>
+				<li><a class="shortcut-button" href="searchReForm_operator.jsp?current=workForm"><span>
 					<img src="resources/images/icons/paper_content_pencil_48.png" alt="icon" /><br />
 					返工工单列表
 				</span></a></li>
 				
-				<li><a class="shortcut-button" href="BatchAdd_admin.jsp?current=batchAdd"><span>
+				<li><a class="shortcut-button" href="BatchAdd_operator.jsp?current=batchAdd"><span>
 					<img src="resources/images/icons/image_add_48.png" alt="icon" /><br />
 					新建批次
 				</span></a></li>
