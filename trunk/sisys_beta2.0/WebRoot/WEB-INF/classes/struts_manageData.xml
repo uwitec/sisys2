@@ -45,5 +45,11 @@
 			<result name="dataError">/ProImport.jsp?result=dataError&amp;current=basedata</result>
 			<result name="noproLine">/ProImport.jsp?result=noproLine&amp;current=basedata</result>
 		</action>
+		
+		<action name="moreproImport" class="com.sisys.action.ManageDataAction" method="moreproImport">
+			<result name="success">/ProImport.jsp?result=success&amp;current=basedata</result>
+			<result name="errormore">/ProImport.jsp?result=errormore&amp;current=basedata</result>
+			
+		</action>
 	</package>
 </struts>

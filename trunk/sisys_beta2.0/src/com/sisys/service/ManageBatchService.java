@@ -205,7 +205,8 @@ public class ManageBatchService {
 		// 调用跟单生成程序SCGD
 		/*** 这一段先注释掉，等黄欣来补完吧 ***/
 
-		String content = p.getProNo() + "\r\n" + p.getProName() + "\r\n"
+		String pn = p.getProName().replace("#", "\\#");
+		String content = p.getProNo() + "\r\n" + pn + "\r\n"
 				+ batch.getBatchNo() + "\r\n" + batch.getTotalNum() + "\r\n"
 				+ user.getUsername();
 		System.out.println(content);
@@ -213,10 +214,12 @@ public class ManageBatchService {
 		// inputPath和outputPath是我所存的输入和输入文件的绝对地址
 		// String inputPath =
 		// "E:/Program Files/workspace/sisys_beta2.0/input.tex";
-		String path = "C:/Java/Tomcat 6.0/webapps/sisys_beta2.0";
-		String inputPath = "e:/input.tex";
-		String outputPath = path + "/PDFs/" + p.getProNo() + "/"
+		String path = "C:\\Java\\Tomcat 6.0\\webapps\\sisys_beta2.0";
+		String inputPath = "e:\\" + batchNo + p.getProNo() +".tex";
+		String outputPath = path + "\\PDFs\\" + p.getProNo() + "\\"
 				+ batch.getBatchNo() + ".pdf";
+		System.out.println(inputPath);
+		System.out.println(outputPath);
 		File proFile = new File(outputPath);
 		if (!proFile.getParentFile().exists()) {
 			proFile.getParentFile().mkdirs();
@@ -505,6 +508,7 @@ public class ManageBatchService {
 		// String command = "cmd.exe /k start scgd "+inputPath+" "+ outputPath;
 		String command = "cmd /c scgd \"" + inputPath + "\" \"" + outputPath
 				+ "\"";
+		System.out.println(command);
 		Runtime rt = Runtime.getRuntime();
 		try {
 			String ls_1;
@@ -521,6 +525,11 @@ public class ManageBatchService {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		
+		File file = new File(inputPath);
+		if (file.exists()) {
+			file.delete();
 		}
 
 	}
