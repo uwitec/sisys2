@@ -68,7 +68,7 @@ public class SearchPdService {
 		int proId= product.get(0).getId();
 	//在batch中查找批次ID信息	
 		BatchDAO batchDAO =new BatchDAO();
-		sql="select * from batch where proId='"+proId+"'and ('"+starttime+"'<=endTime or '"+endtime+"'>=startTime) and isDelete='0' and status in(1,4)";
+		sql="select * from batch where proId='"+proId+"'and ('"+starttime+"'<=endTime and '"+endtime+"'>=startTime) and isDelete='0' and status in(1,4)";
 		List<Batch> batch = new ArrayList<Batch>();
 		batch=batchDAO.findEntityByList(sql);
 		if(batch.size() == 0){

@@ -69,7 +69,7 @@ public class SearchJdService {
 		//在batch表中中查找batchId	
 		BatchDAO batchDAO =new BatchDAO();
 		List<Batch> batch = new ArrayList<Batch>();
-		String sql = "select * from batch where proId = " + proId + " and status in (0,1,2) order by status";
+		String sql = "select * from batch where proId = " + proId + " and status in (0,1,2) ";
 		batch=batchDAO.findEntityByList(sql);
 		if(batch.size() == 0){
 			map.put("result", "error");
