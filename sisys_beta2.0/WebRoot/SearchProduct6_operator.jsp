@@ -9,6 +9,7 @@
 	if(result != null){
 		message = request.getAttribute("message").toString();;
 	}
+	
 	Calendar cal = Calendar.getInstance();
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	Date time = cal.getTime();
@@ -117,7 +118,7 @@
 	<div id="body-wrapper">
 		<!-- Wrapper for the radial gradient background -->
 
-		<jsp:include flush="true" page="banner_admin.jsp"></jsp:include>
+		<jsp:include flush="true" page="banner_operator.jsp"></jsp:include>
 
 		<div id="main-content">
 			<!-- Main Content Section with everything -->
@@ -136,7 +137,7 @@
 
 				<div class="content-box-header">
 
-					<h3>部门废品统计表</h3>
+					<h3>各部门员工废品统计表</h3>
 
 
 					<div class="clear"></div>
@@ -146,30 +147,31 @@
 
 				<div class="content-box-content">
 
+
 							<p>
 								<label>表格类型</label> <select name="time" id="time"
 									onchange="loac_go();">
 									<option value="">----请选择--</option>
-									<option value="SearchProduct_admin.jsp?current=sheet">产品废品统计表</option>
-									<option value="SearchProduct2_admin.jsp?current=sheet">批次某产品废品统计表</option>
-									<option value="SearchProduct3_admin.jsp?current=sheet">员工废品统计表</option>
-									<option selected="selected" value="SearchProduct4_admin.jsp?current=sheet">部门废品统计表</option>
-									<option value="SearchProduct5_admin.jsp?current=sheet">生产线废品统计表</option>
-									<option value="SearchProduct6_admin.jsp?current=sheet">各部门员工废品统计表</option>
+									<option value="SearchProduct_operator.jsp?current=sheet">产品废品统计表</option>
+									<option value="SearchProduct2_operator.jsp?current=sheet">批次某产品废品统计表</option>
+									<option value="SearchProduct3_operator.jsp?current=sheet">员工废品统计表</option>
+									<option value="SearchProduct4_operator.jsp?current=sheet">部门废品统计表</option>
+									<option value="SearchProduct5_operator.jsp?current=sheet">生产线废品统计表</option>
+								<option selected="selected" value="SearchProduct6_operator.jsp?current=sheet">各部门员工废品统计表</option>
 								</select>
 							</p>
 						<div align="center">
 							<label>
 								<%=message%>
-							</lable>
+							</label>
 						</div>
 							<div id="login-content">
 
-						<s:form action="SearchPd4" target="_blank" namespace="/">
+						<s:form action="SearchPd6" target="_blank" namespace="/">
 
 							<p>
 								 <s:textfield name="deptNo" label="部门编号"></s:textfield>
-								<s:textfield name="startTime" label="起始时间(YYYY-MM-DD)"
+								 <s:textfield name="startTime" label="起始时间(YYYY-MM-DD)"
 									onClick="WdatePicker()"></s:textfield>
 								<s:textfield name="endTime" label="截止时间(YYYY-MM-DD)"
 									onClick="WdatePicker()"></s:textfield>
@@ -179,10 +181,14 @@
 						 <s:submit cssClass="button" value="确定"/>
 						</s:form>
 					</div>
-					</div>
 					<!-- End #login-content -->
+				</div>
 
 
+
+
+
+			</div>
 			<!-- End #main-content -->
 			<jsp:include flush="true" page="footer.jsp"></jsp:include>
 		</div>

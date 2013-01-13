@@ -6,15 +6,7 @@
 <%
 	String result = request.getParameter("result");
 	String message="";
-	Map mapPd3 = (Map)request.getAttribute("resultMap");
-	if(result == null) {
-		
-	} else if(result.equals("error")){
-		message = mapPd3.get("message").toString();
-	}
-	if(result != null){
-		message = request.getAttribute("message").toString();;
-	}
+	
 	if(result != null){
 		message = request.getAttribute("message").toString();;
 	}
@@ -165,6 +157,7 @@
 									<option selected="selected" value="SearchProduct3_operator.jsp?current=sheet">员工废品统计表</option>
 									<option value="SearchProduct4_operator.jsp?current=sheet">部门废品统计表</option>
 									<option value="SearchProduct5_operator.jsp?current=sheet">生产线废品统计表</option>
+									<option value="SearchProduct6_operator.jsp?current=sheet">各部门员工废品统计表</option>
 								</select>
 							</p>
 						<div align="center">
