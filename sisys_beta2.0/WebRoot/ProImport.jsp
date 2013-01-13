@@ -100,10 +100,10 @@
 					return false;
 				}
 				var type = upload.substring(upload.lastIndexOf(".")+1,upload.length);
-				if(type == "xls"){
+				if(type == "hfd"){
 					forum.submit();
 				}else{
-					alert("文件类型错误！只允许导入xls文件！");
+					alert("文件类型错误！只允许导入hfd文件！");
 					document.getElementsByName("myFile")[0].focus();
 					return false;
 				}

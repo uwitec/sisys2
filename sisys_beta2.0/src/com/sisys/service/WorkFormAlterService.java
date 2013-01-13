@@ -282,7 +282,7 @@ public class WorkFormAlterService {
 		small.setProNo(proNo);
 		small.setQuaNum(Integer.parseInt(quaNum));
 		System.out.println(proc.getUnitOutput());
-		if (-1.0 == proc.getUnitOutput()) {
+		if (proc.getUnitOutput() <= 0) {
 			small.setBworkHours(0);
 			small.setSalary(0);
 		} else {
