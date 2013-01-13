@@ -390,48 +390,7 @@ public class WorkFormSearchService {
 			return "error";
 		}
 		String batNo = code.substring(0, 12);
-		char[] str = code.toCharArray();
-		String proNo;
-		if ("1".equals(str[code.length() - 2] + "")) {
-			proNo = code.substring(12, code.length() - 3);
-		} else {
-			proNo = code.substring(12, code.length() - 2);
-		}
-		int oddNum = 0;
-		int evenNum = 0;
-		int num;
-		for (int i = 0; i < str.length - 1; i += 2) {
-			oddNum += Integer.parseInt(str[i] + "");
-		}
-		for (int i = 1; i < str.length - 1; i += 2) {
-			evenNum += Integer.parseInt(str[i] + "");
-		}
-		num = oddNum * 3 + evenNum;
-		if (Integer.parseInt(str[code.length() - 1] + "") != (10 - num % 10) % 10) {
-			return "error";
-		}
-		
-		StringBuffer newproNo=new StringBuffer();
-		char[] proNum_str = proNo.toCharArray();
-		for(int i=0;i<proNo.length()/2;i++){
-			if(proNum_str[i*2]=='0'){
-				newproNo.append(proNum_str[i*2+1]);
-			}
-			else if(proNum_str[i*2]=='1'){
-				if(proNum_str[i*2+1]=='1'){
-					newproNo.append("-");
-				}
-				else if(proNum_str[i*2+1]=='2'){
-					newproNo.append("/");
-				}
-				else
-					return "error";
-			}
-			else
-				return "error";
-		}
-		proNo=newproNo.toString();
-		
+		String proNo = code.substring(12, code.length());
 		
 		String sql;
 		sql = "select * from product where proNo='" + proNo + "'";

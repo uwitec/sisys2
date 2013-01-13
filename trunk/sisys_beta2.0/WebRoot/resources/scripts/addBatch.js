@@ -31,6 +31,9 @@
       		if (xmlHttp.status == 200) { // 如果服务端回应OK
        			var text = xmlHttp.responseText;
        			var flow = text.split(";");
+       			if(text == "pnone"){
+       				alert("输入的产品编号有误，请重新输入！");
+       			} else {
        			if(flow[0].indexOf("<input") != 0){
        				flow[0] = "未找到相应流程！请重新输入产品编号";
        			}
@@ -49,6 +52,7 @@
        			}
        			for(var i=0; i<depts.length; i++) {
        				sel.options.add(new Option(depts[i],depts[i]))
+       			}
        			}
        			
       		}else { //页面不正常  

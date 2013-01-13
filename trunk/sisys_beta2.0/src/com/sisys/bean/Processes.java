@@ -172,4 +172,27 @@ public class Processes {
 				+ ", deleteTime=" + deleteTime + "]";
 	}
 
+	// 判断两个类是否相同
+	public boolean isEquals(Processes other) {
+		if (colorNo == null) {
+			if (other.colorNo != null)
+				return false;
+		} else if (!colorNo.equals(other.colorNo))
+			return false;
+		if (procNo == null) {
+			if (other.procNo != null)
+				return false;
+		} else if (!procNo.equals(other.procNo))
+			return false;
+		if (procName == null) {
+			if (other.procName != null)
+				return false;
+		} else if (!procName.equals(other.procName))
+			return false;
+		if (unitCost != other.unitCost)
+			return false;
+		if (unitOutput != other.unitOutput)
+			return false;
+		return true;
+	}
 }

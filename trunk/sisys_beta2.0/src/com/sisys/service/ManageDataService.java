@@ -3,6 +3,7 @@ package com.sisys.service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -336,43 +337,81 @@ public class ManageDataService {
 	
 	//产品成本表导入
 	public String proImport(File myFile) throws Exception {
-		Workbook book = Workbook.getWorkbook(new FileInputStream(myFile));
-		Sheet sheet = book.getSheet(0);
-		String title = sheet.getCell(0, 0).getContents();
-		if(!title.replaceAll(" ", "").equals("产品制造成本表")){
-			return "dataError";
-		}
+		String proName = "";
+		String proNo = "";
+		String deptName = "";
+		String lineNo = "";
+		int proCycle = 0;
+		List<Processes> proclist = new ArrayList();
+		//读取hfd中数据
+		BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(myFile));
+            String tempString = null;
+            int line = 1;
+            while ((tempString = reader.readLine()) != null) {
+            	switch (line) {
+            	case 1:
+            		proName = tempString;
+                    line++;
+            		continue;
+            	case 2:
+            		proNo = tempString;
+                    line++;
+            		continue;
+            	case 3:
+            		deptName = tempString;
+                    line++;
+            		continue;
+            	case 4:
+            		lineNo = tempString;
+                    line++;
+            		continue;
+            	case 5:
+            		proCycle = Integer.parseInt(tempString);
+                    line++;
+            		continue;
+            	case 6:
+                    line++;
+            		continue;
+            	}
+                System.out.println("line " + line + ": " + tempString);
+                Processes proc = new Processes();
+                proc.setProcName(tempString);
+                proc.setProcNo((line - 6) + "");
+                proc.setUnitOutput(Integer.parseInt(reader.readLine()));
+                proc.setUnitCost(Double.parseDouble(reader.readLine()));
+                proc.setColorNo(reader.readLine());
+                proc.setIsDelete(0);
+                proclist.add(proc);
+                line++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
 		
 		Product product = new Product();
-		ProductDAO productDAO;
 		Flowpath flowpath = new Flowpath();
-		FlowpathDAO flowpathDAO = new FlowpathDAO();
-		Processes process;
-		ProcessesDAO processesDAO;
-		DepartmentDAO departmentDAO;
-		List<Department> deptList;
 		ProductLineDAO productLineDAO;
+		DepartmentDAO departmentDAO;
+		ProductDAO productDAO;
+		ProcessesDAO processesDAO;
+		FlowpathDAO flowpathDAO;
+		List<Department> deptList;
 		List<ProductLine> proLineList;
 		List<Integer> sequenceList = new ArrayList<Integer>();
-		int row = 2;
-		Cell[] cells;
 		List<Product> proList;
-		List<Processes> processList;
-		cells = sheet.getRow(row);
 		
 		Map<String,String> equalsMap = new HashMap<String,String>();
 		
 		//查询生产线编号是否存在
-		String lineNo = "";
-		Cell[] lineCell = sheet.getColumn(21);
-		for(int i = secondRow + 1;i < lineCell.length;i++){
-			if(!lineCell[i].getContents().trim().equals("")){
-				lineNo = lineCell[i].getContents().trim();
-				lineNo = lineNo.substring(0,1) + "0" + lineNo.substring(lineNo.length()-1, lineNo.length());
-			}
-		}		
-		
-		equalsMap.clear();
 		equalsMap.put("lineNo", lineNo);
 		System.out.println(lineNo);
 		productLineDAO = new ProductLineDAO();
@@ -382,97 +421,98 @@ public class ManageDataService {
 		}
 		
 		//部门信息
-		String deptNo = lineNo.trim().substring(0,1);
 		equalsMap.clear();
-		equalsMap.put("deptNo", deptNo);
+		equalsMap.put("deptName", deptName);
 		departmentDAO = new DepartmentDAO();
 		deptList = departmentDAO.findEntity(equalsMap);
 		if(deptList.size() ==0){
 			return "error";
 		}
 		
-		equalsMap.clear();
 		//查询产品编号是否存在
-		String proNo = cells[11].getContents();
 		equalsMap.clear();
 		equalsMap.put("proNo", proNo);
 		equalsMap.put("deptId", deptList.get(0).getId().toString());
 		productDAO = new ProductDAO();
 		proList = productDAO.findEntity(equalsMap);
-		if(proList.size() != 0){
-			return "error";
-		}
-		
-		
-		
-		//生产周期
-		int proCycle = 0;
-		Cell[] cycleCell = sheet.getColumn(22);
-		for(int i = secondRow + 1;i < cycleCell.length;i++){
-			if(!(cycleCell[i].getContents().equals(""))){
-				proCycle += Integer.parseInt(cycleCell[i].getContents());
-			}
-		}
+		if(proList.size() == 0){
 		
 		//插入产品信息
-		product.setDeptId(deptList.get(0).getId());
-		product.setProCycle(proCycle);
-		product.setProlineId(proLineList.get(0).getId());
-		product.setProNo(proNo);
-		product.setProName(cells[5].getContents());
-		productDAO = new ProductDAO();
-		int r = productDAO.create(product);
-		if(r < 0){
-			return "error";
+			product.setDeptId(deptList.get(0).getId());
+			product.setProCycle(proCycle);
+			product.setProlineId(proLineList.get(0).getId());
+			product.setProNo(proNo);
+			product.setProName(proName);
+			productDAO = new ProductDAO();
+			int r = productDAO.create(product);
+			if(r < 0){
+				return "error";
+			}
+		} else {
+			Product pro = proList.get(0);
+			equalsMap.clear();
+			equalsMap.put("ProId", pro.getId() + "");
+			flowpathDAO = new FlowpathDAO();
+			List<Flowpath> fplist = flowpathDAO.findEntity(equalsMap);
+			boolean flag = true;
+			int i = 0;
+			int len = 0;
+			while (flag && i < fplist.size()) {
+				Flowpath fp = fplist.get(i);
+				String[] tem = fp.getSequence().split("-");
+				if (tem.length == proclist.size()) {
+					for (int k = 0; k < tem.length; k++) {
+						processesDAO = new ProcessesDAO();
+						equalsMap.clear();
+						equalsMap.put("id", tem[k]);
+						Processes pp = processesDAO.findEntity(equalsMap).get(0);
+						System.out.println(pp);
+						System.out.println(proclist.get(k));
+						System.out.println(pp.isEquals(proclist.get(k)));
+						if (!pp.isEquals(proclist.get(k))) {
+							flag = false;
+							break;
+						}
+					}
+				} else {
+					len++;
+				}
+				i++;
+			}
+			System.out.println(len);
+			System.out.println(fplist.size());
+			if (flag && len != fplist.size()) {
+				return "error";
+			}
 		}
 		equalsMap.clear();
 		equalsMap.put("proNo", proNo);
+		equalsMap.put("deptId", deptList.get(0).getId().toString());
 		productDAO = new ProductDAO();
 		product = productDAO.findEntity(equalsMap).get(0);
 		
 		
-		//遍历工序信息
-		row = secondRow + 1;
-		while(sheet.getCell(0, row).getType() == CellType.NUMBER || sheet.getCell(0, row).getType() == CellType.NUMBER_FORMULA){
-			cells = sheet.getRow(row);
-			String color;
-			process = new Processes();
+		//遍历插入工序信息
+		for (int i = 0; i < proclist.size(); i++) {
 			processesDAO = new ProcessesDAO();
-			color = ColorUtil.toHexEncoding(cells[19].getCellFormat().getBackgroundColour());
-			process.setColorNo(color);
-			process.setProcNo(cells[0].getContents());
-			process.setProcName(cells[1].getContents());
-			if(cells[3].getType() == CellType.NUMBER || cells[3].getType() == CellType.NUMBER_FORMULA){
-				process.setUnitOutput(Integer.parseInt(cells[3].getContents().trim()));
-			}else{
-				process.setUnitOutput(-1);
-			}
-			if(cells[13].getType() == CellType.NUMBER || cells[13].getType() == CellType.NUMBER_FORMULA){
-				process.setUnitCost(Double.parseDouble(cells[13].getContents().trim()));
-			}else{
-				process.setUnitCost(0);
-			}
-			if(cells[15].getType() == CellType.NUMBER || cells[15].getType() == CellType.NUMBER_FORMULA){
-				if(process.getUnitOutput() == -1){
-					process.setUnitOutput(500);
-				}
-				process.setUnitCost(process.getUnitOutput() * Double.parseDouble(cells[15].getContents()) / 8.0);
-			}
-			r = processesDAO.create(process);
-			if(r <= 0){
+			if (processesDAO.create(proclist.get(i)) < 0) {
 				return "error";
 			}
 			equalsMap.clear();
-			equalsMap.put("procName", process.getProcName());
-			processList = new ProcessesDAO().findEntity(equalsMap);
-			if(processList.size() == 0){
-				return "error";
+			equalsMap.put("procNo", proclist.get(i).getProcNo());
+			equalsMap.put("procName", proclist.get(i).getProcName());
+			equalsMap.put("colorNo", proclist.get(i).getColorNo());
+			equalsMap.put("unitOutPut", proclist.get(i).getUnitOutput() + "");
+			equalsMap.put("unitCost", proclist.get(i).getUnitCost() + "");
+			processesDAO = new ProcessesDAO();
+			List<Processes> procl = processesDAO.findEntity(equalsMap);
+			int tempId = procl.get(0).getId();
+			for (int k = 1; k < procl.size(); k++) {
+				if (procl.get(k).getId() > tempId) {
+					tempId = procl.get(k).getId();
+				}
 			}
-			
-			//记录流程的工序id
-			sequenceList.add(processList.get(processList.size()-1).getId());
-			
-			row ++;
+			sequenceList.add(tempId);
 		}
 		
 		//插入流程信息
@@ -488,7 +528,8 @@ public class ManageDataService {
 		flowpath = new Flowpath();
 		flowpath.setSequence(sequence);
 		flowpath.setProId(product.getId());
-		r = flowpathDAO.create(flowpath);
+		flowpathDAO = new FlowpathDAO();
+		int r = flowpathDAO.create(flowpath);
 		if(r <= 0){
 			return "error";
 		}

@@ -183,7 +183,7 @@ public class WorkFormAddService {
 		small.setProcId(proc.getId());
 		small.setProNo(proNo);
 		small.setQuaNum(Integer.parseInt(quaNum));
-		if (-1.0 == proc.getUnitOutput()) {
+		if (proc.getUnitOutput() <= 0) {
 			small.setBworkHours(0);
 			small.setSalary(0);
 		} else {

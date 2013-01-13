@@ -43,14 +43,16 @@ public class ManageBatchService {
 	// 进入批次添加页面
 	public String preAddBatch(Product product) {
 		// 根据产品编号查询对应产品ID
+		User user = (User) session.get("user");
 		ProductDAO pdao = new ProductDAO();
 		Map<String, Object> equalsMap = new HashMap<String, Object>();
 		equalsMap.put("proNo", product.getProNo());
 		List<Product> pList = pdao.findEntity(equalsMap);
 		List<Department> list = new ArrayList<Department>();
-		/*
-		 * //若产品不存在，返回none if(pList.size() == 0) { return "pnone"; }
-		 */
+		//若产品不存在，返回none 
+		if(pList.size() == 0) { 
+			return "pnone";
+		}
 		for(int i=0; i<pList.size(); i++) {
 			int deptId = pList.get(i).getDeptId();
 			equalsMap.clear();
@@ -101,6 +103,9 @@ public class ManageBatchService {
 			result.append(process);
 			result.append("\">");
 			result.append(fp);
+			if (j != fList.size()) {
+				result.append("<br />");
+			}
 
 		}
 		// 自动生成批次号
@@ -114,14 +119,17 @@ public class ManageBatchService {
 		List<ProHash> pList1 = pDao.findEntityByList(sql);
 		if (!pList1.isEmpty() && pList1.size() != 0) {
 			ProHash proh = pList1.get(0);
-			if (proh.getDate().equals(sb.toString())) {
-				result.append(";" + sb.toString() + df.format(proh.getOwn() + 1));
+			if (proh.getOwn() == 9999) {
+				result.append(";该产品批次已满！");
 			} else {
-				result.append(";" + sb.toString() + "0001");
+				if (proh.getDate().equals(sdf.format(date))) {
+					result.append(";" + sb.toString() + df.format(proh.getOwn() + 1));
+				} else {
+					result.append(";" + sb.toString() + "0001");
+				}
 			}
 		}
 		result.append(";");
-		User user = (User) session.get("user");
 		System.out.println(user);
 		switch(user.getLevel()) {
 		case 2:
