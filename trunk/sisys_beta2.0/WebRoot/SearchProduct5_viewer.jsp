@@ -155,6 +155,7 @@
 									<option value="SearchProduct3_viewer.jsp?current=sheet">员工废品统计表</option>
 									<option value="SearchProduct4_viewer.jsp?current=sheet">部门废品统计表</option>
 									<option selected="selected" value="SearchProduct5_viewer.jsp?current=sheet">生产线废品统计表</option>
+									<option value="SearchProduct6_viewer.jsp?current=sheet">各部门员工废品统计表</option>
 								</select>
 							</p>
 

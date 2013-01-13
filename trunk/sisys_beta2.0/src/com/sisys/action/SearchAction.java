@@ -20,6 +20,7 @@ import com.sisys.service.SearchPd2Service;
 import com.sisys.service.SearchPd3Service;
 import com.sisys.service.SearchPd4Service;
 import com.sisys.service.SearchPd5Service;
+import com.sisys.service.SearchPd6Service;
 import com.sisys.service.SearchPdService;
 import com.sisys.service.SearchPpService;
 import com.sisys.service.SearchWhService;
@@ -60,6 +61,7 @@ public class SearchAction extends BaseAction {
 	Map<String, Object> mapPd2 = new HashMap<String, Object>();
 	// List<DisqBatch> listPd2 =new ArrayList<DisqBatch>();
 	Map<String, Object> mapPd3 = new HashMap<String, Object>();
+	Map<String, Object> mapPd6 = new HashMap<String, Object>();
 	// 不合格部门输出
 	Map<String, Object> mapPd4 = new HashMap<String, Object>();
 	// 不合格生产线输出
@@ -360,6 +362,30 @@ public class SearchAction extends BaseAction {
 			return SUCCESS;
 		} else{
 			ActionContext.getContext().put("message", mapPd5.get("message"));
+			return ERROR;
+		}
+	}
+	
+	public String SearchPd6() throws Exception {
+		startTime = request.getParameter("startTime");
+		endTime = request.getParameter("endTime");
+		deptNo=request.getParameter("deptNo");
+		SearchPd6Service searchPd6Service = new SearchPd6Service();
+
+		mapPd6 = searchPd6Service.SearchPd6(deptNo,startTime, endTime);
+
+		if (mapPd6.get("result").equals("success")) {
+
+			ActionContext.getContext().put("disqStaff", mapPd6.get("disqStaff"));
+			ActionContext.getContext().put("total", mapPd6.get("total"));
+			ActionContext.getContext().put("disqkind", mapPd6.get("disqkind"));
+			ActionContext.getContext().put("deptName", mapPd6.get("deptName"));
+			System.out.println(mapPd6.get("disqStaff"));
+			ActionContext.getContext().put("sTime", startTime);
+			ActionContext.getContext().put("eTime", endTime);
+			return SUCCESS;
+		} else{
+			ActionContext.getContext().put("message", mapPd6.get("message"));
 			return ERROR;
 		}
 	}

@@ -154,6 +154,7 @@
 									<option value="SearchProduct3_operator.jsp?current=sheet">员工废品统计表</option>
 									<option value="SearchProduct4_operator.jsp?current=sheet">部门废品统计表</option>
 									<option value="SearchProduct5_operator.jsp?current=sheet">生产线废品统计表</option>
+									<option value="SearchProduct6_operator.jsp?current=sheet">各部门员工废品统计表</option>
 								</select>
 							</p>
 						<div align="center">

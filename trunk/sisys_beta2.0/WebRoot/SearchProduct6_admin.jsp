@@ -6,8 +6,9 @@
 <%
 	String result = request.getParameter("result");
 	String message="";
+	
 	if(result != null){
-		message = request.getAttribute("message").toString();;
+		message = request.getAttribute("message").toString();
 	}
 	Calendar cal = Calendar.getInstance();
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -136,7 +137,7 @@
 
 				<div class="content-box-header">
 
-					<h3>部门废品统计表</h3>
+					<h3>各部门员工废品统计表</h3>
 
 
 					<div class="clear"></div>
@@ -153,9 +154,9 @@
 									<option value="SearchProduct_admin.jsp?current=sheet">产品废品统计表</option>
 									<option value="SearchProduct2_admin.jsp?current=sheet">批次某产品废品统计表</option>
 									<option value="SearchProduct3_admin.jsp?current=sheet">员工废品统计表</option>
-									<option selected="selected" value="SearchProduct4_admin.jsp?current=sheet">部门废品统计表</option>
+									<option value="SearchProduct4_admin.jsp?current=sheet">部门废品统计表</option>
 									<option value="SearchProduct5_admin.jsp?current=sheet">生产线废品统计表</option>
-									<option value="SearchProduct6_admin.jsp?current=sheet">各部门员工废品统计表</option>
+									<option selected="selected" value="SearchProduct6_admin.jsp?current=sheet">各部门员工废品统计表</option>
 								</select>
 							</p>
 						<div align="center">
@@ -165,11 +166,11 @@
 						</div>
 							<div id="login-content">
 
-						<s:form action="SearchPd4" target="_blank" namespace="/">
+						<s:form action="SearchPd6" target="_blank" namespace="/">
 
 							<p>
 								 <s:textfield name="deptNo" label="部门编号"></s:textfield>
-								<s:textfield name="startTime" label="起始时间(YYYY-MM-DD)"
+								 <s:textfield name="startTime" label="起始时间(YYYY-MM-DD)"
 									onClick="WdatePicker()"></s:textfield>
 								<s:textfield name="endTime" label="截止时间(YYYY-MM-DD)"
 									onClick="WdatePicker()"></s:textfield>
@@ -179,8 +180,10 @@
 						 <s:submit cssClass="button" value="确定"/>
 						</s:form>
 					</div>
+						
 					</div>
 					<!-- End #login-content -->
+				</div>
 
 
 			<!-- End #main-content -->

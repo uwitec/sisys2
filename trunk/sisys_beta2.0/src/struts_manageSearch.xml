@@ -77,5 +77,10 @@
 			<result name="success">/SheetProduct1-5.jsp</result>
 			<result name="error">/SearchProduct5_${level}.jsp?result=error&amp;current=sheet</result>
 		</action>
+		
+		<action name="SearchPd6" class="com.sisys.action.SearchAction" method="SearchPd6">
+			<result name="success">/SheetProduct1-6.jsp</result>
+			<result name="error">/SearchProduct6_${level}.jsp?result=error&amp;current=sheet</result>
+		</action>
 	</package>
 </struts>
